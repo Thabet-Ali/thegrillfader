@@ -378,7 +378,7 @@ header.nav.scrolled{
   transform:scale(1.01); opacity:.82; animation:dishpan 30s ease-in-out infinite alternate;
   transition:transform .7s var(--ease), opacity .5s var(--ease);
 }
-.dish:nth-child(2) .dish-bg{ animation-delay:-7s } .dish:nth-child(3) .dish-bg{ animation-delay:-14s } .dish:nth-child(4) .dish-bg{ animation-delay:-21s } .dish:nth-child(5) .dish-bg{ animation-delay:-28s }
+.dish:nth-child(2) .dish-bg{ animation-delay:-7s } .dish:nth-child(3) .dish-bg{ animation-delay:-14s } .dish:nth-child(4) .dish-bg{ animation-delay:-21s } .dish:nth-child(5) .dish-bg{ animation-delay:-28s } .dish:nth-child(6) .dish-bg{ animation-delay:-35s }
 .dish::after{ /* dark grade keeps the big text readable; light on the right so the photo shows */
   content:''; position:absolute; inset:0; z-index:-1; pointer-events:none;
   background:linear-gradient(90deg, rgba(12,10,8,.9) 0%, rgba(12,10,8,.55) 45%, rgba(12,10,8,.2) 100%);
@@ -1200,7 +1200,8 @@ l19 -21 480 5 c311 3 483 9 490 16 17 17 -26 62 -92 95 -44 21 -66 39 -77 62
         <div class="dish reveal"><span class="dish-bg" data-bg="images/dishes/lamb-tikka.jpg"></span><span class="num">02</span><div class="dish-main"><span class="name" data-i18n="dish_lamb">Lamb Tikka</span><span class="note" data-i18n="note_lamb">Marinated deep. Charred hard.</span></div></div>
         <div class="dish reveal"><span class="dish-bg" data-bg="images/dishes/short-ribs.jpg"></span><span class="num">03</span><div class="dish-main"><span class="name" data-i18n="dish_ribs">Short Ribs</span><span class="note" data-i18n="note_ribs">Off the bone. Onto the table.</span></div></div>
         <div class="dish reveal"><span class="dish-bg" data-bg="images/dishes/chicken.jpg"></span><span class="num">04</span><div class="dish-main"><span class="name" data-i18n="dish_chicken">Flame-Grilled Chicken</span><span class="note" data-i18n="note_chicken">Charred skin. Honest heat.</span></div></div>
-        <div class="dish reveal"><span class="dish-bg" data-bg="images/dishes/sides.jpg"></span><span class="num">05</span><div class="dish-main"><span class="name" data-i18n="dish_sides">The Sides</span><span class="note" data-i18n="note_sides">Slaw, beans, cornbread. Respect.</span></div></div>
+        <div class="dish reveal"><span class="dish-bg" data-bg="images/dishes/tomahawk.jpg"></span><span class="num">05</span><div class="dish-main"><span class="name" data-i18n="dish_tomahawk">Tomahawk</span><span class="note" data-i18n="note_tomahawk">One bone. All drama.</span></div></div>
+        <div class="dish reveal"><span class="dish-bg" data-bg="images/dishes/sides.jpg"></span><span class="num">06</span><div class="dish-main"><span class="name" data-i18n="dish_sides">The Sides</span><span class="note" data-i18n="note_sides">Slaw, beans, cornbread. Respect.</span></div></div>
       </div>
     </div>
   </section>
@@ -1450,6 +1451,8 @@ l19 -21 480 5 c311 3 483 9 490 16 17 17 -26 62 -92 95 -44 21 -66 39 -77 62
     note_ribs:{en:`Off the bone. Onto the table.`,sv:`Lossnar från benet. Rakt ner på bordet.`},
     dish_chicken:{en:`Flame-Grilled Chicken`,sv:`Flamgrillad kyckling`},
     note_chicken:{en:`Charred skin. Honest heat.`,sv:`Bränt, krispigt skinn. Ärlig hetta.`},
+    dish_tomahawk:{en:`Tomahawk`,sv:`Tomahawk`},
+    note_tomahawk:{en:`One bone. All drama.`,sv:`Ett ben. Ren dramatik.`},
     dish_sides:{en:`The Sides`,sv:`Tillbehören`},
     note_sides:{en:`Slaw, beans, cornbread. Respect.`,sv:`Coleslaw, bönor, majsbröd. Respekt.`},
     offer_kicker:{en:`Bookings`,sv:`Boka`},
