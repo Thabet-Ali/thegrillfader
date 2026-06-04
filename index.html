@@ -1656,7 +1656,8 @@ l19 -21 480 5 c311 3 483 9 490 16 17 17 -26 62 -92 95 -44 21 -66 39 -77 62
           el.classList.toggle('above', state === 'above');
         }
         // subtle scroll-parallax on menu photos AND catering tiles (drifts as they pass — feels alive)
-        if (dish || el.classList.contains('card')) {
+        const PARALLAX = false;   // <-- tillfälligt AV för jämförelse; sätt true för att slå på igen
+        if (PARALLAX && (dish || el.classList.contains('card'))) {
           const bg = el._bg || (el._bg = el.querySelector('.dish-bg, .card-bg'));
           if (bg) {
             let p = (vh - r.top) / (vh + r.height);   // 0 entering bottom .. 1 leaving top
