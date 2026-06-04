@@ -1534,8 +1534,8 @@ l19 -21 480 5 c311 3 483 9 490 16 17 17 -26 62 -92 95 -44 21 -66 39 -77 62
         const center = r.top + r.height / 2;
         // menu rows reveal as soon as they peek in from the bottom (no false "end of page")
         const dish = el.classList.contains('dish');
-        const hiB = dish ? 0.99 : 0.95, loB = dish ? 0.01 : 0.05;
-        const inLo = dish ? 0.02 : 0.15, inHi = dish ? 0.98 : 0.85;
+        const hiB = dish ? 1.10 : 0.95, loB = dish ? 0.01 : 0.05;
+        const inLo = dish ? 0.02 : 0.15, inHi = dish ? 1.05 : 0.85;
         let state = el._rev;
         if (center > vh * hiB) state = 'below';
         else if (center < vh * loB) state = 'above';
