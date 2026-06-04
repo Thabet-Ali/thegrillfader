@@ -107,9 +107,8 @@ h2.section-title{
 }
 .statement em{ color:var(--ember); font-style:normal }
 /* booking heading: brand wordmark replaces the name, sits on the text baseline */
-.offer-logo{ display:inline-block; vertical-align:baseline; line-height:0; max-width:100% }
-.offer-logo svg{ height:.78em; width:auto; display:block; color:var(--ember) }
-.offer-dot{ color:var(--ember) }
+.offer-logo{ display:block; margin:.15em auto 0; width:min(560px,82vw); line-height:0 }
+.offer-logo svg{ width:100%; height:auto; display:block; color:var(--ember) }
 
 /* ---------- layout ---------- */
 section{ position:relative; padding-block:clamp(5rem,4rem + 7vw,9rem) }
@@ -434,7 +433,7 @@ header.nav.scrolled{
   content:''; position:absolute; inset:0; z-index:-1;
   background:radial-gradient(90% 90% at 50% 110%, rgba(94,20,20,.4), transparent 60%);
 }
-.offer .statement{ margin:1.2rem auto 1.5rem; max-width:18ch }
+.offer .statement{ margin:1.2rem auto 1.5rem; max-width:none }
 .offer .lede{ margin:0 auto 3rem; text-align:center; font-family:var(--font-display); font-style:italic; font-weight:500; font-size:clamp(1.5rem,1.1rem + 1.6vw,2.4rem); color:#e6ddcf; max-width:none }
 /* simplified, bold booking */
 .book-simple{ max-width:600px; margin:1.5rem auto 0; text-align:left }
@@ -1230,7 +1229,7 @@ l19 -21 480 5 c311 3 483 9 490 16 17 17 -26 62 -92 95 -44 21 -66 39 -77 62
     <canvas id="ember-offer" aria-hidden="true"></canvas>
     <div class="wrap">
       <span class="kicker reveal" data-i18n="offer_kicker">Bookings</span>
-      <h2 class="statement reveal d1" id="offer-t"><span data-i18n="offer_pre">Book the</span> <span class="offer-logo" role="img" aria-label="The Grillfader"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1398.000000 376.000000" aria-hidden="true" focusable="false" fill="currentColor"><title>The Grillfader</title>
+      <h2 class="statement reveal d1" id="offer-t"><span class="offer-logo" role="img" aria-label="The Grillfader"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1398.000000 376.000000" aria-hidden="true" focusable="false" fill="currentColor"><title>The Grillfader</title>
 <g transform="translate(0.000000,376.000000) scale(0.100000,-0.100000)"
 fill="currentColor" stroke="none">
 <path d="M4585 3349 c-49 -3 -107 -13 -128 -22 -58 -25 -132 -107 -157 -174
@@ -1322,7 +1321,7 @@ m334 -367 c25 -26 26 -31 26 -135 l0 -108 -49 -58 c-57 -68 -101 -110 -101
 -329 -10z m378 -294 c19 -23 25 -146 9 -176 -19 -34 -112 -147 -122 -148 -4
 -1 -6 72 -5 162 l3 162 34 17 c36 18 56 14 81 -17z"/>
 </g>
-</svg></span><span class="offer-dot">.</span></h2>
+</svg></span></h2>
       <p class="lede reveal d2" data-i18n="offer_lede">Name the date. I bring the fire.</p>
 
       <form id="bookForm" class="book-simple" novalidate>
@@ -1568,7 +1567,6 @@ l19 -21 480 5 c311 3 483 9 490 16 17 17 -26 62 -92 95 -44 21 -66 39 -77 62
     note_sides:{en:`Slaw, beans, cornbread. Respect.`,sv:`Coleslaw, bönor, majsbröd. Respekt.`},
     offer_kicker:{en:`Bookings`,sv:`Boka`},
     offer_h2:{en:`Book the <em>Grillfader.</em>`,sv:`Boka <em>Grillfadern.</em>`},
-    offer_pre:{en:`Book the`,sv:`Boka`},
     offer_lede:{en:`Name the date. I bring the fire.`,sv:`Säg när. Jag tar med elden.`},
     name_ph:{en:`Your name`,sv:`Ditt namn`},
     label_date:{en:`Date`,sv:`Datum`},
