@@ -260,21 +260,16 @@ header.nav.scrolled{
 /* ============================================================
    ORIGIN
    ============================================================ */
-.origin .wrap{ display:grid; grid-template-columns:1.12fr .88fr; gap:clamp(2rem,5vw,5rem); align-items:center }
-.origin-photo{ margin:0; position:relative }
-.origin-cine{
-  width:100%; height:auto; display:block;
-  filter:contrast(1.04) saturate(.9) brightness(.88);
-  /* feather ALL FOUR edges to transparent (intersect of an X-fade and a Y-fade)
-     so every edge dissolves seamlessly into the black page background */
-  -webkit-mask-image:
-    linear-gradient(to right,  transparent 0%, #000 24%, #000 76%, transparent 100%),
-    linear-gradient(to bottom, transparent 0%, #000 16%, #000 82%, transparent 100%);
-  -webkit-mask-composite:source-in;
-          mask-image:
-    linear-gradient(to right,  transparent 0%, #000 24%, #000 76%, transparent 100%),
-    linear-gradient(to bottom, transparent 0%, #000 16%, #000 82%, transparent 100%);
-          mask-composite:intersect;
+.origin .wrap{ display:block }
+.origin-text{ max-width:62ch }
+/* full-bleed image band (replaces the cinemagraph) — spans the whole screen width */
+.origin-band{ margin:clamp(2.5rem,5vw,4.5rem) 0 0; width:100vw; margin-left:calc(50% - 50vw) }
+.origin-band img{
+  width:100%; height:clamp(320px,40vw,540px); object-fit:cover; object-position:center 35%; display:block;
+  filter:contrast(1.04) saturate(.9) brightness(.85);
+  /* fade top & bottom into the black page so the band blends in */
+  -webkit-mask-image:linear-gradient(to bottom, transparent 0%, #000 13%, #000 87%, transparent 100%);
+          mask-image:linear-gradient(to bottom, transparent 0%, #000 13%, #000 87%, transparent 100%);
 }
 .origin .lede{ margin-top:1.5rem }
 .origin .statement{ margin-top:2.5rem }
@@ -1131,13 +1126,10 @@ l19 -21 480 5 c311 3 483 9 490 16 17 17 -26 62 -92 95 -44 21 -66 39 -77 62
           <span data-i18n="tv_badge">As seen on TV4 · Grillmästarna</span>
         </div>
       </div>
-      <figure class="origin-photo reveal" aria-label="The Grillfader — the founder and pitmaster">
-        <video class="origin-cine" muted loop playsinline preload="none" data-lazy
-               poster="video/origin-cinemagraph-poster.jpg" aria-hidden="true">
-          <source data-src="video/origin-cinemagraph.mp4" type="video/mp4" />
-        </video>
-      </figure>
     </div>
+    <figure class="origin-band reveal" aria-label="The Grillfader — the founder and pitmaster">
+      <img src="images/origin.jpg" alt="The Grillfader — the founder and pitmaster" loading="lazy" decoding="async">
+    </figure>
   </section>
 
   <!-- ============ THE CRAFT (track record) ============ -->
