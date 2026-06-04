@@ -697,6 +697,11 @@ html:not(.hero-anim) .scroll-cue{ animation:none!important; opacity:1!important;
   .scroll-cue{ display:none }
 }
 
+/* TEMP: isolera parallax — stänger av Ken Burns + hover-zoom. Ta bort hela detta block för att återställa. */
+.dish-bg, .card-bg{ animation:none !important; scale:1 !important; transform:scale(1.20) !important }
+.dish:hover .dish-bg, .card:hover .card-bg{ scale:1 !important }
+/* /TEMP */
+
 /* respect reduced motion globally */
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{ animation:none!important; transition-duration:.001ms!important }
@@ -1656,13 +1661,13 @@ l19 -21 480 5 c311 3 483 9 490 16 17 17 -26 62 -92 95 -44 21 -66 39 -77 62
           el.classList.toggle('above', state === 'above');
         }
         // subtle scroll-parallax on menu photos AND catering tiles (drifts as they pass — feels alive)
-        const PARALLAX = false;   // <-- tillfälligt AV för jämförelse; sätt true för att slå på igen
+        const PARALLAX = true;   // <-- tillfälligt AV för jämförelse; sätt true för att slå på igen
         if (PARALLAX && (dish || el.classList.contains('card'))) {
           const bg = el._bg || (el._bg = el.querySelector('.dish-bg, .card-bg'));
           if (bg) {
             let p = (vh - r.top) / (vh + r.height);   // 0 entering bottom .. 1 leaving top
             p = p < 0 ? 0 : p > 1 ? 1 : p;
-            bg.style.translate = '0 ' + ((0.5 - p) * 8).toFixed(1) + 'px';
+            bg.style.translate = '0 ' + ((0.5 - p) * 36).toFixed(1) + 'px';
           }
         }
       }
