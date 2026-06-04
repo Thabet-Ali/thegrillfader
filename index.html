@@ -376,14 +376,14 @@ header.nav.scrolled{
 .dish-bg{
   position:absolute; inset:0; z-index:-2; background-size:cover; background-position:center;
   transform:scale(1.01); opacity:.82; animation:dishpan 30s ease-in-out infinite alternate;
-  transition:transform .7s var(--ease), opacity .5s var(--ease);
+  transition:scale .6s var(--ease), opacity .5s var(--ease);
 }
 .dish:nth-child(2) .dish-bg{ animation-delay:-7s } .dish:nth-child(3) .dish-bg{ animation-delay:-14s } .dish:nth-child(4) .dish-bg{ animation-delay:-21s } .dish:nth-child(5) .dish-bg{ animation-delay:-28s } .dish:nth-child(6) .dish-bg{ animation-delay:-35s }
 .dish::after{ /* dark grade keeps the big text readable; light on the right so the photo shows */
   content:''; position:absolute; inset:0; z-index:-1; pointer-events:none;
   background:linear-gradient(90deg, rgba(12,10,8,.9) 0%, rgba(12,10,8,.55) 45%, rgba(12,10,8,.2) 100%);
 }
-.dish:hover .dish-bg{ transform:scale(1.05); opacity:.95 }
+.dish:hover .dish-bg{ scale:1.06; opacity:1 }
 @keyframes dishpan{ 0%{transform:scale(1.01) translateX(0)} 100%{transform:scale(1.04) translateX(-1.5%)} }
 .dish::before{ /* ember underline sweeps across on hover */
   content:''; position:absolute; left:0; bottom:-1px; height:2px; width:0; background:var(--ember); z-index:1;
@@ -1530,10 +1530,14 @@ l19 -21 480 5 c311 3 483 9 490 16 17 17 -26 62 -92 95 -44 21 -66 39 -77 62
         const el = reveals[i];
         const r = el.getBoundingClientRect();
         const center = r.top + r.height / 2;
+        // menu rows reveal as soon as they peek in from the bottom (no false "end of page")
+        const dish = el.classList.contains('dish');
+        const hiB = dish ? 0.99 : 0.95, loB = dish ? 0.01 : 0.05;
+        const inLo = dish ? 0.02 : 0.15, inHi = dish ? 0.98 : 0.85;
         let state = el._rev;
-        if (center > vh * 0.95) state = 'below';
-        else if (center < vh * 0.05) state = 'above';
-        else if (center > vh * 0.15 && center < vh * 0.85) state = 'in';
+        if (center > vh * hiB) state = 'below';
+        else if (center < vh * loB) state = 'above';
+        else if (center > vh * inLo && center < vh * inHi) state = 'in';
         if (!state) state = center > vh * 0.5 ? 'below' : 'above';   // first-run dead-zone default
         if (state !== el._rev) {
           el._rev = state;
