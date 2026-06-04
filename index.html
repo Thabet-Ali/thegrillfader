@@ -375,18 +375,28 @@ header.nav.scrolled{
 /* dynamic dish photo behind each row (slow Ken Burns drift, zooms on hover) */
 .dish-bg{
   position:absolute; inset:0; z-index:-2; background-size:cover; background-position:center;
-  transform:scale(1.08); opacity:.82; animation:dishpan 16s ease-in-out infinite alternate;
+  transform:scale(1.10); opacity:.82; animation:kb1 11s ease-in-out infinite alternate;
   transition:scale .6s var(--ease), opacity .5s var(--ease); will-change:transform, translate;
 }
-.dish:nth-child(2) .dish-bg{ animation-delay:-7s } .dish:nth-child(3) .dish-bg{ animation-delay:-14s } .dish:nth-child(4) .dish-bg{ animation-delay:-21s } .dish:nth-child(5) .dish-bg{ animation-delay:-28s } .dish:nth-child(6) .dish-bg{ animation-delay:-35s }
-.dish:nth-child(even) .dish-bg{ animation-name:dishpan2 }   /* alternate drift direction per row */
+/* each row: own direction + own speed -> they never move in sync (feels random/alive) */
+.dish:nth-child(1) .dish-bg{ animation:kb1 11s ease-in-out infinite alternate }
+.dish:nth-child(2) .dish-bg{ animation:kb2 13s ease-in-out infinite alternate }
+.dish:nth-child(3) .dish-bg{ animation:kb3 9.5s ease-in-out infinite alternate }
+.dish:nth-child(4) .dish-bg{ animation:kb4 14s ease-in-out infinite alternate }
+.dish:nth-child(5) .dish-bg{ animation:kb5 10.5s ease-in-out infinite alternate }
+.dish:nth-child(6) .dish-bg{ animation:kb6 12.5s ease-in-out infinite alternate }
 .dish::after{ /* dark grade keeps the big text readable; light on the right so the photo shows */
   content:''; position:absolute; inset:0; z-index:-1; pointer-events:none;
   background:linear-gradient(90deg, rgba(12,10,8,.9) 0%, rgba(12,10,8,.55) 45%, rgba(12,10,8,.2) 100%);
 }
 .dish:hover .dish-bg{ scale:1.06; opacity:1 }
-@keyframes dishpan{ 0%{transform:scale(1.08) translate(0,0)} 100%{transform:scale(1.12) translate(-1.8%,-1%)} }
-@keyframes dishpan2{ 0%{transform:scale(1.12) translate(-1.5%,-.8%)} 100%{transform:scale(1.08) translate(.5%,.6%)} }
+/* 6 Ken Burns variants — different zoom + diagonal directions for a lively, random feel */
+@keyframes kb1{ 0%{transform:scale(1.10) translate(0,0)}         100%{transform:scale(1.21) translate(-2.4%,-1.8%)} }
+@keyframes kb2{ 0%{transform:scale(1.21) translate(2.2%,1.6%)}   100%{transform:scale(1.10) translate(0,0)} }
+@keyframes kb3{ 0%{transform:scale(1.12) translate(-2%,1.6%)}    100%{transform:scale(1.22) translate(2%,-1.6%)} }
+@keyframes kb4{ 0%{transform:scale(1.22) translate(1.8%,-1.4%)}  100%{transform:scale(1.11) translate(-2%,1.6%)} }
+@keyframes kb5{ 0%{transform:scale(1.10) translate(2%,-0.5%)}    100%{transform:scale(1.20) translate(-1.8%,1.8%)} }
+@keyframes kb6{ 0%{transform:scale(1.20) translate(-1.6%,-1.8%)} 100%{transform:scale(1.11) translate(1.8%,1.4%)} }
 .dish::before{ /* ember underline sweeps across on hover */
   content:''; position:absolute; left:0; bottom:-1px; height:2px; width:0; background:var(--ember); z-index:1;
   transition:width .55s var(--ease);
