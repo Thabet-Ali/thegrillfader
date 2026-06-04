@@ -594,6 +594,9 @@ html:not(.hero-anim) .scroll-cue{ animation:none!important; opacity:1!important;
 .reveal-anim .card.reveal{ transform:translateY(56px) scale(.975); transition:flex-grow .6s var(--ease), opacity .9s var(--ease), transform .95s var(--ease) }
 .reveal-anim .reveal.above{ transform:translateY(-42px) scale(.99) }
 .reveal-anim .card.reveal.above{ transform:translateY(-56px) scale(.975) }
+/* menu rows: calmer, subtler reveal — less travel + faster (still reveals) */
+.reveal-anim .dish.reveal{ transform:translateY(16px) scale(.997); transition:opacity .5s var(--ease), transform .55s var(--ease) }
+.reveal-anim .dish.reveal.above{ transform:translateY(-16px) scale(.997) }
 /* revealed (placed last so it wins over the hidden-state rules) */
 .reveal-anim .reveal.in{ opacity:1; transform:none }
 .reveal-anim .card.reveal.in{ opacity:1; transform:none }
@@ -1199,7 +1202,7 @@ l19 -21 480 5 c311 3 483 9 490 16 17 17 -26 62 -92 95 -44 21 -66 39 -77 62
         <div class="dish reveal"><span class="dish-bg" data-bg="images/dishes/brisket.jpg"></span><span class="num">01</span><div class="dish-main"><span class="name" data-i18n="dish_brisket">Brisket</span><span class="note" data-i18n="note_brisket">Sixteen hours. One bark.</span></div></div>
         <div class="dish reveal"><span class="dish-bg" data-bg="images/dishes/lamb-tikka.jpg"></span><span class="num">02</span><div class="dish-main"><span class="name" data-i18n="dish_lamb">Lamb Tikka</span><span class="note" data-i18n="note_lamb">Marinated deep. Charred hard.</span></div></div>
         <div class="dish reveal"><span class="dish-bg" data-bg="images/dishes/short-ribs.jpg"></span><span class="num">03</span><div class="dish-main"><span class="name" data-i18n="dish_ribs">Short Ribs</span><span class="note" data-i18n="note_ribs">Off the bone. Onto the table.</span></div></div>
-        <div class="dish reveal"><span class="dish-bg" data-bg="images/dishes/chicken.jpg"></span><span class="num">04</span><div class="dish-main"><span class="name" data-i18n="dish_chicken">Flame-Grilled Chicken</span><span class="note" data-i18n="note_chicken">Charred skin. Honest heat.</span></div></div>
+        <div class="dish reveal"><span class="dish-bg" data-bg="images/dishes/chicken.jpg"></span><span class="num">04</span><div class="dish-main"><span class="name" data-i18n="dish_chicken">Grilled Chicken</span><span class="note" data-i18n="note_chicken">Charred skin. Honest heat.</span></div></div>
         <div class="dish reveal"><span class="dish-bg" data-bg="images/dishes/tomahawk.jpg"></span><span class="num">05</span><div class="dish-main"><span class="name" data-i18n="dish_tomahawk">Tomahawk</span><span class="note" data-i18n="note_tomahawk">One bone. All drama.</span></div></div>
         <div class="dish reveal"><span class="dish-bg" data-bg="images/dishes/sides.jpg"></span><span class="num">06</span><div class="dish-main"><span class="name" data-i18n="dish_sides">The Sides</span><span class="note" data-i18n="note_sides">Slaw, beans, cornbread. Respect.</span></div></div>
       </div>
@@ -1449,7 +1452,7 @@ l19 -21 480 5 c311 3 483 9 490 16 17 17 -26 62 -92 95 -44 21 -66 39 -77 62
     note_lamb:{en:`Marinated deep. Charred hard.`,sv:`Marinerat på djupet. Eldat hårt.`},
     dish_ribs:{en:`Short Ribs`,sv:`Revben`},
     note_ribs:{en:`Off the bone. Onto the table.`,sv:`Lossnar från benet. Rakt ner på bordet.`},
-    dish_chicken:{en:`Flame-Grilled Chicken`,sv:`Flamgrillad kyckling`},
+    dish_chicken:{en:`Grilled Chicken`,sv:`Grillad kyckling`},
     note_chicken:{en:`Charred skin. Honest heat.`,sv:`Bränt, krispigt skinn. Ärlig hetta.`},
     dish_tomahawk:{en:`Tomahawk`,sv:`Tomahawk`},
     note_tomahawk:{en:`One bone. All drama.`,sv:`Ett ben. Ren dramatik.`},
@@ -1541,7 +1544,7 @@ l19 -21 480 5 c311 3 483 9 490 16 17 17 -26 62 -92 95 -44 21 -66 39 -77 62
         }
       }
       // stagger items entering together (the 4 tiles, stat rows, etc.) so they cascade
-      justIn.forEach((el, idx) => { el.style.transitionDelay = (Math.min(idx, 7) * 0.12) + 's'; });
+      justIn.forEach((el, idx) => { const step = el.classList.contains('dish') ? 0.05 : 0.12; el.style.transitionDelay = (Math.min(idx, 7) * step) + 's'; });
     };
     const onScroll = () => { if (!ticking){ ticking = true; requestAnimationFrame(update); } };
     window.addEventListener('scroll', onScroll, {passive:true});
