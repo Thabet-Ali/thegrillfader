@@ -262,14 +262,13 @@ header.nav.scrolled{
    ============================================================ */
 .origin .wrap{ display:block }
 .origin-text{ max-width:62ch }
-/* full-bleed image band (replaces the cinemagraph) — spans the whole screen width */
-.origin-band{ margin:clamp(2.5rem,5vw,4.5rem) 0 0; width:100vw; margin-left:calc(50% - 50vw) }
+/* full-bleed image band (replaces the cinemagraph) — spans the whole screen width.
+   Centered studio portrait on black: 'contain' shows the whole person, the black
+   background blends seamlessly into the page so there are no visible edges. */
+.origin-band{ margin:clamp(2.5rem,5vw,4.5rem) 0 0; width:100vw; margin-left:calc(50% - 50vw); background:var(--black) }
 .origin-band img{
-  width:100%; height:clamp(320px,40vw,540px); object-fit:cover; object-position:center 35%; display:block;
-  filter:contrast(1.04) saturate(.9) brightness(.85);
-  /* fade top & bottom into the black page so the band blends in */
-  -webkit-mask-image:linear-gradient(to bottom, transparent 0%, #000 13%, #000 87%, transparent 100%);
-          mask-image:linear-gradient(to bottom, transparent 0%, #000 13%, #000 87%, transparent 100%);
+  width:100%; height:clamp(420px,44vw,640px); object-fit:contain; object-position:center; display:block;
+  filter:contrast(1.03) saturate(.97);
 }
 .origin .lede{ margin-top:1.5rem }
 .origin .statement{ margin-top:2.5rem }
