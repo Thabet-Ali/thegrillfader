@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="The Grillfader emblem">
+  <title>The Grillfader</title>
+  <!-- near-black rounded tile so the mark reads on both light & dark tab bars -->
+  <rect width="64" height="64" rx="13" fill="#0C0A08"/>
+  <rect x="2" y="2" width="60" height="60" rx="11" fill="none" stroke="#B08D57" stroke-width="1.5" opacity=".5"/>
+
+  <!-- crossed spatula + fork, brass line-art (bold + simple to survive 16px) -->
+  <g fill="none" stroke="#B08D57" stroke-linecap="round" stroke-linejoin="round">
+    <!-- SPATULA: head upper-left, handle lower-right -->
+    <g transform="rotate(-34 32 34)">
+      <line x1="32" y1="56" x2="32" y2="32" stroke-width="3.4"/>
+      <rect x="25.5" y="13" width="13" height="19" rx="2.5" fill="#0C0A08" stroke-width="3"/>
+      <line x1="29.5" y1="18.5" x2="29.5" y2="26.5" stroke-width="2.2"/>
+      <line x1="34.5" y1="18.5" x2="34.5" y2="26.5" stroke-width="2.2"/>
+    </g>
+    <!-- FORK: tines upper-right, handle lower-left -->
+    <g transform="rotate(34 32 34)">
+      <line x1="32" y1="56" x2="32" y2="24" stroke-width="3.4"/>
+      <line x1="25" y1="24" x2="39" y2="24" stroke-width="3"/>
+      <line x1="26" y1="24" x2="26" y2="12" stroke-width="3"/>
+      <line x1="32" y1="24" x2="32" y2="11" stroke-width="3"/>
+      <line x1="38" y1="24" x2="38" y2="12" stroke-width="3"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,1856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#0C0A08" />
+<title>The Grillfader — Grill & BBQ Catering · Est. 2015</title>
+
+<!-- favicon: crossed spatula + fork emblem -->
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<meta name="description" content="The Grillfader. Fire-built BBQ catering by one pitmaster. Born on TV4's Grillmästarna, 2015. An offer you can't refuse." />
+
+<!-- Open Graph -->
+<meta property="og:title" content="The Grillfader — Grill & BBQ Catering" />
+<meta property="og:description" content="Low. Slow. Smoke. An offer you can't refuse. Catering for weddings, corporate and private feasts since 2015." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="https://thegrillfader.se/og-image.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:url" content="https://thegrillfader.se/" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="The Grillfader — Grill & BBQ Catering" />
+<meta name="twitter:description" content="Low. Slow. Smoke. An offer you can't refuse." />
+<meta name="twitter:image" content="https://thegrillfader.se/og-image.jpg" />
+
+<!-- Fonts: blackletter wordmark echo (UnifrakturCook), cinematic display (Cinzel), clean body (Jost).
+     Phase-5 note: swap --font-body to "Gist" in one place when the licensed font is available. -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+/* ============================================================
+   THE GRILLFADER — single-file static build
+   Palette (5): near-black, warm cream, oxblood, brass, smoke
+   ============================================================ */
+:root{
+  --black:#0C0A08;
+  --black-2:#15110D;
+  --cream:#EDE6D8;
+  --oxblood:#5E1414;
+  --brass:#B08D57;
+  --smoke:#8A8780;
+  --ember:#E8772E;            /* warm accent glow, derived from brass→fire */
+
+  --font-display:'Cinzel', Georgia, serif;
+  --font-wordmark:'UnifrakturCook','Cinzel', serif;
+  --font-body:'Jost', system-ui, -apple-system, sans-serif;
+
+  --maxw:1180px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --gut:clamp(1.25rem, 5vw, 4rem);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
+
+body{
+  background:var(--black);
+  color:var(--cream);
+  font-family:var(--font-body);
+  font-weight:300;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+
+::selection{background:var(--oxblood);color:var(--cream)}
+
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+
+/* ---------- shared typographic scale ---------- */
+.kicker{
+  font-family:var(--font-body);
+  font-weight:600;
+  font-size:clamp(.85rem,.75rem + .4vw,1.05rem);
+  letter-spacing:.38em;
+  text-transform:uppercase;
+  color:var(--brass);
+}
+.eyebrow{ color:var(--smoke); letter-spacing:.28em; text-transform:uppercase; font-size:.88rem; font-weight:600 }
+h2.section-title{
+  font-family:var(--font-display);
+  font-weight:700;
+  line-height:1;
+  font-size:clamp(2.7rem,1.7rem + 4.6vw,5.4rem);
+  letter-spacing:.005em;
+}
+.lede{
+  font-size:clamp(1.15rem,1.02rem + .6vw,1.5rem);
+  color:#d6cdbc;
+  max-width:54ch;
+  font-weight:400;
+}
+.statement{
+  font-family:var(--font-display);
+  font-weight:700;
+  font-size:clamp(2.2rem,1.3rem + 5vw,6rem);
+  line-height:1.02;
+  letter-spacing:.01em;
+}
+.statement em{ color:var(--ember); font-style:normal }
+
+/* ---------- layout ---------- */
+section{ position:relative; padding-block:clamp(5rem,4rem + 7vw,9rem) }
+.wrap{ width:min(var(--maxw),100% - 2*var(--gut)); margin-inline:auto }
+
+/* hairline brass rules — premium structure */
+.rule{ height:1px; background:linear-gradient(90deg,transparent,var(--brass),transparent); opacity:.4 }
+
+/* ============================================================
+   NAV
+   ============================================================ */
+header.nav{
+  position:fixed; inset:0 0 auto 0; z-index:50;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:1.1rem clamp(1.25rem,5vw,3rem);
+  transition:background .4s var(--ease), backdrop-filter .4s var(--ease), padding .4s var(--ease);
+}
+header.nav.scrolled{
+  background:rgba(12,10,8,.72);
+  backdrop-filter:blur(14px) saturate(120%);
+  -webkit-backdrop-filter:blur(14px) saturate(120%);
+  border-bottom:1px solid rgba(176,141,87,.18);
+  padding-block:.7rem;
+}
+.nav-mark{ display:inline-flex; align-items:center; color:var(--cream); transition:color .3s var(--ease) }
+.nav-mark svg{ height:26px; width:auto; display:block }
+.nav-mark:hover{ color:var(--brass) }
+.nav-links{ display:flex; align-items:center; gap:clamp(1rem,2.4vw,2.4rem); list-style:none }
+.nav-links a{
+  font-size:.8rem; letter-spacing:.16em; text-transform:uppercase; color:#d8d0c2;
+  position:relative; padding:.25rem 0; transition:color .25s var(--ease); cursor:pointer;
+}
+.nav-links a::after{
+  content:''; position:absolute; left:0; bottom:-2px; height:1px; width:0; background:var(--brass);
+  transition:width .3s var(--ease);
+}
+.nav-links a:hover{ color:var(--cream) } .nav-links a:hover::after{ width:100% }
+.nav-cta{
+  border:1px solid var(--brass); color:var(--brass)!important; padding:.55rem 1.15rem!important;
+  border-radius:2px; transition:background .3s var(--ease), color .3s var(--ease)!important;
+}
+.nav-cta:hover{ background:var(--brass); color:var(--black)!important } .nav-cta::after{display:none}
+
+/* language switch */
+.lang{ display:inline-flex; align-items:center; gap:.35rem; margin-left:clamp(.6rem,1.5vw,1.4rem) }
+.lang button{
+  display:inline-flex; align-items:center; gap:.4rem; cursor:pointer;
+  background:transparent; border:1px solid transparent; border-radius:4px; padding:.3rem .5rem;
+  color:var(--smoke); font-family:var(--font-body); font-size:.72rem; font-weight:600; letter-spacing:.12em;
+  transition:color .25s var(--ease), border-color .25s var(--ease), opacity .25s var(--ease); opacity:.6;
+}
+.lang button svg{ width:20px; height:14px; border-radius:1.5px; display:block }
+.lang button:hover{ opacity:1; color:var(--cream) }
+.lang button.active{ opacity:1; color:var(--cream); border-color:rgba(176,141,87,.45) }
+
+.nav-toggle{
+  display:none; background:none; border:0; cursor:pointer; padding:.5rem; width:44px; height:44px;
+  align-items:center; justify-content:center;
+}
+.nav-toggle svg{ stroke:var(--cream); width:26px; height:26px }
+
+/* mobile menu */
+.mobile-menu{
+  position:fixed; inset:0; z-index:45; background:rgba(8,6,5,.97);
+  backdrop-filter:blur(6px); display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:2rem;
+  opacity:0; pointer-events:none; transition:opacity .35s var(--ease);
+}
+.mobile-menu.open{ opacity:1; pointer-events:auto }
+.mobile-menu a{ font-family:var(--font-display); font-size:2rem; letter-spacing:.1em; color:var(--cream); cursor:pointer }
+.mobile-menu a:hover{ color:var(--brass) }
+.mobile-menu .est{ position:absolute; bottom:2.5rem; color:var(--smoke); letter-spacing:.3em; font-size:.7rem }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  min-height:100svh; display:grid; place-items:center; text-align:center;
+  padding-top:6rem; overflow:hidden; isolation:isolate;
+}
+/* real fire footage: screen blend drops the black, leaving only flames rising from the base */
+.hero-fire{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; object-position:center bottom;
+  z-index:-3; pointer-events:none;
+  mix-blend-mode:screen; opacity:.9;
+  -webkit-mask-image:linear-gradient(to top, #000 0%, #000 30%, rgba(0,0,0,.35) 60%, transparent 82%);
+          mask-image:linear-gradient(to top, #000 0%, #000 30%, rgba(0,0,0,.35) 60%, transparent 82%);
+}
+@media (prefers-reduced-motion:reduce){ .hero-fire{ display:none } }
+#ember-hero{ position:absolute; inset:0; z-index:-2; width:100%; height:100% }
+.hero::before{ /* radial fire bloom from below */
+  content:''; position:absolute; inset:0; z-index:-1;
+  background:
+    radial-gradient(120% 80% at 50% 118%, rgba(232,119,46,.20), transparent 55%),
+    radial-gradient(90% 70% at 50% 130%, rgba(94,20,20,.35), transparent 60%),
+    linear-gradient(180deg, rgba(12,10,8,.4) 0%, rgba(12,10,8,.1) 40%, var(--black) 100%);
+}
+/* dark scrim centered on the logo so the cream wordmark stays legible over the flames */
+.hero::after{
+  content:''; position:absolute; inset:0; z-index:-1; pointer-events:none;
+  background:radial-gradient(58% 40% at 50% 44%, rgba(12,10,8,.78), rgba(12,10,8,.4) 55%, transparent 76%);
+}
+.hero-inner{ position:relative; padding-inline:var(--gut); will-change:transform }
+.hero .kicker{ display:block; margin-bottom:1.6rem; animation:fadeUp 1s var(--ease) .2s both }
+
+.wordmark{ display:flex; flex-direction:column; align-items:center; line-height:.9; margin-bottom:1.4rem }
+.wordmark .the{
+  font-family:var(--font-display); font-weight:500; font-style:italic;
+  font-size:clamp(1.2rem,.8rem + 2.2vw,2.2rem); letter-spacing:.05em; color:var(--cream);
+  margin-bottom:.1em; animation:fadeUp 1s var(--ease) .35s both;
+}
+.wordmark .name{
+  font-family:var(--font-wordmark); font-weight:700;
+  font-size:clamp(3.2rem,1.5rem + 12vw,11rem); line-height:.82; color:var(--cream);
+  letter-spacing:.01em;
+  text-shadow:0 0 60px rgba(232,119,46,.22), 0 2px 1px rgba(0,0,0,.6);
+  animation:fadeUp 1.2s var(--ease) .5s both;
+}
+
+/* spatula — EST. 2015 — fork flourish (echoes the logo) */
+.flourish{
+  display:flex; align-items:center; justify-content:center; gap:1rem; width:min(420px,80vw);
+  margin:.4rem auto 2rem; color:var(--brass);
+  animation:fadeUp 1s var(--ease) .75s both;
+}
+.flourish .line{ flex:1; height:1px; background:linear-gradient(90deg,transparent,var(--brass)) }
+.flourish .line.r{ background:linear-gradient(90deg,var(--brass),transparent) }
+.flourish .est{ font-family:var(--font-display); font-size:.85rem; letter-spacing:.34em; white-space:nowrap }
+.flourish svg{ width:34px; height:18px; stroke:var(--brass); fill:none; flex:none }
+
+.hero-tag{
+  font-family:var(--font-display); font-weight:400; font-style:italic;
+  font-size:clamp(1.05rem,.9rem + 1vw,1.7rem); color:#d8d0c2; margin-bottom:.6rem;
+  animation:fadeUp 1s var(--ease) .9s both;
+}
+.hero-sub{
+  font-size:.98rem; font-weight:500; letter-spacing:.26em; text-transform:uppercase; color:#a8a39b;
+  animation:fadeUp 1s var(--ease) 1.05s both;
+}
+.scroll-cue{
+  position:absolute; left:50%; bottom:2rem; transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:.6rem; color:var(--smoke);
+  font-size:.62rem; letter-spacing:.3em; text-transform:uppercase;
+  animation:fadeIn 1s var(--ease) 1.4s both;
+}
+.scroll-cue .dot{ width:1px; height:46px; background:linear-gradient(var(--brass),transparent); animation:cue 2.2s var(--ease) infinite }
+
+/* ============================================================
+   ORIGIN
+   ============================================================ */
+.origin .wrap{ display:grid; grid-template-columns:1.12fr .88fr; gap:clamp(2rem,5vw,5rem); align-items:center }
+.origin-photo{ margin:0; position:relative }
+.origin-cine{
+  width:100%; height:auto; display:block;
+  filter:contrast(1.04) saturate(.9) brightness(.88);
+  /* feather ALL FOUR edges to transparent (intersect of an X-fade and a Y-fade)
+     so every edge dissolves seamlessly into the black page background */
+  -webkit-mask-image:
+    linear-gradient(to right,  transparent 0%, #000 24%, #000 76%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, #000 16%, #000 82%, transparent 100%);
+  -webkit-mask-composite:source-in;
+          mask-image:
+    linear-gradient(to right,  transparent 0%, #000 24%, #000 76%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, #000 16%, #000 82%, transparent 100%);
+          mask-composite:intersect;
+}
+.origin .lede{ margin-top:1.5rem }
+.origin .statement{ margin-top:2.5rem }
+.stats{ display:flex; flex-wrap:wrap; gap:clamp(2rem,5vw,5rem); margin-top:3.5rem }
+.stat .n{ font-family:var(--font-display); font-size:clamp(2.2rem,1.4rem + 3vw,3.4rem); color:var(--cream); line-height:1 }
+.stat .l{ color:var(--smoke); letter-spacing:.18em; text-transform:uppercase; font-size:.86rem; font-weight:500; margin-top:.5rem }
+.tv-badge{
+  display:inline-flex; align-items:center; gap:.6rem; margin-top:.4rem;
+  border:1px solid rgba(176,141,87,.35); border-radius:2px; padding:.4rem .8rem;
+  color:var(--brass); font-size:.84rem; font-weight:500; letter-spacing:.16em; text-transform:uppercase;
+}
+.tv-badge svg{ width:14px; height:14px; stroke:var(--brass); fill:none }
+
+/* ============================================================
+   THE CRAFT — track-record band (own section, photo + embers)
+   ============================================================ */
+.craft{ position:relative; isolation:isolate; overflow:hidden; text-align:center; padding-block:clamp(5.5rem,9vw,10rem) }
+.craft .craft-bg{
+  position:absolute; inset:0; z-index:-3; background-size:cover; background-position:center 35%;
+  transform:scale(1.08); animation:kenburns 26s ease-in-out infinite alternate;
+}
+#ember-craft{ position:absolute; inset:0; z-index:-2; width:100%; height:100% }
+.craft::before{ content:''; position:absolute; inset:0; z-index:-1;
+  background:
+    linear-gradient(180deg, var(--black) 0%, rgba(12,10,8,.5) 28%, rgba(12,10,8,.5) 72%, var(--black) 100%),
+    radial-gradient(78% 78% at 50% 50%, transparent 38%, rgba(12,10,8,.6) 100%);
+}
+.craft .kicker{ display:block; margin-bottom:1.2rem }
+.craft .statement{ margin-bottom:clamp(2.5rem,5vw,4.5rem) }
+.craft .stats{ display:flex; justify-content:center; gap:clamp(2.5rem,7vw,8rem); flex-wrap:wrap }
+.craft .stat{ text-align:center }
+.craft .stat .n{ font-family:var(--font-display); font-weight:700; font-size:clamp(3.4rem,2.2rem + 6vw,7rem); line-height:.9; color:var(--cream); text-shadow:0 2px 30px rgba(0,0,0,.6) }
+.craft .stat .l{ color:#d2c9b8; letter-spacing:.16em; text-transform:uppercase; font-size:clamp(.85rem,.75rem + .4vw,1.02rem); font-weight:500; margin-top:.85rem }
+
+/* ============================================================
+   FAMILY BUSINESS (catering / events)
+   ============================================================ */
+.family{ background:linear-gradient(180deg,var(--black),var(--black-2),var(--black)) }
+.family .head{ max-width:60ch; margin-bottom:1.8rem }
+/* ---- expanding-panel accordion: hover widens a tile and pushes the others aside ---- */
+.cards{ display:flex; gap:14px; height:clamp(400px,44vw,560px) }
+.card{
+  position:relative; flex:1 1 0; min-width:0; border-radius:18px; overflow:hidden;
+  cursor:pointer; isolation:isolate;
+  flex-grow:1;
+  transition:flex-grow .6s var(--ease);
+}
+.card .card-bg{
+  position:absolute; inset:0; background-size:cover; background-position:center; z-index:-2;
+  transition:transform 1s var(--ease), filter .5s var(--ease);
+  transform:scale(1.04); filter:saturate(.9);
+}
+.card::before{ /* legibility + moody grade gradient */
+  content:''; position:absolute; inset:0; z-index:-1; transition:opacity .5s var(--ease);
+  background:
+    linear-gradient(180deg, rgba(12,10,8,.45) 0%, rgba(12,10,8,.05) 32%, rgba(12,10,8,.78) 100%);
+}
+.card .no{ position:absolute; top:1.1rem; right:1.3rem; font-family:var(--font-display); color:rgba(237,230,216,.65); font-size:.85rem; letter-spacing:.05em }
+.card .label{
+  position:absolute; top:1.4rem; left:0; right:0; text-align:center;
+  font-family:var(--font-display); font-weight:600; color:var(--cream);
+  font-size:clamp(1.05rem,.8rem + .9vw,1.6rem); letter-spacing:.06em;
+  text-shadow:0 2px 18px rgba(0,0,0,.6); padding-inline:.6rem;
+}
+.card .body{ position:absolute; left:0; right:0; bottom:0; padding:clamp(1.1rem,1vw,1.7rem) }
+.card .tag{
+  display:inline-block; font-size:.76rem; font-weight:500; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--cream); background:rgba(12,10,8,.55); border:1px solid rgba(176,141,87,.4);
+  padding:.36rem .8rem; border-radius:100px; backdrop-filter:blur(4px); margin-bottom:.9rem;
+}
+.card .desc{
+  color:#e6ddcf; font-size:.95rem; max-width:34ch; margin-bottom:1rem;
+  opacity:0; transform:translateY(10px); transition:opacity .45s var(--ease) .05s, transform .45s var(--ease) .05s;
+}
+.card .explore{
+  display:inline-flex; align-items:center; gap:.6rem; color:var(--cream);
+  font-family:var(--font-display); font-size:.82rem; letter-spacing:.12em; text-transform:uppercase;
+  background:rgba(12,10,8,.5); border:1px solid rgba(176,141,87,.45); border-radius:100px;
+  padding:.6rem 1.1rem; backdrop-filter:blur(4px);
+  opacity:0; transform:translateY(10px); transition:opacity .45s var(--ease) .1s, transform .45s var(--ease) .1s, background .3s var(--ease);
+}
+.card .explore svg{ width:15px; height:15px; stroke:currentColor; fill:none }
+.card .explore:hover{ background:var(--oxblood); border-color:var(--oxblood) }
+/* accordion mechanics: any hover shrinks all, the hovered one expands + reveals */
+.cards:hover .card{ flex-grow:.88 }
+.cards .card:hover{ flex-grow:1.55 }
+.card:hover .card-bg{ transform:scale(1); filter:saturate(1) }
+.card:hover .desc, .card:hover .explore{ opacity:1; transform:none }
+
+/* ============================================================
+   THE SPREAD (menu)
+   ============================================================ */
+.spread .head{ margin-bottom:1.5rem }
+.menu{ margin-top:1.5rem; border-top:1px solid rgba(176,141,87,.25) }
+.dish{
+  display:grid; grid-template-columns:auto 1fr; align-items:center; gap:clamp(1.3rem,3vw,3.5rem);
+  padding:clamp(2rem,3vw,3.4rem) clamp(1.2rem,2.5vw,2.4rem); border-bottom:1px solid rgba(176,141,87,.25);
+  min-height:clamp(150px,17vw,220px);
+  position:relative; transition:padding-left .45s var(--ease); overflow:hidden; isolation:isolate;
+}
+/* dynamic dish photo behind each row (slow Ken Burns drift, zooms on hover) */
+.dish-bg{
+  position:absolute; inset:0; z-index:-2; background-size:cover; background-position:center;
+  transform:scale(1.01); opacity:.82; animation:dishpan 30s ease-in-out infinite alternate;
+  transition:transform .7s var(--ease), opacity .5s var(--ease);
+}
+.dish:nth-child(2) .dish-bg{ animation-delay:-7s } .dish:nth-child(3) .dish-bg{ animation-delay:-14s } .dish:nth-child(4) .dish-bg{ animation-delay:-21s }
+.dish::after{ /* dark grade keeps the big text readable; light on the right so the photo shows */
+  content:''; position:absolute; inset:0; z-index:-1; pointer-events:none;
+  background:linear-gradient(90deg, rgba(12,10,8,.9) 0%, rgba(12,10,8,.55) 45%, rgba(12,10,8,.2) 100%);
+}
+.dish:hover .dish-bg{ transform:scale(1.05); opacity:.95 }
+@keyframes dishpan{ 0%{transform:scale(1.01) translateX(0)} 100%{transform:scale(1.04) translateX(-1.5%)} }
+.dish::before{ /* ember underline sweeps across on hover */
+  content:''; position:absolute; left:0; bottom:-1px; height:2px; width:0; background:var(--ember); z-index:1;
+  transition:width .55s var(--ease);
+}
+.dish:hover{ padding-left:clamp(2rem,3.5vw,3.4rem) } .dish:hover::before{ width:100% }
+/* huge outlined ghost number — the WOW anchor */
+.dish .num{
+  font-family:var(--font-display); font-weight:700; line-height:.8;
+  font-size:clamp(2.6rem,1.6rem + 4.5vw,5.5rem);
+  color:transparent; -webkit-text-stroke:1.6px rgba(176,141,87,.55); min-width:1.6ch;
+  transition:color .4s var(--ease), -webkit-text-stroke-color .4s var(--ease);
+}
+.dish:hover .num{ color:var(--ember); -webkit-text-stroke-color:var(--ember) }
+.dish-main{ display:flex; flex-direction:column; gap:.45rem; min-width:0 }
+.dish .name{
+  font-family:var(--font-display); font-weight:700; line-height:.95; letter-spacing:.01em;
+  font-size:clamp(2.1rem,1.4rem + 3.6vw,4rem); color:var(--cream); transition:color .3s var(--ease);
+}
+.dish:hover .name{ color:var(--ember) }
+.dish .note{
+  font-family:var(--font-display); font-style:italic; font-weight:400;
+  font-size:clamp(1.15rem,.95rem + .8vw,1.7rem); color:#d6cdbc; line-height:1.15;
+}
+
+/* ============================================================
+   THE OFFER (contact / booking)
+   ============================================================ */
+.offer{ position:relative; overflow:hidden; isolation:isolate; text-align:center }
+#ember-offer{ position:absolute; inset:0; z-index:-2; width:100%; height:100% }
+.offer::before{
+  content:''; position:absolute; inset:0; z-index:-1;
+  background:radial-gradient(90% 90% at 50% 110%, rgba(94,20,20,.4), transparent 60%);
+}
+.offer .statement{ margin:1.2rem auto 1.5rem; max-width:18ch }
+.offer .lede{ margin:0 auto 3rem; text-align:center; font-family:var(--font-display); font-style:italic; font-weight:500; font-size:clamp(1.5rem,1.1rem + 1.6vw,2.4rem); color:#e6ddcf; max-width:none }
+/* simplified, bold booking */
+.book-simple{ max-width:600px; margin:1.5rem auto 0; text-align:left }
+.book-name{
+  width:100%; background:transparent; border:0; border-bottom:1.5px solid rgba(176,141,87,.32);
+  color:var(--cream); font-family:var(--font-body); font-size:clamp(1.4rem,1.1rem + 1.2vw,2rem);
+  text-align:center; padding:.8rem 0; transition:border-color .3s var(--ease);
+}
+.book-name::placeholder{ color:rgba(214,205,188,.4) }
+.book-name:focus{ outline:none; border-bottom-color:var(--ember) }
+.book-row{ display:flex; gap:clamp(1.5rem,5vw,3.5rem); margin-top:2.2rem; align-items:flex-start }
+.book-row > .field{ flex:1; margin-bottom:0 }
+.contact-line{
+  display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:1rem 1.4rem;
+  margin-top:clamp(2.8rem,5vw,4.2rem); font-family:var(--font-display);
+}
+.contact-line a{ color:var(--cream); font-size:clamp(1.1rem,.95rem + .6vw,1.4rem); transition:color .25s var(--ease) }
+.contact-line a:hover{ color:var(--ember) }
+.contact-line .sep{ color:var(--brass); opacity:.6 }
+.contact-line .socials{ display:inline-flex; gap:.7rem; margin-left:.3rem }
+.contact-line .socials a{ width:46px; height:46px; display:grid; place-items:center; border:1px solid rgba(176,141,87,.35); border-radius:50%; transition:background .3s var(--ease), border-color .3s var(--ease) }
+.contact-line .socials a:hover{ background:rgba(176,141,87,.14); border-color:var(--brass) }
+.contact-line .socials svg{ width:20px; height:20px; stroke:var(--brass); fill:none }
+.contact-grid{ display:grid; grid-template-columns:1fr .82fr; gap:clamp(2.5rem,6vw,6rem); text-align:left; align-items:start }
+/* clean editorial underline fields */
+.field{ margin-bottom:1.9rem }
+.field label{ display:block; font-size:.8rem; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--brass); margin-bottom:.65rem }
+.field input,.field textarea,.field select{
+  width:100%; background:transparent; border:0; border-bottom:1.5px solid rgba(176,141,87,.3);
+  color:var(--cream); font-family:var(--font-body); font-size:1.18rem; padding:.7rem 0; border-radius:0;
+  transition:border-color .3s var(--ease);
+}
+.field input::placeholder,.field textarea::placeholder{ color:rgba(214,205,188,.38) }
+.field input:focus,.field textarea:focus,.field select:focus{ outline:none; border-bottom-color:var(--ember) }
+.field textarea{ resize:vertical; min-height:90px }
+.field select{ appearance:none; cursor:pointer; padding-right:1.6rem;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23B08D57' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat; background-position:right .1rem center; }
+.field select option{ background:var(--black-2); color:var(--cream) }
+.submit{
+  display:inline-flex; align-items:center; justify-content:center; gap:.9rem; cursor:pointer; width:100%;
+  background:var(--oxblood); color:var(--cream); border:0;
+  font-family:var(--font-display); font-weight:700; font-size:clamp(1.2rem,1rem + .7vw,1.55rem); letter-spacing:.12em; text-transform:uppercase;
+  padding:1.4rem 2rem; border-radius:4px; margin-top:2.4rem;
+  transition:transform .25s var(--ease), box-shadow .3s var(--ease), background .3s var(--ease);
+}
+.submit:hover{ background:#7a1c1c; transform:translateY(-2px); box-shadow:0 18px 55px -14px rgba(232,119,46,.6) }
+.submit svg{ width:18px; height:18px; stroke:currentColor; fill:none }
+
+.contact-info{ border-left:1px solid rgba(176,141,87,.22); padding-left:clamp(1.8rem,3.5vw,3.5rem) }
+.contact-info .row{ margin-bottom:2.3rem }
+.contact-info .row .l{ font-size:.78rem; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--smoke); margin-bottom:.55rem }
+.contact-info .row a,.contact-info .row span{
+  font-family:var(--font-display); font-weight:500; font-size:clamp(1.3rem,1.05rem + .9vw,1.75rem);
+  line-height:1.1; color:var(--cream); transition:color .25s var(--ease); display:inline-block; overflow-wrap:anywhere;
+}
+.contact-info .row a:hover{ color:var(--ember) }
+.socials{ display:flex; gap:1rem; margin-top:.8rem }
+.socials a{ width:54px; height:54px; display:grid; place-items:center; border:1px solid rgba(176,141,87,.35); border-radius:3px; transition:background .3s var(--ease), border-color .3s var(--ease) }
+.socials a:hover{ background:rgba(176,141,87,.14); border-color:var(--brass) }
+.socials svg{ width:23px; height:23px; stroke:var(--brass); fill:none }
+
+/* ---- custom calendar date picker ---- */
+.field-date{ position:relative }
+.date-trigger{
+  width:100%; display:flex; align-items:center; justify-content:space-between; gap:1rem;
+  background:transparent; border:0; border-bottom:1.5px solid rgba(176,141,87,.3);
+  color:var(--cream); font-family:var(--font-body); font-size:1.18rem; padding:.7rem 0; cursor:pointer; text-align:left;
+  transition:border-color .3s var(--ease);
+}
+.date-trigger:hover, .date-trigger[aria-expanded="true"]{ border-bottom-color:var(--ember) }
+.date-trigger #dateLabel{ color:rgba(214,205,188,.5) }
+.date-trigger #dateLabel.has-value{ color:var(--cream) }
+.date-trigger svg{ width:20px; height:20px; stroke:var(--brass); fill:none; flex:none }
+.calendar{
+  position:absolute; z-index:40; top:100%; left:0; margin-top:.7rem; width:min(340px,90vw);
+  background:#15110d; border:1px solid rgba(176,141,87,.32); border-radius:10px; padding:1.1rem;
+  box-shadow:0 28px 70px -22px rgba(0,0,0,.85);
+}
+.cal-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:.9rem }
+.cal-title{ font-family:var(--font-display); font-weight:600; color:var(--cream); letter-spacing:.04em; font-size:1.05rem }
+.cal-nav{ width:36px; height:36px; border:1px solid rgba(176,141,87,.3); background:transparent; color:var(--brass); border-radius:5px; cursor:pointer; font-size:1.2rem; line-height:1; transition:background .2s var(--ease) }
+.cal-nav:hover:not(:disabled){ background:rgba(176,141,87,.14) }
+.cal-nav:disabled{ opacity:.25; cursor:default }
+.cal-dow{ display:grid; grid-template-columns:repeat(7,1fr); gap:2px; margin-bottom:.45rem }
+.cal-dow span{ text-align:center; font-size:.68rem; letter-spacing:.08em; color:var(--smoke); text-transform:uppercase }
+.cal-grid{ display:grid; grid-template-columns:repeat(7,1fr); gap:3px }
+.cal-empty{ aspect-ratio:1 }
+.cal-day{ aspect-ratio:1; border:0; background:transparent; color:var(--cream); font-family:var(--font-body); font-size:.95rem; border-radius:6px; cursor:pointer; transition:background .2s var(--ease) }
+.cal-day:hover:not(:disabled){ background:rgba(176,141,87,.2) }
+.cal-day.is-disabled{ color:rgba(214,205,188,.18); cursor:default }
+.cal-day.is-selected{ background:var(--ember); color:#1a1109; font-weight:700 }
+
+/* ---- bold guests stepper ---- */
+.guests{ display:flex; align-items:center; gap:clamp(1rem,3vw,2rem) }
+.g-btn{
+  width:54px; height:54px; flex:none; display:grid; place-items:center;
+  border:1px solid rgba(176,141,87,.4); background:transparent; color:var(--brass);
+  font-size:1.7rem; line-height:1; border-radius:7px; cursor:pointer; transition:background .2s var(--ease), border-color .2s var(--ease);
+}
+.g-btn:hover{ background:rgba(176,141,87,.14); border-color:var(--brass) }
+.g-display{ flex:1; text-align:center }
+.g-num{ display:block; font-family:var(--font-display); font-weight:700; font-size:clamp(2.8rem,2rem + 2.6vw,3.8rem); line-height:1; color:var(--ember); text-shadow:0 0 30px rgba(232,119,46,.3) }
+.g-tier{ display:block; margin-top:.35rem; font-size:.78rem; letter-spacing:.22em; text-transform:uppercase; color:var(--smoke) }
+.g-chips{ display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1.1rem }
+.g-chips button{
+  background:transparent; border:1px solid rgba(176,141,87,.3); color:#d6cdbc;
+  font-size:.76rem; font-weight:500; letter-spacing:.1em; text-transform:uppercase; padding:.5rem .9rem; border-radius:100px;
+  cursor:pointer; transition:background .2s var(--ease), border-color .2s var(--ease), color .2s var(--ease);
+}
+.g-chips button:hover{ background:rgba(176,141,87,.14); border-color:var(--brass); color:var(--cream) }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer{ position:relative; isolation:isolate; overflow:hidden; text-align:center; padding:5rem var(--gut) 3.5rem; border-top:1px solid rgba(176,141,87,.16) }
+/* slow fire rising from the very bottom of the page, behind the footer content */
+.footer-fire{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; object-position:center bottom;
+  z-index:-2; pointer-events:none;
+  mix-blend-mode:screen; opacity:.8;
+  -webkit-mask-image:linear-gradient(to top, #000 0%, #000 22%, rgba(0,0,0,.3) 55%, transparent 78%);
+          mask-image:linear-gradient(to top, #000 0%, #000 22%, rgba(0,0,0,.3) 55%, transparent 78%);
+}
+footer::after{ /* dark scrim so footer text stays readable over the flames */
+  content:''; position:absolute; inset:0; z-index:-1; pointer-events:none;
+  background:radial-gradient(70% 70% at 50% 35%, rgba(12,10,8,.7), rgba(12,10,8,.25) 60%, transparent 85%);
+}
+@media (prefers-reduced-motion:reduce){ .footer-fire{ display:none } }
+footer .fmark{ font-family:var(--font-wordmark); font-size:clamp(2rem,1rem + 5vw,3.5rem); color:var(--cream); line-height:1 }
+footer .ft{ font-family:var(--font-display); font-style:italic; color:var(--smoke); margin:.6rem 0 1.6rem }
+footer .meta{ color:var(--smoke); font-size:.85rem; letter-spacing:.16em; text-transform:uppercase }
+footer .meta a{ color:var(--brass) }
+
+/* ============================================================
+   FILM GRAIN + CURSOR GLOW (felt quality)
+   ============================================================ */
+.grain{
+  position:fixed; inset:-50%; z-index:60; pointer-events:none; opacity:.045; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grain 7s steps(6) infinite;
+}
+.cursor-glow{
+  position:fixed; top:0; left:0; z-index:40; width:520px; height:520px; margin:-260px 0 0 -260px;
+  border-radius:50%; pointer-events:none; mix-blend-mode:screen; opacity:0;
+  background:radial-gradient(circle, rgba(232,119,46,.13), rgba(232,119,46,.05) 35%, transparent 70%);
+  transition:opacity .5s var(--ease);
+}
+
+
+/* ---- vector logo (traced from brand original) ---- */
+.sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0 }
+.hero-logo{ width:min(760px,86vw); margin:0 auto 1.4rem; color:var(--cream); filter:drop-shadow(0 0 55px rgba(232,119,46,.22)); opacity:1 }
+.hero-logo svg{ width:100%; height:auto; display:block }
+/* SAFETY: hero entrance animations only apply once JS adds .hero-anim.
+   Without it (no JS, or a stalled animation) hero content stays fully visible. */
+html:not(.hero-anim) .hero .kicker,
+html:not(.hero-anim) .hero-logo,
+html:not(.hero-anim) .hero-tag,
+html:not(.hero-anim) .hero-sub,
+html:not(.hero-anim) .scroll-cue{ animation:none!important; opacity:1!important; transform:none!important }
+.flogo{ width:min(440px,72vw); margin:0 auto; color:var(--brass) }
+.flogo svg{ width:100%; height:auto; display:block }
+
+/* ---------- scroll reveal (progressive enhancement) ----------
+   Content is VISIBLE by default. Only when JS is alive does it add
+   `.reveal-anim` to <html>, opting elements into the hidden→reveal
+   animation. If JS ever fails, everything stays visible. */
+/* hidden states: default = below (rises up when entering on scroll-down);
+   .above = sits higher (descends when entering on scroll-up). Re-triggers both ways. */
+.reveal-anim .reveal{ opacity:0; transform:translateY(42px) scale(.99); transition:opacity .9s var(--ease), transform .95s var(--ease) }
+.reveal-anim .card.reveal{ transform:translateY(56px) scale(.975); transition:flex-grow .6s var(--ease), opacity .9s var(--ease), transform .95s var(--ease) }
+.reveal-anim .reveal.above{ transform:translateY(-42px) scale(.99) }
+.reveal-anim .card.reveal.above{ transform:translateY(-56px) scale(.975) }
+/* revealed (placed last so it wins over the hidden-state rules) */
+.reveal-anim .reveal.in{ opacity:1; transform:none }
+.reveal-anim .card.reveal.in{ opacity:1; transform:none }
+
+/* ---------- keyframes ---------- */
+@keyframes fadeUp{ from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:none} }
+@keyframes fadeIn{ from{opacity:0} to{opacity:1} }
+@keyframes cue{ 0%,100%{transform:scaleY(.4);transform-origin:top;opacity:.4} 50%{transform:scaleY(1);opacity:1} }
+@keyframes kenburns{ 0%{transform:scale(1.06) translate(0,0)} 100%{transform:scale(1.22) translate(-2%,-3%)} }
+@keyframes grain{
+  0%,100%{transform:translate(0,0)} 10%{transform:translate(-5%,-5%)} 30%{transform:translate(3%,-8%)}
+  50%{transform:translate(-4%,6%)} 70%{transform:translate(6%,3%)} 90%{transform:translate(-3%,-2%)}
+}
+
+/* ============================================================
+   RESPONSIVE — dedicated mobile pass
+   ============================================================ */
+@media (max-width:860px){
+  .nav-links{ display:none }
+  .nav-toggle{ display:flex }
+  .contact-grid{ grid-template-columns:1fr; gap:2.5rem }
+  .contact-info{ border-left:0; border-top:1px solid rgba(176,141,87,.2); padding:2rem 0 0 }
+  .spread .head{ flex-direction:column; align-items:flex-start; gap:.7rem }
+  h2.section-title{ font-size:clamp(2.1rem,1.2rem + 5vw,3.4rem) }
+  .origin .wrap{ grid-template-columns:1fr; gap:2.5rem }
+  .origin-photo{ max-width:420px; margin-inline:auto }
+}
+
+/* ---- dedicated phone pass (≤600px) ---- */
+@media (max-width:600px){
+  :root{ --gut:1.4rem }
+  /* hard guard: nothing may force horizontal overflow */
+  html{ overflow-x:clip }
+  *{ min-width:0 }
+  h2.section-title, .statement, .hero-tag, .lede, .dish .name, .card h3{ overflow-wrap:break-word }
+
+  /* typography: scale display down so it never clips, tighten leading */
+  h2.section-title{ font-size:clamp(1.85rem,1.15rem + 4.2vw,2.45rem); line-height:1.08 }
+  .statement{ font-size:clamp(1.65rem,1rem + 5vw,2.3rem); line-height:1.12 }
+  .lede{ font-size:1.02rem; max-width:none }
+  .kicker{ letter-spacing:.24em; font-size:.84rem }
+  .hero-tag{ font-size:1.15rem }
+  .hero-sub{ letter-spacing:.18em; font-size:.8rem; padding-inline:.5rem }
+
+  /* fire is zoomed by object-fit on portrait — ease it back so the logo wins */
+  .hero-fire{ opacity:.62 }
+  .hero::after{ background:radial-gradient(70% 34% at 50% 42%, rgba(12,10,8,.82), rgba(12,10,8,.45) 58%, transparent 80%) }
+
+  /* logos sized for phone */
+  .hero-logo{ width:90vw; margin-bottom:1rem }
+  .flogo{ width:80vw }
+
+  /* stats: stack to a clean 1-col so labels never clip */
+  .stats{ gap:1.6rem; flex-direction:column }
+  .stat{ flex:0 0 auto }
+  .stat .n{ font-size:2rem }
+  .craft .stats{ flex-direction:column; gap:2.4rem }
+
+  /* catering accordion -> stacked cards (no hover on touch): show everything */
+  .cards{ flex-direction:column; height:auto; gap:12px }
+  .card{ flex:none; height:240px; border-radius:14px }
+  .cards:hover .card, .cards .card:hover{ flex-grow:0 }
+  .card .desc, .card .explore{ opacity:1; transform:none }
+  .card .no{ top:1rem; right:1.1rem }
+  /* give the stacked tiles life: a slow Ken Burns drift, staggered per tile */
+  .card .card-bg{ animation:kenburns 18s ease-in-out infinite alternate; transform:scale(1.06) }
+  .card:nth-child(2) .card-bg{ animation-delay:-4.5s }
+  .card:nth-child(3) .card-bg{ animation-delay:-9s }
+  .card:nth-child(4) .card-bg{ animation-delay:-13.5s }
+
+  /* menu rows: tighter ghost number + name/note stack on phone */
+  .dish{ gap:1.1rem }
+  .dish .num{ -webkit-text-stroke-width:1.2px }
+
+  /* form button full-width thumb target */
+  .submit{ width:100%; justify-content:center }
+  .book-row{ flex-direction:column; gap:2.2rem }
+
+  /* kill pointer-only flourishes on touch */
+  .cursor-glow{ display:none }
+  .scroll-cue{ display:none }
+}
+
+/* respect reduced motion globally */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{ animation:none!important; transition-duration:.001ms!important }
+  .reveal{ opacity:1; transform:none }
+  .grain{ animation:none }
+}
+
+/* ============================================================
+   FLASH LAYER — marquee, hustler band, intro, sticky CTA
+   ============================================================ */
+.marquee{ overflow:hidden; border-block:1px solid rgba(176,141,87,.18); background:var(--black-2); padding:1.15rem 0 }
+.marquee-track{ display:flex; width:max-content; animation:marquee 30s linear infinite }
+.marquee-track span{ font-family:var(--font-display); font-weight:700; font-size:clamp(1.4rem,1rem + 2vw,2.4rem); letter-spacing:.03em; color:var(--cream); white-space:nowrap; padding-right:.4rem }
+.marquee-track em{ color:var(--ember); font-style:normal }
+@keyframes marquee{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+
+.intro{ position:fixed; inset:0; z-index:200; background:var(--black); display:grid; place-items:center; animation:introOut 2.8s var(--ease) forwards }
+.intro.skip{ display:none }
+.intro-mark{ text-align:center; animation:introIn 1.4s var(--ease) both }
+.intro-mark svg{ width:84px; height:84px; stroke:var(--brass); fill:none; filter:drop-shadow(0 0 22px rgba(232,119,46,.6)); animation:introGlow 1.5s ease-in-out infinite alternate }
+.intro-word{ display:block; margin-top:1.3rem; font-family:var(--font-display); font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:var(--cream); font-size:clamp(1.1rem,.9rem + 1vw,1.6rem) }
+@keyframes introIn{ 0%{opacity:0;transform:scale(.82)} 60%,100%{opacity:1;transform:scale(1)} }
+@keyframes introGlow{ from{filter:drop-shadow(0 0 12px rgba(232,119,46,.4))} to{filter:drop-shadow(0 0 32px rgba(232,119,46,.9))} }
+@keyframes introOut{ 0%,66%{opacity:1;visibility:visible} 100%{opacity:0;visibility:hidden} }
+
+.book-fab{
+  position:fixed; right:clamp(1rem,3vw,2rem); bottom:clamp(1rem,3vw,2rem); z-index:55;
+  display:inline-flex; align-items:center; gap:.6rem; background:var(--oxblood); color:var(--cream);
+  font-family:var(--font-display); font-weight:600; font-size:.95rem; letter-spacing:.1em; text-transform:uppercase;
+  padding:.85rem 1.4rem; border-radius:100px; box-shadow:0 16px 44px -14px rgba(0,0,0,.75);
+  opacity:0; transform:translateY(22px); pointer-events:none;
+  transition:opacity .4s var(--ease), transform .4s var(--ease), background .3s var(--ease);
+}
+.book-fab.show{ opacity:1; transform:none; pointer-events:auto }
+.book-fab:hover{ background:#7a1c1c }
+.book-fab svg{ width:16px; height:16px; stroke:currentColor; fill:none }
+
+.sound-toggle{
+  position:fixed; left:clamp(1rem,3vw,2rem); bottom:clamp(1rem,3vw,2rem); z-index:55;
+  width:52px; height:52px; display:grid; place-items:center; border-radius:50%;
+  background:rgba(12,10,8,.7); border:1px solid rgba(176,141,87,.4); color:var(--brass);
+  cursor:pointer; backdrop-filter:blur(6px); transition:background .3s var(--ease), border-color .3s var(--ease), color .3s var(--ease);
+}
+.sound-toggle:hover{ background:rgba(176,141,87,.16); border-color:var(--brass) }
+.sound-toggle svg{ width:22px; height:22px; stroke:currentColor; fill:none }
+.sound-toggle .snd-on{ display:none }
+.sound-toggle.on{ color:var(--ember); border-color:var(--ember); box-shadow:0 0 24px -4px rgba(232,119,46,.5) }
+.sound-toggle.on .snd-on{ display:block } .sound-toggle.on .snd-off{ display:none }
+
+@media (prefers-reduced-motion:reduce){
+  .marquee-track{ animation:none } .intro{ display:none }
+}
+</style>
+</head>
+<body>
+
+<!-- cinematic intro (CSS self-dismisses; JS skips it for returning visitors / reduced-motion) -->
+<div class="intro" id="intro" aria-hidden="true">
+  <div class="intro-mark">
+    <svg viewBox="0 0 64 64" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <g transform="rotate(-34 32 34)"><line x1="32" y1="56" x2="32" y2="32" stroke-width="3.4"/><rect x="25.5" y="13" width="13" height="19" rx="2.5" stroke-width="3"/><line x1="29.5" y1="18.5" x2="29.5" y2="26.5" stroke-width="2.2"/><line x1="34.5" y1="18.5" x2="34.5" y2="26.5" stroke-width="2.2"/></g>
+      <g transform="rotate(34 32 34)"><line x1="32" y1="56" x2="32" y2="24" stroke-width="3.4"/><line x1="25" y1="24" x2="39" y2="24" stroke-width="3"/><line x1="26" y1="24" x2="26" y2="12" stroke-width="3"/><line x1="32" y1="24" x2="32" y2="11" stroke-width="3"/><line x1="38" y1="24" x2="38" y2="12" stroke-width="3"/></g>
+    </svg>
+    <span class="intro-word">The Grillfader</span>
+  </div>
+</div>
+
+<!-- sticky booking CTA -->
+<a href="#offer" class="book-fab" id="bookFab"><span data-i18n="book_fab">Book the Grillfader</span>
+  <svg viewBox="0 0 24 24" stroke-width="1.7" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</a>
+
+<!-- ambient fire-crackle sound toggle (off by default) -->
+<button class="sound-toggle" id="soundToggle" aria-label="Toggle ambient fire sound" aria-pressed="false" title="Ambient fire sound">
+  <svg class="snd-off" viewBox="0 0 24 24" stroke-width="1.6" aria-hidden="true"><path d="M12 21s7-5.5 7-11a7 7 0 0 0-14 0c0 5.5 7 11 7 11Z"/><path d="M12 21s-3-3.5-3-7a3 3 0 0 1 6 0c0 1.6-.7 3-1.4 4.2" stroke-linecap="round"/></svg>
+  <svg class="snd-on" viewBox="0 0 24 24" stroke-width="1.6" aria-hidden="true"><path d="M12 21s7-5.5 7-11a7 7 0 0 0-14 0c0 5.5 7 11 7 11Z"/><path d="M16.5 6.5c1.2 1 1.2 4 0 5M19 4.5c2.2 2 2.2 7 0 9" stroke-linecap="round"/></svg>
+</button>
+<audio id="fireAudio" src="audio/fire-crackle.mp3" loop preload="none"></audio>
+
+<!-- film grain + cursor ambient glow -->
+<div class="grain" aria-hidden="true"></div>
+<div class="cursor-glow" id="glow" aria-hidden="true"></div>
+
+<!-- ============ NAV ============ -->
+<header class="nav" id="nav">
+  <a href="#top" class="nav-mark" aria-label="The Grillfader, home"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1398.000000 376.000000" aria-hidden="true" focusable="false" fill="currentColor"><title>The Grillfader</title>
+<g transform="translate(0.000000,376.000000) scale(0.100000,-0.100000)"
+fill="currentColor" stroke="none">
+<path d="M4585 3349 c-49 -3 -107 -13 -128 -22 -58 -25 -132 -107 -157 -174
+l-22 -58 1 -1165 c1 -641 4 -1187 8 -1215 12 -101 82 -195 178 -241 l50 -24
+402 0 401 0 30 -25 c18 -15 42 -25 61 -25 l32 0 -3 994 c-2 547 -5 997 -8
+1000 -9 8 -531 9 -538 1 -4 -4 2 -12 12 -19 11 -6 33 -23 50 -38 l31 -26 3
+-678 c3 -761 8 -709 -73 -745 -55 -24 -82 -18 -126 27 l-34 35 -8 397 c-4 218
+-6 646 -5 950 l3 554 28 24 28 24 595 0 595 0 67 62 c37 34 87 81 112 103 24
+22 78 72 120 110 41 39 101 92 132 119 32 26 55 52 52 58 -6 10 -1728 8 -1889
+-3z"/>
+<path d="M11079 3208 c-90 -79 -195 -170 -233 -204 -104 -89 -102 -86 -65
+-125 17 -18 35 -44 40 -57 5 -13 9 -114 9 -225 l0 -202 -194 -1 c-181 -1 -196
+-2 -229 -23 -50 -30 -94 -84 -107 -128 -8 -27 -10 -274 -8 -833 l3 -795 23
+-51 c43 -94 98 -128 224 -140 140 -12 225 31 277 141 21 45 41 52 41 14 0 -23
+25 -75 49 -103 29 -34 60 -37 253 -30 l188 7 -44 44 c-35 34 -46 54 -51 86 -3
+23 -5 655 -3 1405 2 749 0 1362 -4 1362 -4 0 -80 -64 -169 -142z m-280 -1189
+c12 -11 26 -31 30 -42 9 -25 16 -475 13 -878 l-2 -267 -36 -17 c-28 -13 -42
+-15 -60 -7 -50 23 -52 34 -55 387 -2 182 -3 432 -1 556 l2 227 29 31 c34 36
+49 38 80 10z"/>
+<path d="M8297 3199 c-86 -77 -194 -176 -240 -219 l-82 -79 27 -23 c60 -52 56
+21 63 -1254 4 -643 9 -1172 12 -1177 2 -4 110 -7 239 -7 210 0 234 2 234 16 0
+9 -17 31 -37 49 l-38 33 -3 1401 c-2 770 -7 1401 -10 1400 -4 0 -78 -63 -165
+-140z"/>
+<path d="M8705 3325 c-48 -24 -92 -81 -105 -137 -10 -39 -11 -357 -6 -1387 4
+-735 7 -1342 6 -1348 0 -10 56 -13 250 -13 275 0 287 3 211 53 -33 22 -41 34
+-46 69 -3 24 -5 363 -3 753 l3 710 65 3 c116 4 103 -11 185 207 21 55 45 110
+53 122 19 30 18 30 -153 38 -76 3 -143 9 -147 11 -4 3 -8 131 -8 284 0 302 0
+302 56 316 31 8 71 -18 86 -54 7 -18 8 -87 3 -204 -3 -98 -3 -178 2 -178 4 0
+83 74 174 165 185 182 179 173 178 314 -1 170 -18 220 -89 269 -33 22 -37 22
+-359 22 -270 0 -331 -3 -356 -15z"/>
+<path d="M7777 3293 c-25 -21 -134 -117 -241 -213 l-196 -175 31 -24 c17 -13
+36 -35 42 -50 9 -19 13 -333 17 -1206 l5 -1180 250 3 c157 2 250 7 250 13 0 5
+-18 20 -40 32 l-40 23 -6 139 c-4 77 -7 710 -8 1408 0 724 -5 1267 -10 1267
+-5 0 -29 -17 -54 -37z"/>
+<path d="M6900 2852 c-31 -12 -56 -32 -81 -66 -41 -54 -49 -81 -49 -166 0 -71
+19 -119 71 -175 90 -98 237 -79 320 41 28 41 33 58 37 125 3 59 0 89 -13 121
+-45 116 -165 166 -285 120z"/>
+<path d="M428 2793 l-28 -4 0 -310 c0 -231 3 -310 12 -307 6 2 16 22 23 44 38
+129 130 214 230 214 l35 0 0 -923 0 -924 -23 -44 c-13 -24 -43 -59 -68 -78
+-24 -18 -45 -37 -47 -42 -5 -12 655 -12 663 1 3 5 -7 16 -22 24 -15 8 -47 33
+-70 56 -35 35 -43 49 -48 93 -3 29 -5 453 -3 942 l3 890 151 3 c141 2 153 1
+175 -19 13 -11 29 -24 35 -27 16 -9 23 -442 24 -1299 l0 -673 210 0 c232 0
+243 4 175 56 l-35 26 0 588 0 587 25 27 c31 33 74 34 103 3 l22 -23 0 -632 0
+-632 205 0 c121 0 205 4 205 9 0 6 -17 26 -37 45 l-38 35 -5 689 -5 689 -37
+56 c-41 61 -85 90 -155 101 -79 12 -201 -28 -241 -79 -40 -51 -42 -38 -40 223
+l3 247 146 0 147 1 133 125 c74 68 162 148 197 178 34 29 62 57 62 62 0 9
+-2025 11 -2082 2z"/>
+<path d="M5977 2413 c-30 -27 -96 -85 -148 -130 -185 -163 -274 -246 -277
+-259 -2 -7 6 -18 18 -24 12 -6 30 -26 40 -43 19 -31 20 -57 20 -765 0 -577 3
+-734 13 -737 6 -2 123 -5 260 -7 172 -2 247 0 247 8 0 6 -17 22 -37 35 -23 14
+-42 37 -48 55 -7 20 -10 287 -10 734 l0 702 29 24 c38 33 81 29 110 -9 20 -27
+21 -43 24 -265 1 -130 5 -243 8 -251 3 -9 36 18 97 80 51 52 137 134 190 183
+l97 89 0 191 c0 211 -6 237 -69 309 -45 51 -107 72 -211 71 -96 -1 -161 -23
+-237 -81 l-43 -33 0 85 c0 49 -4 85 -10 85 -5 0 -34 -21 -63 -47z"/>
+<path d="M12985 2450 c-4 -6 -77 -72 -163 -147 -86 -75 -184 -163 -217 -195
+-33 -31 -69 -64 -80 -73 -20 -15 -20 -15 6 -38 62 -52 59 -16 59 -822 l0 -735
+250 0 c202 0 250 3 250 13 0 8 -11 19 -24 25 -14 6 -33 23 -42 37 -16 24 -16
+81 -12 741 5 695 6 716 25 742 31 41 67 50 101 26 45 -34 51 -69 51 -316 1
+-177 4 -228 14 -228 7 0 94 82 195 183 l182 182 0 198 c0 175 -2 202 -19 235
+-26 50 -52 76 -108 109 -44 26 -56 28 -143 27 -113 0 -162 -19 -246 -90 l-54
+-46 0 91 c0 83 -8 109 -25 81z"/>
+<path d="M7105 2364 c-39 -37 -144 -130 -235 -207 -91 -77 -166 -143 -168
+-148 -2 -4 10 -15 26 -23 57 -30 56 -17 62 -811 l5 -730 248 -3 c216 -2 247 0
+247 13 0 8 -15 24 -32 35 -18 10 -39 24 -45 30 -10 8 -13 213 -13 960 0 758
+-3 950 -13 950 -7 0 -44 -30 -82 -66z"/>
+<path d="M9496 2390 c-37 -12 -92 -64 -118 -113 -36 -71 -133 -368 -126 -388
+2 -7 28 14 58 46 86 89 111 99 271 103 133 4 137 3 153 -19 10 -14 16 -44 16
+-74 0 -57 29 -25 -305 -339 -82 -78 -166 -159 -187 -182 -68 -74 -68 -73 -68
+-471 0 -340 1 -359 21 -399 26 -55 78 -100 129 -114 54 -15 213 -11 273 7 37
+11 56 25 86 63 22 27 45 66 51 85 12 36 30 39 30 4 0 -11 12 -45 26 -76 38
+-79 52 -83 279 -83 156 0 185 2 185 15 0 8 -13 24 -30 36 -16 12 -33 29 -37
+38 -4 9 -10 396 -13 861 -5 790 -6 847 -23 878 -31 57 -87 111 -125 122 -45
+12 -505 12 -546 0z m277 -1257 c-5 -264 -6 -279 -25 -295 -25 -22 -76 -23
+-106 -2 -22 15 -22 19 -22 226 l0 210 71 74 c40 40 75 71 79 69 4 -2 5 -129 3
+-282z"/>
+<path d="M11620 2391 c-103 -12 -179 -65 -200 -139 -6 -24 -10 -324 -10 -853
+l0 -815 29 -46 c16 -25 44 -56 62 -69 34 -24 35 -24 347 -27 384 -4 404 -1
+477 72 88 89 114 171 115 372 0 93 -7 154 -19 154 -4 0 -26 -26 -49 -58 -60
+-83 -88 -100 -179 -113 -84 -12 -251 -5 -294 12 -26 10 -51 54 -63 111 -9 39
+14 88 66 139 85 85 284 275 380 362 143 130 138 115 138 453 0 153 -4 295 -10
+313 -11 39 -49 82 -100 114 -34 21 -46 22 -330 23 -162 1 -324 -1 -360 -5z
+m334 -367 c25 -26 26 -31 26 -135 l0 -108 -49 -58 c-57 -68 -101 -110 -101
+-97 -1 5 0 87 0 182 1 189 5 205 55 228 40 18 38 18 69 -12z"/>
+<path d="M2522 1999 c-20 -6 -44 -25 -62 -51 l-30 -41 0 -666 c0 -366 5 -684
+10 -705 10 -44 34 -81 72 -109 34 -25 181 -33 430 -22 l177 7 41 32 c50 37 86
+104 98 178 11 69 16 268 7 268 -4 0 -33 -28 -64 -62 -52 -56 -61 -62 -111 -69
+-93 -13 -208 -10 -239 6 -35 18 -55 64 -55 128 0 55 -13 41 286 321 190 177
+183 159 174 450 -7 257 -13 281 -76 324 -32 22 -38 22 -329 21 -163 0 -311 -5
+-329 -10z m378 -294 c19 -23 25 -146 9 -176 -19 -34 -112 -147 -122 -148 -4
+-1 -6 72 -5 162 l3 162 34 17 c36 18 56 14 81 -17z"/>
+</g>
+</svg></a>
+  <nav aria-label="Primary">
+    <ul class="nav-links">
+      <li><a href="#origin" data-i18n="nav_origin">The Origin</a></li>
+      <li><a href="#family" data-i18n="nav_catering">Catering</a></li>
+      <li><a href="#spread" data-i18n="nav_spread">The Spread</a></li>
+      <li><a href="#offer" class="nav-cta" data-i18n="nav_cta">Make an Offer</a></li>
+    </ul>
+  </nav>
+  <div class="lang" id="lang" role="group" aria-label="Language">
+    <button type="button" data-lang="en" aria-label="English" title="English">
+      <svg viewBox="0 0 20 14" aria-hidden="true"><rect width="20" height="14" fill="#012169"/><path d="M0 0l20 14M20 0L0 14" stroke="#fff" stroke-width="2.4"/><path d="M0 0l20 14M20 0L0 14" stroke="#C8102E" stroke-width="1.1"/><rect x="8" width="4" height="14" fill="#fff"/><rect y="5" width="20" height="4" fill="#fff"/><rect x="8.6" width="2.8" height="14" fill="#C8102E"/><rect y="5.6" width="20" height="2.8" fill="#C8102E"/></svg>
+      <span>EN</span>
+    </button>
+    <button type="button" data-lang="sv" aria-label="Svenska" title="Svenska">
+      <svg viewBox="0 0 20 14" aria-hidden="true"><rect width="20" height="14" fill="#006AA7"/><rect x="6" width="2.6" height="14" fill="#FECC00"/><rect y="5.7" width="20" height="2.6" fill="#FECC00"/></svg>
+      <span>SV</span>
+    </button>
+  </div>
+  <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round"/></svg>
+  </button>
+</header>
+
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Menu">
+  <a href="#origin" data-i18n="nav_origin">The Origin</a>
+  <a href="#family" data-i18n="nav_catering">Catering</a>
+  <a href="#spread" data-i18n="nav_spread">The Spread</a>
+  <a href="#offer" data-i18n="nav_cta">Make an Offer</a>
+  <span class="est" data-i18n="est">EST. 2015 · SWEDEN</span>
+</div>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" aria-label="The Grillfader">
+    <video id="hero-fire" class="hero-fire" autoplay muted loop playsinline preload="auto"
+           poster="video/hero-fire-poster.jpg" aria-hidden="true">
+      <source src="video/hero-fire.mp4" type="video/mp4" />
+    </video>
+    <canvas id="ember-hero" aria-hidden="true"></canvas>
+    <div class="hero-inner" id="heroInner">
+      <span class="kicker" data-i18n="hero_kicker">Sweden · Grill &amp; BBQ Catering</span>
+      <h1 class="sr-only">The Grillfader — Grill &amp; BBQ Catering, Est. 2015</h1>
+      <div class="hero-logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1902.000000 1284.000000" role="img" aria-label="The Grillfader, established 2015" fill="currentColor">
+<title>The Grillfader</title>
+<g transform="translate(0.000000,1284.000000) scale(0.100000,-0.100000)"
+fill="currentColor" stroke="none">
+<path d="M2330 12628 c-2115 -7 -2107 -7 -2119 -26 -4 -7 -6 -284 -3 -615 3
+-458 7 -605 16 -615 19 -19 32 2 52 79 39 159 145 314 259 379 65 37 160 62
+222 58 l48 -3 5 -1715 c3 -943 2 -1773 -1 -1845 -5 -96 -12 -144 -28 -185 -27
+-70 -117 -172 -188 -212 -60 -34 -82 -62 -57 -72 21 -8 834 -8 1107 1 245 7
+255 11 161 67 -58 35 -158 124 -192 173 -19 27 -25 52 -32 150 -11 148 -16
+3592 -6 3616 8 16 33 17 319 17 l310 0 51 -48 c28 -27 58 -51 66 -54 13 -4 16
+-184 22 -1419 4 -778 4 -1654 2 -1947 -4 -401 -2 -537 7 -548 17 -21 837 -21
+845 0 9 24 -11 50 -74 95 l-59 43 -7 106 c-3 58 -6 584 -6 1170 0 1168 -4
+1096 60 1157 73 70 202 34 230 -64 6 -23 10 -479 10 -1265 0 -896 3 -1233 11
+-1242 9 -11 86 -14 405 -14 l394 0 0 25 c0 14 -10 33 -22 43 -12 9 -42 35 -67
+58 l-44 41 -8 104 c-4 57 -8 644 -9 1304 -1 660 -5 1235 -9 1277 -16 149 -121
+297 -256 360 -61 28 -82 33 -171 36 -176 7 -334 -46 -421 -142 -50 -54 -88
+-82 -96 -69 -7 13 -9 957 -2 976 7 16 30 17 289 17 224 0 287 3 308 14 16 8
+54 43 85 77 32 34 90 89 128 122 39 33 121 108 183 166 63 58 173 156 245 216
+128 108 157 138 145 150 -10 10 -118 10 -2108 3z"/>
+<path d="M4481 11037 c-47 -9 -63 -19 -112 -68 -72 -72 -87 -100 -99 -191 -6
+-47 -6 -538 -1 -1363 9 -1386 7 -1343 59 -1427 31 -50 92 -105 137 -124 63
+-26 231 -32 710 -25 501 8 475 4 581 98 54 47 73 72 109 147 59 123 73 211 77
+496 3 203 1 225 -14 228 -11 2 -30 -17 -56 -55 -58 -85 -160 -179 -208 -191
+-77 -20 -242 -30 -390 -24 -145 7 -152 8 -187 35 -46 35 -62 65 -76 142 -17
+89 -14 165 7 200 28 46 69 85 557 539 239 222 317 310 336 378 7 28 9 190 7
+512 -4 544 0 518 -106 624 -50 50 -69 62 -111 71 -68 14 -1143 13 -1220 -2z
+m690 -560 c59 -39 69 -73 69 -238 l0 -146 -29 -39 c-58 -76 -218 -259 -227
+-259 -10 0 -27 502 -20 579 6 56 25 82 81 107 54 24 86 23 126 -4z"/>
+<path d="M735 7390 c-144 -16 -257 -78 -368 -200 -70 -78 -94 -120 -131 -230
+l-29 -84 1 -2341 c1 -1487 5 -2366 11 -2410 28 -198 144 -368 319 -469 114
+-66 101 -65 965 -66 l777 0 38 -24 c41 -26 123 -110 166 -169 27 -36 56 -49
+56 -24 4 135 -3 1842 -10 2806 -9 1115 -12 1277 -25 1298 l-15 23 -513 0
+c-535 0 -557 -2 -542 -42 3 -8 23 -23 44 -33 62 -28 115 -84 134 -142 16 -48
+17 -164 20 -1360 l2 -1308 -28 -48 c-30 -51 -79 -88 -142 -107 -22 -7 -49 -16
+-60 -20 -56 -20 -185 61 -227 144 -19 36 -22 65 -29 251 -4 116 -9 955 -10
+1865 -2 1827 -7 1696 60 1753 18 15 42 28 54 28 12 1 429 3 927 4 498 1 1028
+2 1178 3 l273 2 77 73 c216 202 759 693 862 777 27 23 41 40 36 48 -5 9 -438
+12 -1909 11 -1046 -1 -1929 -5 -1962 -9z"/>
+<path d="M14123 7377 c-12 -7 -75 -59 -140 -117 -65 -58 -147 -130 -183 -160
+-36 -30 -126 -109 -200 -175 -74 -66 -206 -182 -292 -259 -87 -76 -158 -144
+-158 -152 0 -8 13 -22 30 -32 38 -23 88 -92 114 -157 19 -47 20 -73 21 -438 0
+-214 -2 -393 -5 -397 -3 -5 -176 -10 -385 -12 -433 -3 -409 1 -525 -94 -82
+-68 -124 -123 -151 -201 -20 -57 -20 -79 -19 -1568 0 -961 4 -1545 11 -1605
+16 -147 59 -249 142 -338 101 -106 189 -135 412 -134 271 0 388 66 488 274 27
+57 48 88 58 88 17 0 29 -27 29 -65 0 -24 62 -147 96 -193 46 -60 69 -66 264
+-64 96 0 267 3 379 6 112 3 210 6 218 6 26 0 12 29 -29 59 -54 40 -114 113
+-130 159 -10 30 -13 593 -15 2806 -1 1523 -4 2770 -6 2772 -1 2 -12 -2 -24 -9z
+m-887 -2639 c38 -26 69 -74 84 -129 18 -66 20 -2230 2 -2252 -21 -25 -101 -58
+-142 -59 -51 -1 -89 24 -125 80 l-30 47 0 1075 c0 591 4 1093 8 1114 11 48 60
+112 107 137 38 20 50 18 96 -13z"/>
+<path d="M9295 7370 c-99 -4 -197 -12 -218 -19 -23 -7 -67 -41 -116 -89 -63
+-62 -81 -87 -93 -127 -9 -27 -21 -69 -28 -91 -10 -33 -10 -458 -1 -2070 6
+-1116 9 -2332 6 -2703 -4 -488 -2 -678 6 -688 9 -10 102 -13 498 -13 276 0
+492 4 500 9 23 15 -1 57 -46 80 -21 10 -56 35 -79 55 l-41 35 -5 1188 c-3 653
+-3 1328 0 1498 l7 310 145 0 c143 0 181 7 202 39 5 6 24 54 44 106 20 52 53
+138 74 190 21 52 50 129 65 170 15 41 40 99 56 127 33 59 36 88 13 97 -9 3
+-143 6 -299 6 -251 0 -284 2 -296 17 -12 13 -14 116 -14 572 0 640 -6 599 91
+627 54 15 56 15 101 -8 91 -45 88 -26 91 -469 2 -300 5 -389 15 -389 19 0 677
+660 683 686 3 12 4 152 2 311 -4 244 -7 295 -22 336 -25 66 -103 148 -173 183
+l-58 28 -465 1 c-256 1 -546 -2 -645 -5z"/>
+<path d="M8494 7303 c-43 -37 -103 -91 -134 -119 -30 -27 -71 -63 -91 -80 -79
+-64 -281 -245 -413 -369 -76 -71 -163 -152 -192 -180 -56 -51 -67 -81 -36 -92
+65 -24 125 -120 136 -219 8 -72 15 -1519 16 -3181 0 -1315 2 -1463 16 -1477
+14 -14 71 -16 480 -16 404 0 465 2 470 15 12 30 -7 63 -58 101 -29 21 -60 54
+-71 71 -18 32 -19 116 -24 2815 -3 1531 -9 2787 -13 2791 -4 5 -43 -22 -86
+-60z"/>
+<path d="M7270 7333 c-33 -23 -154 -129 -331 -289 -79 -73 -232 -209 -339
+-303 -107 -94 -210 -184 -227 -199 -47 -42 -45 -49 27 -95 49 -31 86 -112 100
+-214 7 -56 11 -782 11 -2344 0 -1304 4 -2272 10 -2285 l9 -24 494 0 c447 0
+494 2 500 16 9 23 -6 38 -72 74 -31 18 -69 45 -83 60 l-26 29 -7 1043 c-4 574
+-8 1140 -9 1258 -1 118 0 899 1 1735 1 836 2 1528 2 1538 0 22 -28 22 -60 0z"/>
+<path d="M5550 6423 c-14 -2 -54 -14 -90 -26 -110 -36 -222 -162 -256 -289 -8
+-30 -14 -100 -14 -164 0 -113 16 -179 65 -275 23 -44 125 -149 164 -168 58
+-29 142 -44 222 -39 167 8 322 131 391 310 31 80 30 256 -2 358 -65 208 -265
+330 -480 293z"/>
+<path d="M3578 5493 c-75 -65 -173 -149 -219 -188 -45 -38 -141 -125 -212
+-193 -72 -68 -175 -162 -230 -210 -174 -151 -179 -156 -172 -174 4 -9 26 -29
+50 -43 30 -17 54 -43 77 -82 l33 -58 3 -1465 c2 -1148 5 -1467 15 -1477 9 -9
+124 -13 437 -18 234 -3 457 -8 495 -10 113 -8 140 34 49 77 -50 23 -109 85
+-130 133 -11 28 -14 264 -14 1434 -1 1554 -6 1430 67 1490 59 49 95 57 146 32
+51 -25 82 -63 99 -123 8 -29 13 -193 17 -505 5 -364 9 -465 19 -475 11 -11 27
+2 90 72 91 100 208 217 357 355 59 55 153 143 209 196 l101 97 3 351 c4 381 0
+422 -48 518 -61 122 -156 208 -271 245 -90 29 -296 36 -402 14 -120 -25 -279
+-108 -351 -185 -53 -55 -55 -48 -49 139 6 165 5 170 -14 170 -11 0 -81 -53
+-155 -117z"/>
+<path d="M17585 5557 c-47 -50 -143 -136 -365 -327 -186 -160 -226 -196 -315
+-281 -49 -48 -119 -112 -154 -142 -36 -31 -68 -63 -73 -71 -9 -17 12 -42 66
+-79 15 -10 39 -44 53 -75 l27 -57 7 -435 c3 -239 5 -897 2 -1462 -3 -771 -2
+-1032 7 -1048 l12 -22 391 7 c216 4 437 8 492 9 87 1 100 3 103 19 2 11 -8 23
+-30 35 -18 9 -54 38 -81 65 l-47 47 2 1443 c2 1060 6 1449 14 1467 7 14 27 42
+46 64 29 34 40 39 87 44 40 4 63 0 87 -13 38 -20 80 -76 94 -126 6 -19 13
+-236 16 -484 3 -247 7 -460 10 -472 2 -13 10 -23 16 -23 11 0 140 125 584 565
+166 163 172 172 179 219 4 27 5 202 3 390 -6 390 -9 408 -96 514 -63 78 -85
+95 -181 144 l-83 43 -142 5 c-156 6 -210 -1 -306 -37 -90 -34 -152 -74 -241
+-154 -42 -38 -82 -69 -89 -69 -10 0 -12 37 -8 175 4 171 4 175 -16 175 -12 0
+-43 -23 -71 -53z"/>
+<path d="M5930 5487 c-44 -41 -88 -83 -96 -95 -13 -19 -376 -338 -457 -402
+-18 -14 -83 -69 -146 -123 -63 -54 -127 -105 -142 -114 -48 -29 -48 -64 0 -81
+40 -14 94 -72 109 -118 25 -72 32 -502 30 -1731 -2 -1186 -2 -1212 17 -1233
+l19 -21 480 5 c311 3 483 9 490 16 17 17 -26 62 -92 95 -44 21 -66 39 -77 62
+-13 27 -15 262 -15 1906 0 1032 -3 1882 -6 1891 -11 28 -32 18 -114 -57z"/>
+<path d="M10820 5489 c-153 -8 -190 -15 -245 -49 -44 -27 -128 -119 -162 -177
+-50 -85 -240 -647 -259 -765 -10 -57 21 -51 73 16 24 30 71 78 105 108 147
+127 177 136 500 145 261 7 271 5 302 -56 20 -38 30 -120 22 -176 -8 -52 -48
+-102 -175 -218 -42 -39 -191 -179 -331 -312 -140 -133 -289 -272 -330 -310
+-118 -108 -218 -224 -253 -295 l-32 -65 -5 -655 c-3 -360 -2 -692 1 -738 8
+-103 40 -171 123 -260 63 -67 82 -79 161 -107 115 -40 443 -34 579 11 89 30
+212 171 258 296 11 32 26 57 32 55 6 -2 17 -23 24 -48 34 -119 49 -155 86
+-212 69 -104 56 -101 502 -104 456 -3 443 -7 341 92 -79 76 -94 102 -102 181
+-4 32 -8 781 -9 1664 -2 1260 -6 1614 -16 1645 -21 66 -90 177 -145 231 -86
+83 -115 93 -332 103 -213 11 -499 11 -713 0z m375 -2526 c0 -619 4 -578 -66
+-614 -75 -38 -198 -14 -231 44 -10 17 -13 112 -13 402 0 209 3 396 8 415 4 22
+28 57 63 95 133 141 219 225 229 222 7 -3 10 -189 10 -564z"/>
+<path d="M15025 5480 c-265 -10 -334 -32 -449 -145 -37 -37 -61 -72 -77 -112
+-23 -57 -23 -63 -28 -638 -3 -319 -6 -1052 -5 -1630 0 -1191 -6 -1100 85
+-1222 125 -167 122 -166 929 -161 587 3 596 3 649 25 132 54 245 169 321 328
+61 128 70 193 70 530 0 244 -2 295 -15 305 -20 16 -27 10 -81 -71 -64 -96
+-174 -206 -229 -230 -72 -32 -206 -42 -469 -35 -300 8 -308 10 -362 122 -26
+54 -37 92 -41 143 -10 125 0 139 392 521 105 102 226 216 270 255 44 38 109
+97 145 131 36 34 90 83 120 110 128 114 182 180 222 275 22 53 23 63 26 490 4
+521 -5 695 -41 771 -29 64 -102 142 -179 191 -55 35 -61 36 -195 46 -147 12
+-744 12 -1058 1z m527 -737 c62 -66 63 -68 60 -283 -4 -227 5 -203 -141 -373
+-86 -98 -139 -147 -161 -147 -7 0 -8 107 -4 353 6 348 7 352 31 394 32 57 86
+93 138 93 34 0 47 -6 77 -37z"/>
+<path d="M8016 1197 c-19 -14 -19 -17 -4 -83 12 -52 18 -149 22 -399 5 -322 2
+-375 -25 -442 -12 -29 -11 -35 4 -50 15 -15 36 -17 174 -14 134 2 162 6 199
+24 40 19 44 19 68 4 13 -9 45 -21 71 -27 55 -12 95 2 140 49 30 32 30 34 30
+144 0 124 -2 129 -95 257 -45 61 -55 106 -28 123 14 10 24 5 56 -26 47 -46 76
+-48 98 -6 12 25 18 29 25 18 5 -8 8 -126 7 -270 -3 -299 -5 -292 80 -287 90 5
+91 9 83 273 -4 121 -4 229 0 241 4 11 21 27 38 34 32 13 45 40 39 81 -3 22
+-28 40 -70 53 -15 4 -18 17 -18 68 0 35 5 90 10 123 12 73 6 95 -25 95 -40 0
+-69 -19 -95 -63 -34 -58 -40 -79 -47 -177 -3 -47 -7 -87 -9 -89 -2 -2 -9 8
+-15 22 -14 32 -53 46 -140 54 -85 7 -156 -15 -198 -62 -32 -37 -47 -89 -36
+-127 14 -46 77 -149 129 -211 60 -70 74 -101 56 -122 -20 -24 -57 -17 -93 15
+-19 17 -41 30 -49 30 -8 0 -31 -18 -52 -39 -80 -82 -126 -59 -126 63 0 90 14
+142 43 157 33 17 67 51 67 67 0 7 -18 31 -40 53 -42 42 -43 43 -60 162 -8 56
+-9 82 -1 91 17 20 246 41 296 27 44 -12 105 -14 130 -5 37 15 62 128 33 151
+-8 6 -132 13 -288 17 -151 4 -295 9 -320 12 -31 4 -51 1 -64 -9z"/>
+<path d="M350 1164 c-57 -10 -71 -15 -90 -34 -19 -19 -20 -35 -20 -364 0 -317
+1 -346 18 -366 29 -36 158 -43 652 -36 466 6 500 10 548 59 55 56 118 141 146
+194 9 18 27 40 40 48 21 14 327 16 2942 15 1606 0 2956 -3 3000 -7 74 -5 83
+-4 103 16 25 25 31 118 8 127 -24 9 -449 11 -3247 18 -1855 5 -2774 11 -2792
+18 -16 6 -34 26 -46 52 -29 60 -123 177 -169 209 -73 50 -77 51 -588 53 -264
+1 -491 0 -505 -2z m814 -100 c21 -8 20 -38 -1 -55 -13 -11 -82 -14 -365 -12
+-225 1 -355 6 -368 13 -22 12 -27 46 -7 53 18 8 722 8 741 1z m9 -198 c4 -6 6
+-20 5 -31 -3 -19 -12 -20 -345 -23 -188 -2 -357 1 -375 6 -36 9 -52 47 -26 64
+20 13 731 -2 741 -16z m-9 -182 c49 -49 13 -54 -372 -54 -374 0 -383 1 -367
+50 6 20 12 20 365 20 313 0 361 -2 374 -16z m32 -176 c14 -14 15 -20 4 -33
+-11 -13 -58 -15 -394 -13 -358 3 -381 4 -384 21 -10 49 -19 48 383 45 336 -3
+376 -5 391 -20z"/>
+<path d="M9405 1163 c-11 -3 -26 -10 -33 -16 -42 -34 -82 -188 -63 -240 9 -24
+15 -27 60 -27 48 0 70 12 129 68 20 19 32 5 32 -37 0 -26 -12 -58 -40 -104
+-22 -36 -40 -70 -40 -75 0 -4 -18 -32 -40 -62 -66 -88 -82 -145 -86 -300 -3
+-75 0 -141 5 -150 19 -28 338 -24 378 5 14 10 19 31 21 97 4 94 16 120 26 58
+8 -53 36 -108 71 -140 24 -22 35 -25 108 -25 181 0 207 61 207 486 0 165 4
+226 15 258 l14 42 -52 57 c-29 31 -59 67 -67 80 -34 52 -185 36 -253 -27 l-40
+-38 -8 -109 c-4 -60 -7 -202 -6 -317 l2 -207 -26 5 c-15 4 -49 -3 -80 -15 -64
+-24 -124 -26 -132 -5 -7 16 36 103 103 210 86 139 95 166 95 295 0 109 -1 117
+-28 158 -43 66 -77 82 -172 81 -44 -1 -89 -4 -100 -6z m562 -194 c8 -23 12
+-117 12 -281 1 -203 -2 -255 -15 -287 -17 -43 -40 -59 -48 -33 -8 30 -1 617 7
+630 13 20 31 9 44 -29z"/>
+<path d="M10365 1158 c-38 -21 -155 -130 -155 -144 0 -7 10 -33 23 -56 21 -41
+22 -55 25 -331 3 -242 1 -296 -13 -336 -26 -78 -18 -84 89 -78 50 2 99 8 109
+12 23 10 22 53 -3 80 -19 20 -20 37 -20 429 -1 224 -4 414 -7 422 -6 17 -21
+17 -48 2z"/>
+<path d="M10665 1153 c-88 -3 -132 -8 -137 -16 -12 -19 -10 -505 2 -512 6 -4
+39 3 75 14 35 12 70 18 78 15 19 -7 27 -49 27 -149 0 -69 -3 -85 -20 -100 -19
+-17 -21 -17 -65 24 -72 66 -115 52 -115 -38 0 -49 42 -132 85 -168 26 -23 36
+-25 90 -20 80 7 134 27 156 57 16 21 20 52 25 180 4 85 4 191 -1 234 -6 69
+-11 83 -35 108 -25 25 -36 28 -92 28 -35 0 -69 4 -77 9 -8 5 -16 32 -19 63 -6
+73 8 85 81 69 86 -20 128 -24 140 -12 7 7 10 46 8 103 -2 99 -12 120 -55 116
+-12 -1 -79 -4 -151 -5z"/>
+<path d="M17465 981 c-42 -20 -64 -39 -93 -81 l-38 -55 -200 -6 c-109 -4
+-1447 -7 -2973 -8 -2003 -1 -2780 -5 -2795 -13 -12 -6 -24 -16 -28 -22 -13
+-19 -9 -81 6 -102 14 -19 54 -19 2999 -15 l2985 3 19 -23 c74 -93 116 -128
+164 -138 65 -14 1167 -15 1203 -1 28 10 45 55 27 73 -7 7 -172 11 -549 13
+-526 2 -540 2 -580 23 -56 29 -66 50 -59 135 6 80 28 140 54 151 24 10 913 27
+1023 20 47 -4 93 -3 103 0 25 10 21 42 -7 60 -21 14 -92 16 -615 14 l-591 -1
+-55 -27z"/>
+<path d="M9020 379 c-22 -28 -43 -62 -46 -76 -9 -36 11 -72 51 -89 49 -20 83
+-10 93 30 9 31 1 135 -13 169 -13 31 -43 19 -85 -34z"/>
+</g>
+</svg></div>
+      <p class="hero-tag" data-i18n="hero_tag">An offer you can&rsquo;t refuse.</p>
+      <p class="hero-sub" data-i18n="hero_sub">One man. One fire. No compromise.</p>
+    </div>
+    <a href="#origin" class="scroll-cue" aria-label="Scroll to story">
+      <span data-i18n="enter">Enter</span><span class="dot"></span>
+    </a>
+  </section>
+
+  <!-- ============ MARQUEE ============ -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span data-i18n="marquee">Low&nbsp;&middot;&nbsp;Slow&nbsp;&middot;&nbsp;Smoke&nbsp;&middot;&nbsp;<em>The Grillfader</em>&nbsp;&middot;&nbsp;Est.&nbsp;2015&nbsp;&middot;&nbsp;An offer you can&rsquo;t refuse&nbsp;&middot;&nbsp;</span>
+      <span data-i18n="marquee">Low&nbsp;&middot;&nbsp;Slow&nbsp;&middot;&nbsp;Smoke&nbsp;&middot;&nbsp;<em>The Grillfader</em>&nbsp;&middot;&nbsp;Est.&nbsp;2015&nbsp;&middot;&nbsp;An offer you can&rsquo;t refuse&nbsp;&middot;&nbsp;</span>
+    </div>
+  </div>
+
+  <!-- ============ ORIGIN ============ -->
+  <section class="origin" id="origin" aria-labelledby="origin-t">
+    <div class="wrap">
+      <div class="origin-text">
+        <span class="kicker reveal" data-i18n="origin_kicker">The Origin</span>
+        <h2 class="section-title reveal d1" id="origin-t" data-i18n="origin_h2">Born on television.<br>Raised on fire.</h2>
+        <p class="lede reveal d2" data-i18n="origin_lede">In 2015, one appearance on TV4&rsquo;s <em style="color:var(--brass);font-style:italic">Grillmästarna</em> lit the spark. The Grillfader was born &mdash; one man, built on smoke, patience, and respect for the flame.</p>
+        <div class="tv-badge reveal d2" style="margin-top:1.4rem">
+          <svg viewBox="0 0 24 24" stroke-width="1.5"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M8 3l4 3 4-3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span data-i18n="tv_badge">As seen on TV4 · Grillmästarna</span>
+        </div>
+      </div>
+      <figure class="origin-photo reveal" aria-label="The Grillfader — the founder and pitmaster">
+        <video class="origin-cine" muted loop playsinline preload="none" data-lazy
+               poster="video/origin-cinemagraph-poster.jpg" aria-hidden="true">
+          <source data-src="video/origin-cinemagraph.mp4" type="video/mp4" />
+        </video>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ THE CRAFT (track record) ============ -->
+  <section class="craft" id="craft" aria-label="The craft and track record">
+    <span class="craft-bg" data-bg="images/craft-bg.jpg" aria-hidden="true"></span>
+    <canvas id="ember-craft" aria-hidden="true"></canvas>
+    <div class="wrap">
+      <span class="kicker reveal" data-i18n="craft_kicker">The Craft</span>
+      <h2 class="statement reveal d1" data-i18n="craft_statement">Low. Slow. <em>Smoke.</em></h2>
+      <div class="stats">
+        <div class="stat reveal"><div class="n" data-count="2015">2015</div><div class="l" data-i18n="stat_since">Firing since</div></div>
+        <div class="stat reveal"><div class="n" data-count="500" data-suffix="+">500&#43;</div><div class="l" data-i18n="stat_events">Events catered</div></div>
+        <div class="stat reveal"><div class="n" data-count="1">1</div><div class="l" data-i18n="stat_pitmaster">Pitmaster at the fire</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAMILY BUSINESS ============ -->
+  <section class="family" id="family" aria-labelledby="family-t">
+    <div class="wrap">
+      <div class="head">
+        <span class="kicker reveal" data-i18n="service_kicker">The Service</span>
+        <h2 class="section-title reveal d1" id="family-t" data-i18n="service_h2">I don&rsquo;t cater parties.<br>I run them.</h2>
+      </div>
+      <div class="cards">
+        <article class="card reveal">
+          <span class="card-bg" data-bg="images/tiles/tile-weddings.jpg"></span>
+          <span class="no">01</span>
+          <h3 class="label" data-i18n="tile_weddings">Weddings</h3>
+          <div class="body">
+            <span class="tag" data-i18n="tag_weddings">Plated or shared</span>
+            <p class="desc" data-i18n="desc_weddings">The day they remember, smoked over open flame and served with quiet precision.</p>
+            <a class="explore" href="#offer"><span data-i18n="explore">Explore</span> <svg viewBox="0 0 24 24" stroke-width="1.7"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+        </article>
+        <article class="card reveal">
+          <span class="card-bg" data-bg="images/tiles/tile-corporate.jpg"></span>
+          <span class="no">02</span>
+          <h3 class="label" data-i18n="tile_corporate">Corporate</h3>
+          <div class="body">
+            <span class="tag" data-i18n="tag_corporate">Turn-key</span>
+            <p class="desc" data-i18n="desc_corporate">Conferences, launches, summer staff feasts &mdash; fire that makes the company look generous.</p>
+            <a class="explore" href="#offer"><span data-i18n="explore">Explore</span> <svg viewBox="0 0 24 24" stroke-width="1.7"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+        </article>
+        <article class="card reveal">
+          <span class="card-bg" data-bg="images/tiles/tile-private.jpg"></span>
+          <span class="no">03</span>
+          <h3 class="label" data-i18n="tile_private">Private Feasts</h3>
+          <div class="body">
+            <span class="tag" data-i18n="tag_private">At your address</span>
+            <p class="desc" data-i18n="desc_private">Birthdays, anniversaries, the gathering with no excuse needed. We bring the grill to you.</p>
+            <a class="explore" href="#offer"><span data-i18n="explore">Explore</span> <svg viewBox="0 0 24 24" stroke-width="1.7"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+        </article>
+        <article class="card reveal">
+          <span class="card-bg" data-bg="images/tiles/tile-festivals.jpg"></span>
+          <span class="no">04</span>
+          <h3 class="label" data-i18n="tile_festivals">Festivals &amp; Pop-ups</h3>
+          <div class="body">
+            <span class="tag" data-i18n="tag_festivals">High volume</span>
+            <p class="desc" data-i18n="desc_festivals">No compromise. The Grillfader cart, working a crowd from first coal to last call.</p>
+            <a class="explore" href="#offer"><span data-i18n="explore">Explore</span> <svg viewBox="0 0 24 24" stroke-width="1.7"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap"><div class="rule"></div></div>
+
+  <!-- ============ THE SPREAD ============ -->
+  <section class="spread" id="spread" aria-labelledby="spread-t">
+    <div class="wrap">
+      <div class="head">
+        <span class="kicker reveal" data-i18n="spread_kicker">The Spread</span>
+        <h2 class="section-title reveal d1" id="spread-t" data-i18n="spread_h2">The menu is an offer.</h2>
+      </div>
+      <div class="menu">
+        <div class="dish reveal"><span class="dish-bg" data-bg="images/dishes/brisket.jpg"></span><span class="num">01</span><div class="dish-main"><span class="name" data-i18n="dish_brisket">Brisket</span><span class="note" data-i18n="note_brisket">Sixteen hours. One bark.</span></div></div>
+        <div class="dish reveal"><span class="dish-bg" data-bg="images/dishes/short-ribs.jpg"></span><span class="num">02</span><div class="dish-main"><span class="name" data-i18n="dish_ribs">Short Ribs</span><span class="note" data-i18n="note_ribs">Off the bone. Onto the table.</span></div></div>
+        <div class="dish reveal"><span class="dish-bg" data-bg="images/dishes/chicken.jpg"></span><span class="num">03</span><div class="dish-main"><span class="name" data-i18n="dish_chicken">Flame-Grilled Chicken</span><span class="note" data-i18n="note_chicken">Charred skin. Honest heat.</span></div></div>
+        <div class="dish reveal"><span class="dish-bg" data-bg="images/dishes/sides.jpg"></span><span class="num">04</span><div class="dish-main"><span class="name" data-i18n="dish_sides">The Sides</span><span class="note" data-i18n="note_sides">Slaw, beans, cornbread. Respect.</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ THE OFFER ============ -->
+  <section class="offer" id="offer" aria-labelledby="offer-t">
+    <canvas id="ember-offer" aria-hidden="true"></canvas>
+    <div class="wrap">
+      <span class="kicker reveal" data-i18n="offer_kicker">Bookings</span>
+      <h2 class="statement reveal d1" id="offer-t" data-i18n="offer_h2">Book the <em>Grillfader.</em></h2>
+      <p class="lede reveal d2" data-i18n="offer_lede">Name the date. I bring the fire.</p>
+
+      <form id="bookForm" class="book-simple" novalidate>
+        <input id="f-name" name="name" type="text" autocomplete="name" placeholder="Your name" data-i18n-ph="name_ph" required class="book-name reveal" />
+        <div class="book-row reveal">
+          <div class="field field-date">
+            <label for="dateTrigger" data-i18n="label_date">Date</label>
+            <button type="button" class="date-trigger" id="dateTrigger" aria-haspopup="dialog" aria-expanded="false">
+              <span id="dateLabel" data-i18n="date_pick">Pick a date</span>
+              <svg viewBox="0 0 24 24" stroke-width="1.5" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4" stroke-linecap="round"/></svg>
+            </button>
+            <input type="hidden" id="f-date" name="date" />
+            <div class="calendar" id="calendar" role="dialog" aria-label="Choose a date" hidden>
+              <div class="cal-head">
+                <button type="button" class="cal-nav" id="calPrev" aria-label="Previous month">&lsaquo;</button>
+                <span class="cal-title" id="calTitle"></span>
+                <button type="button" class="cal-nav" id="calNext" aria-label="Next month">&rsaquo;</button>
+              </div>
+              <div class="cal-dow"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+              <div class="cal-grid" id="calGrid"></div>
+            </div>
+          </div>
+          <div class="field">
+            <label data-i18n="label_guests">Guests</label>
+            <div class="guests">
+              <button type="button" class="g-btn" id="gMinus" aria-label="Fewer guests">&minus;</button>
+              <div class="g-display"><span class="g-num" id="gNum">50</span><span class="g-tier" id="gTier">Party</span></div>
+              <button type="button" class="g-btn" id="gPlus" aria-label="More guests">&plus;</button>
+            </div>
+            <input type="hidden" id="f-guests" name="guests" value="50" />
+          </div>
+        </div>
+        <button type="submit" class="submit reveal">
+          <span data-i18n="submit">Send the Offer</span>
+          <svg viewBox="0 0 24 24" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </form>
+
+      <div class="contact-line reveal">
+        <a href="tel:+460000000000">+46 (0)00 000 00 00</a>
+        <span class="sep">&middot;</span>
+        <a href="mailto:hello@thegrillfader.se">hello@thegrillfader.se</a>
+        <span class="socials">
+          <a href="https://www.instagram.com/thegrillfader/" target="_blank" rel="noopener" aria-label="The Grillfader on Instagram"><svg viewBox="0 0 24 24" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+          <a href="https://www.youtube.com/@thegrillfader4164" target="_blank" rel="noopener" aria-label="The Grillfader on YouTube"><svg viewBox="0 0 24 24" stroke-width="1.5"><rect x="2.5" y="6" width="19" height="12" rx="3.5"/><path d="M10.5 9.3v5.4l4.5-2.7z" fill="currentColor" stroke="none"/></svg></a>
+        </span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <video id="footer-fire" class="footer-fire" muted loop playsinline preload="none" data-lazy
+         poster="video/footer-fire-poster.jpg" aria-hidden="true">
+    <source data-src="video/footer-fire.mp4" type="video/mp4" />
+  </video>
+  <div class="flogo reveal"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1902.000000 1153.000000" aria-hidden="true" focusable="false" fill="currentColor"><title>The Grillfader</title>
+<g transform="translate(0.000000,1153.000000) scale(0.100000,-0.100000)"
+fill="currentColor" stroke="none">
+<path d="M2330 11318 c-2115 -7 -2107 -7 -2119 -26 -4 -7 -6 -284 -3 -615 3
+-458 7 -605 16 -615 19 -19 32 2 52 79 39 159 145 314 259 379 65 37 160 62
+222 58 l48 -3 5 -1715 c3 -943 2 -1773 -1 -1845 -5 -96 -12 -144 -28 -185 -27
+-70 -117 -172 -188 -212 -60 -34 -82 -62 -57 -72 21 -8 834 -8 1107 1 245 7
+255 11 161 67 -58 35 -158 124 -192 173 -19 27 -25 52 -32 150 -11 148 -16
+3592 -6 3616 8 16 33 17 319 17 l310 0 51 -48 c28 -27 58 -51 66 -54 13 -4 16
+-184 22 -1419 4 -778 4 -1654 2 -1947 -4 -401 -2 -537 7 -548 17 -21 837 -21
+845 0 9 24 -11 50 -74 95 l-59 43 -7 106 c-3 58 -6 584 -6 1170 0 1168 -4
+1096 60 1157 73 70 202 34 230 -64 6 -23 10 -479 10 -1265 0 -896 3 -1233 11
+-1242 9 -11 86 -14 405 -14 l394 0 0 25 c0 14 -10 33 -22 43 -12 9 -42 35 -67
+58 l-44 41 -8 104 c-4 57 -8 644 -9 1304 -1 660 -5 1235 -9 1277 -16 149 -121
+297 -256 360 -61 28 -82 33 -171 36 -176 7 -334 -46 -421 -142 -50 -54 -88
+-82 -96 -69 -7 13 -9 957 -2 976 7 16 30 17 289 17 224 0 287 3 308 14 16 8
+54 43 85 77 32 34 90 89 128 122 39 33 121 108 183 166 63 58 173 156 245 216
+128 108 157 138 145 150 -10 10 -118 10 -2108 3z"/>
+<path d="M4481 9727 c-47 -9 -63 -19 -112 -68 -72 -72 -87 -100 -99 -191 -6
+-47 -6 -538 -1 -1363 9 -1386 7 -1343 59 -1427 31 -50 92 -105 137 -124 63
+-26 231 -32 710 -25 501 8 475 4 581 98 54 47 73 72 109 147 59 123 73 211 77
+496 3 203 1 225 -14 228 -11 2 -30 -17 -56 -55 -58 -85 -160 -179 -208 -191
+-77 -20 -242 -30 -390 -24 -145 7 -152 8 -187 35 -46 35 -62 65 -76 142 -17
+89 -14 165 7 200 28 46 69 85 557 539 239 222 317 310 336 378 7 28 9 190 7
+512 -4 544 0 518 -106 624 -50 50 -69 62 -111 71 -68 14 -1143 13 -1220 -2z
+m690 -560 c59 -39 69 -73 69 -238 l0 -146 -29 -39 c-58 -76 -218 -259 -227
+-259 -10 0 -27 502 -20 579 6 56 25 82 81 107 54 24 86 23 126 -4z"/>
+<path d="M735 6080 c-144 -16 -257 -78 -368 -200 -70 -78 -94 -120 -131 -230
+l-29 -84 1 -2341 c1 -1487 5 -2366 11 -2410 28 -198 144 -368 319 -469 114
+-66 101 -65 965 -66 l777 0 38 -24 c41 -26 123 -110 166 -169 27 -36 56 -49
+56 -24 4 135 -3 1842 -10 2806 -9 1115 -12 1277 -25 1298 l-15 23 -513 0
+c-535 0 -557 -2 -542 -42 3 -8 23 -23 44 -33 62 -28 115 -84 134 -142 16 -48
+17 -164 20 -1360 l2 -1308 -28 -48 c-30 -51 -79 -88 -142 -107 -22 -7 -49 -16
+-60 -20 -56 -20 -185 61 -227 144 -19 36 -22 65 -29 251 -4 116 -9 955 -10
+1865 -2 1827 -7 1696 60 1753 18 15 42 28 54 28 12 1 429 3 927 4 498 1 1028
+2 1178 3 l273 2 77 73 c216 202 759 693 862 777 27 23 41 40 36 48 -5 9 -438
+12 -1909 11 -1046 -1 -1929 -5 -1962 -9z"/>
+<path d="M14123 6067 c-12 -7 -75 -59 -140 -117 -65 -58 -147 -130 -183 -160
+-36 -30 -126 -109 -200 -175 -74 -66 -206 -182 -292 -259 -87 -76 -158 -144
+-158 -152 0 -8 13 -22 30 -32 38 -23 88 -92 114 -157 19 -47 20 -73 21 -438 0
+-214 -2 -393 -5 -397 -3 -5 -176 -10 -385 -12 -433 -3 -409 1 -525 -94 -82
+-68 -124 -123 -151 -201 -20 -57 -20 -79 -19 -1568 0 -961 4 -1545 11 -1605
+16 -147 59 -249 142 -338 101 -106 189 -135 412 -134 271 0 388 66 488 274 27
+57 48 88 58 88 17 0 29 -27 29 -65 0 -24 62 -147 96 -193 46 -60 69 -66 264
+-64 96 0 267 3 379 6 112 3 210 6 218 6 26 0 12 29 -29 59 -54 40 -114 113
+-130 159 -10 30 -13 593 -15 2806 -1 1523 -4 2770 -6 2772 -1 2 -12 -2 -24 -9z
+m-887 -2639 c38 -26 69 -74 84 -129 18 -66 20 -2230 2 -2252 -21 -25 -101 -58
+-142 -59 -51 -1 -89 24 -125 80 l-30 47 0 1075 c0 591 4 1093 8 1114 11 48 60
+112 107 137 38 20 50 18 96 -13z"/>
+<path d="M9295 6060 c-99 -4 -197 -12 -218 -19 -23 -7 -67 -41 -116 -89 -63
+-62 -81 -87 -93 -127 -9 -27 -21 -69 -28 -91 -10 -33 -10 -458 -1 -2070 6
+-1116 9 -2332 6 -2703 -4 -488 -2 -678 6 -688 9 -10 102 -13 498 -13 276 0
+492 4 500 9 23 15 -1 57 -46 80 -21 10 -56 35 -79 55 l-41 35 -5 1188 c-3 653
+-3 1328 0 1498 l7 310 145 0 c143 0 181 7 202 39 5 6 24 54 44 106 20 52 53
+138 74 190 21 52 50 129 65 170 15 41 40 99 56 127 33 59 36 88 13 97 -9 3
+-143 6 -299 6 -251 0 -284 2 -296 17 -12 13 -14 116 -14 572 0 640 -6 599 91
+627 54 15 56 15 101 -8 91 -45 88 -26 91 -469 2 -300 5 -389 15 -389 19 0 677
+660 683 686 3 12 4 152 2 311 -4 244 -7 295 -22 336 -25 66 -103 148 -173 183
+l-58 28 -465 1 c-256 1 -546 -2 -645 -5z"/>
+<path d="M8494 5993 c-43 -37 -103 -91 -134 -119 -30 -27 -71 -63 -91 -80 -79
+-64 -281 -245 -413 -369 -76 -71 -163 -152 -192 -180 -56 -51 -67 -81 -36 -92
+65 -24 125 -120 136 -219 8 -72 15 -1519 16 -3181 0 -1315 2 -1463 16 -1477
+14 -14 71 -16 480 -16 404 0 465 2 470 15 12 30 -7 63 -58 101 -29 21 -60 54
+-71 71 -18 32 -19 116 -24 2815 -3 1531 -9 2787 -13 2791 -4 5 -43 -22 -86
+-60z"/>
+<path d="M7270 6023 c-33 -23 -154 -129 -331 -289 -79 -73 -232 -209 -339
+-303 -107 -94 -210 -184 -227 -199 -47 -42 -45 -49 27 -95 49 -31 86 -112 100
+-214 7 -56 11 -782 11 -2344 0 -1304 4 -2272 10 -2285 l9 -24 494 0 c447 0
+494 2 500 16 9 23 -6 38 -72 74 -31 18 -69 45 -83 60 l-26 29 -7 1043 c-4 574
+-8 1140 -9 1258 -1 118 0 899 1 1735 1 836 2 1528 2 1538 0 22 -28 22 -60 0z"/>
+<path d="M5550 5113 c-14 -2 -54 -14 -90 -26 -110 -36 -222 -162 -256 -289 -8
+-30 -14 -100 -14 -164 0 -113 16 -179 65 -275 23 -44 125 -149 164 -168 58
+-29 142 -44 222 -39 167 8 322 131 391 310 31 80 30 256 -2 358 -65 208 -265
+330 -480 293z"/>
+<path d="M3578 4183 c-75 -65 -173 -149 -219 -188 -45 -38 -141 -125 -212
+-193 -72 -68 -175 -162 -230 -210 -174 -151 -179 -156 -172 -174 4 -9 26 -29
+50 -43 30 -17 54 -43 77 -82 l33 -58 3 -1465 c2 -1148 5 -1467 15 -1477 9 -9
+124 -13 437 -18 234 -3 457 -8 495 -10 113 -8 140 34 49 77 -50 23 -109 85
+-130 133 -11 28 -14 264 -14 1434 -1 1554 -6 1430 67 1490 59 49 95 57 146 32
+51 -25 82 -63 99 -123 8 -29 13 -193 17 -505 5 -364 9 -465 19 -475 11 -11 27
+2 90 72 91 100 208 217 357 355 59 55 153 143 209 196 l101 97 3 351 c4 381 0
+422 -48 518 -61 122 -156 208 -271 245 -90 29 -296 36 -402 14 -120 -25 -279
+-108 -351 -185 -53 -55 -55 -48 -49 139 6 165 5 170 -14 170 -11 0 -81 -53
+-155 -117z"/>
+<path d="M17585 4247 c-47 -50 -143 -136 -365 -327 -186 -160 -226 -196 -315
+-281 -49 -48 -119 -112 -154 -142 -36 -31 -68 -63 -73 -71 -9 -17 12 -42 66
+-79 15 -10 39 -44 53 -75 l27 -57 7 -435 c3 -239 5 -897 2 -1462 -3 -771 -2
+-1032 7 -1048 l12 -22 391 7 c216 4 437 8 492 9 87 1 100 3 103 19 2 11 -8 23
+-30 35 -18 9 -54 38 -81 65 l-47 47 2 1443 c2 1060 6 1449 14 1467 7 14 27 42
+46 64 29 34 40 39 87 44 40 4 63 0 87 -13 38 -20 80 -76 94 -126 6 -19 13
+-236 16 -484 3 -247 7 -460 10 -472 2 -13 10 -23 16 -23 11 0 140 125 584 565
+166 163 172 172 179 219 4 27 5 202 3 390 -6 390 -9 408 -96 514 -63 78 -85
+95 -181 144 l-83 43 -142 5 c-156 6 -210 -1 -306 -37 -90 -34 -152 -74 -241
+-154 -42 -38 -82 -69 -89 -69 -10 0 -12 37 -8 175 4 171 4 175 -16 175 -12 0
+-43 -23 -71 -53z"/>
+<path d="M5930 4177 c-44 -41 -88 -83 -96 -95 -13 -19 -376 -338 -457 -402
+-18 -14 -83 -69 -146 -123 -63 -54 -127 -105 -142 -114 -48 -29 -48 -64 0 -81
+40 -14 94 -72 109 -118 25 -72 32 -502 30 -1731 -2 -1186 -2 -1212 17 -1233
+l19 -21 480 5 c311 3 483 9 490 16 17 17 -26 62 -92 95 -44 21 -66 39 -77 62
+-13 27 -15 262 -15 1906 0 1032 -3 1882 -6 1891 -11 28 -32 18 -114 -57z"/>
+<path d="M10820 4179 c-153 -8 -190 -15 -245 -49 -44 -27 -128 -119 -162 -177
+-50 -85 -240 -647 -259 -765 -10 -57 21 -51 73 16 24 30 71 78 105 108 147
+127 177 136 500 145 261 7 271 5 302 -56 20 -38 30 -120 22 -176 -8 -52 -48
+-102 -175 -218 -42 -39 -191 -179 -331 -312 -140 -133 -289 -272 -330 -310
+-118 -108 -218 -224 -253 -295 l-32 -65 -5 -655 c-3 -360 -2 -692 1 -738 8
+-103 40 -171 123 -260 63 -67 82 -79 161 -107 115 -40 443 -34 579 11 89 30
+212 171 258 296 11 32 26 57 32 55 6 -2 17 -23 24 -48 34 -119 49 -155 86
+-212 69 -104 56 -101 502 -104 456 -3 443 -7 341 92 -79 76 -94 102 -102 181
+-4 32 -8 781 -9 1664 -2 1260 -6 1614 -16 1645 -21 66 -90 177 -145 231 -86
+83 -115 93 -332 103 -213 11 -499 11 -713 0z m375 -2526 c0 -619 4 -578 -66
+-614 -75 -38 -198 -14 -231 44 -10 17 -13 112 -13 402 0 209 3 396 8 415 4 22
+28 57 63 95 133 141 219 225 229 222 7 -3 10 -189 10 -564z"/>
+<path d="M15025 4170 c-265 -10 -334 -32 -449 -145 -37 -37 -61 -72 -77 -112
+-23 -57 -23 -63 -28 -638 -3 -319 -6 -1052 -5 -1630 0 -1191 -6 -1100 85
+-1222 125 -167 122 -166 929 -161 587 3 596 3 649 25 132 54 245 169 321 328
+61 128 70 193 70 530 0 244 -2 295 -15 305 -20 16 -27 10 -81 -71 -64 -96
+-174 -206 -229 -230 -72 -32 -206 -42 -469 -35 -300 8 -308 10 -362 122 -26
+54 -37 92 -41 143 -10 125 0 139 392 521 105 102 226 216 270 255 44 38 109
+97 145 131 36 34 90 83 120 110 128 114 182 180 222 275 22 53 23 63 26 490 4
+521 -5 695 -41 771 -29 64 -102 142 -179 191 -55 35 -61 36 -195 46 -147 12
+-744 12 -1058 1z m527 -737 c62 -66 63 -68 60 -283 -4 -227 5 -203 -141 -373
+-86 -98 -139 -147 -161 -147 -7 0 -8 107 -4 353 6 348 7 352 31 394 32 57 86
+93 138 93 34 0 47 -6 77 -37z"/>
+</g>
+</svg></div>
+  <p class="ft reveal" data-i18n="footer_ft">An offer you can&rsquo;t refuse.</p>
+  <p class="meta reveal" data-i18n="footer_meta">&copy; 2015&ndash;2026 The Grillfader · Grill &amp; BBQ Catering · Sweden &middot; <a href="#top">Back to top</a></p>
+</footer>
+
+<script>
+(() => {
+  'use strict';
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const finePointer = window.matchMedia('(pointer: fine)').matches;
+
+  /* ---------- i18n (English / Svenska) ---------- */
+  const GF = { lang: 'en' };
+  const I18N = {
+    nav_origin:{en:`The Origin`,sv:`Historien`},
+    nav_catering:{en:`Catering`,sv:`Catering`},
+    nav_spread:{en:`The Spread`,sv:`Maten`},
+    nav_cta:{en:`Make an Offer`,sv:`Boka`},
+    est:{en:`EST. 2015 · SWEDEN`,sv:`SEDAN 2015 · SVERIGE`},
+    hero_kicker:{en:`Sweden · Grill &amp; BBQ Catering`,sv:`Sverige · Grill &amp; BBQ-catering`},
+    hero_tag:{en:`An offer you can&rsquo;t refuse.`,sv:`Ett bud du inte tackar nej till.`},
+    hero_sub:{en:`One man. One fire. No compromise.`,sv:`En man. En eld. Hela ditt kalas.`},
+    enter:{en:`Enter`,sv:`Stig in`},
+    origin_kicker:{en:`The Origin`,sv:`Historien`},
+    origin_h2:{en:`Born on television.<br>Raised on fire.`,sv:`Det började framför kameran.<br>Det fortsatte vid elden.`},
+    origin_lede:{en:`In 2015, one appearance on TV4&rsquo;s <em style="color:var(--brass);font-style:italic">Grillmästarna</em> lit the spark. The Grillfader was born &mdash; one man, built on smoke, patience, and respect for the flame.`,sv:`2015 ställde sig en man framför hela grill-Sverige i TV4:s <em style="color:var(--brass);font-style:italic">Grillmästarna</em>. Sedan dess har The Grillfader gjort en enda sak &mdash; och gjort den bättre än de flesta: kött, rök och eld, utan genvägar.`},
+    tv_badge:{en:`As seen on TV4 · Grillmästarna`,sv:`Känd från TV4 · Grillmästarna`},
+    craft_kicker:{en:`The Craft`,sv:`Hantverket`},
+    craft_statement:{en:`Low. Slow. <em>Smoke.</em>`,sv:`Lågt. Långsamt. <em>Rök.</em>`},
+    stat_since:{en:`Firing since`,sv:`Vid elden sedan`},
+    stat_events:{en:`Events catered`,sv:`Genomförda event`},
+    stat_pitmaster:{en:`Pitmaster at the fire`,sv:`Grillmästare vid elden`},
+    service_kicker:{en:`The Service`,sv:`Uppdraget`},
+    service_h2:{en:`I don&rsquo;t cater parties.<br>I run them.`,sv:`Andra levererar mat.<br>Jag levererar kvällen.`},
+    tile_weddings:{en:`Weddings`,sv:`Bröllop`},
+    tile_corporate:{en:`Corporate`,sv:`Företag`},
+    tile_private:{en:`Private Feasts`,sv:`Privata kalas`},
+    tile_festivals:{en:`Festivals &amp; Pop-ups`,sv:`Festivaler &amp; pop-ups`},
+    tag_weddings:{en:`Plated or shared`,sv:`Uppdukat eller delat`},
+    tag_corporate:{en:`Turn-key`,sv:`Nyckelfärdigt`},
+    tag_private:{en:`At your address`,sv:`Hos dig`},
+    tag_festivals:{en:`High volume`,sv:`Stora sällskap`},
+    desc_weddings:{en:`The day they remember, smoked over open flame and served with quiet precision.`,sv:`Dagen ni minns hela livet. Rökt över öppen låga, serverad med lugn hand.`},
+    desc_corporate:{en:`Conferences, launches, summer staff feasts &mdash; fire that makes the company look generous.`,sv:`Kickoff, lansering eller personalfest &mdash; elden som får företaget att framstå som generöst.`},
+    desc_private:{en:`Birthdays, anniversaries, the gathering with no excuse needed. We bring the grill to you.`,sv:`Födelsedag, jubileum, eller bara för att. Jag rullar in grillen på din gård.`},
+    desc_festivals:{en:`No compromise. The Grillfader cart, working a crowd from first coal to last call.`,sv:`Höga volymer, noll kompromisser. The Grillfader-vagnen matar massorna från första kolet till sista beställningen.`},
+    explore:{en:`Explore`,sv:`Läs mer`},
+    spread_kicker:{en:`The Spread`,sv:`Maten`},
+    spread_h2:{en:`Catering, straight off the fire.`,sv:`Catering, rakt från elden.`},
+    dish_brisket:{en:`Brisket`,sv:`Brisket`},
+    note_brisket:{en:`Sixteen hours. One bark.`,sv:`Sexton timmar i röken. Perfekt bark.`},
+    dish_ribs:{en:`Short Ribs`,sv:`Revben`},
+    note_ribs:{en:`Off the bone. Onto the table.`,sv:`Lossnar från benet. Rakt ner på bordet.`},
+    dish_chicken:{en:`Flame-Grilled Chicken`,sv:`Flamgrillad kyckling`},
+    note_chicken:{en:`Charred skin. Honest heat.`,sv:`Bränt, krispigt skinn. Ärlig hetta.`},
+    dish_sides:{en:`The Sides`,sv:`Tillbehören`},
+    note_sides:{en:`Slaw, beans, cornbread. Respect.`,sv:`Coleslaw, bönor, majsbröd. Respekt.`},
+    offer_kicker:{en:`Bookings`,sv:`Boka`},
+    offer_h2:{en:`Book the <em>Grillfader.</em>`,sv:`Boka <em>Grillfadern.</em>`},
+    offer_lede:{en:`Name the date. I bring the fire.`,sv:`Säg när. Jag tar med elden.`},
+    name_ph:{en:`Your name`,sv:`Ditt namn`},
+    label_date:{en:`Date`,sv:`Datum`},
+    date_pick:{en:`Pick a date`,sv:`Välj datum`},
+    label_guests:{en:`Guests`,sv:`Gäster`},
+    submit:{en:`Send the Offer`,sv:`Skicka förfrågan`},
+    footer_ft:{en:`An offer you can&rsquo;t refuse.`,sv:`Ett bud du inte tackar nej till.`},
+    footer_meta:{en:`&copy; 2015&ndash;2026 The Grillfader · Grill &amp; BBQ Catering · Sweden &middot; <a href="#top">Back to top</a>`,sv:`&copy; 2015&ndash;2026 The Grillfader · Grill &amp; BBQ-catering · Sverige &middot; <a href="#top">Till toppen</a>`},
+    book_fab:{en:`Book the Grillfader`,sv:`Boka Grillfadern`},
+    marquee:{en:`Low&nbsp;&middot;&nbsp;Slow&nbsp;&middot;&nbsp;Smoke&nbsp;&middot;&nbsp;<em>The Grillfader</em>&nbsp;&middot;&nbsp;Est.&nbsp;2015&nbsp;&middot;&nbsp;An offer you can&rsquo;t refuse&nbsp;&middot;&nbsp;`,sv:`Lågt&nbsp;och&nbsp;långsamt&nbsp;&middot;&nbsp;Eld&nbsp;och&nbsp;rök&nbsp;&middot;&nbsp;<em>The Grillfader</em>&nbsp;&middot;&nbsp;Sedan&nbsp;2015&nbsp;&middot;&nbsp;Elden&nbsp;slocknar&nbsp;aldrig&nbsp;&middot;&nbsp;`}
+  };
+  const MONTHS = { en:['January','February','March','April','May','June','July','August','September','October','November','December'],
+                   sv:['Januari','Februari','Mars','April','Maj','Juni','Juli','Augusti','September','Oktober','November','December'] };
+  const TIERS = { en:['Intimate','Party','Feast','Festival'], sv:['Intimt','Fest','Kalas','Festival'] };
+  const tierFor = (v) => { const t = TIERS[GF.lang]; return v<=15?t[0]:v<=50?t[1]:v<=150?t[2]:t[3]; };
+  const langCallbacks = [];
+  const applyLang = (l) => {
+    GF.lang = (l === 'sv') ? 'sv' : 'en';
+    document.documentElement.lang = GF.lang;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const t = I18N[el.getAttribute('data-i18n')];
+      if (t && t[GF.lang] != null) el.innerHTML = t[GF.lang];
+    });
+    document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+      const t = I18N[el.getAttribute('data-i18n-ph')];
+      if (t && t[GF.lang] != null) el.placeholder = t[GF.lang];
+    });
+    document.querySelectorAll('#lang button').forEach(b => b.classList.toggle('active', b.dataset.lang === GF.lang));
+    try { localStorage.setItem('gf_lang', GF.lang); } catch(_) {}
+    langCallbacks.forEach(fn => { try { fn(); } catch(_) {} });
+  };
+
+  /* ---------- NAV scroll state ---------- */
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 40);
+  onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+
+  /* ---------- mobile menu ---------- */
+  const toggle = document.getElementById('navToggle');
+  const menu = document.getElementById('mobileMenu');
+  const setMenu = (open) => {
+    menu.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', open);
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    document.body.style.overflow = open ? 'hidden' : '';
+  };
+  toggle.addEventListener('click', () => setMenu(!menu.classList.contains('open')));
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+
+  /* ---------- scroll reveal (progressive enhancement) ---------- */
+  const reveals = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+  if (!reduce) {
+    // opt in to entrance + reveal animations only now that JS is confirmed alive
+    document.documentElement.classList.add('reveal-anim');
+    document.documentElement.classList.add('hero-anim');
+    let ticking = false;
+    // Re-triggering, bidirectional reveal:
+    //  - scrolling down: element enters from below -> rises up into place
+    //  - scrolling up:   element enters from above -> descends into place
+    //  - it re-hides once its centre clears the viewport, so it animates EVERY pass.
+    // Hysteresis (reveal band 15-85%, hide bands beyond 5%/95%) prevents flicker.
+    const update = () => {
+      ticking = false;
+      const vh = window.innerHeight || document.documentElement.clientHeight;
+      const justIn = [];
+      for (let i = 0; i < reveals.length; i++) {
+        const el = reveals[i];
+        const r = el.getBoundingClientRect();
+        const center = r.top + r.height / 2;
+        let state = el._rev;
+        if (center > vh * 0.95) state = 'below';
+        else if (center < vh * 0.05) state = 'above';
+        else if (center > vh * 0.15 && center < vh * 0.85) state = 'in';
+        if (!state) state = center > vh * 0.5 ? 'below' : 'above';   // first-run dead-zone default
+        if (state !== el._rev) {
+          el._rev = state;
+          if (state === 'in') justIn.push(el);
+          else el.style.transitionDelay = '0s';
+          el.classList.toggle('in', state === 'in');
+          el.classList.toggle('above', state === 'above');
+        }
+      }
+      // stagger items entering together (the 4 tiles, stat rows, etc.) so they cascade
+      justIn.forEach((el, idx) => { el.style.transitionDelay = (Math.min(idx, 7) * 0.12) + 's'; });
+    };
+    const onScroll = () => { if (!ticking){ ticking = true; requestAnimationFrame(update); } };
+    window.addEventListener('scroll', onScroll, {passive:true});
+    window.addEventListener('resize', onScroll, {passive:true});
+    window.addEventListener('load', update);
+    update();
+    setTimeout(update, 350);  // re-check after fonts/layout settle
+  }
+
+  /* ---------- cursor ambient glow + hero parallax ---------- */
+  const glow = document.getElementById('glow');
+  const heroInner = document.getElementById('heroInner');
+  if (finePointer && !reduce) {
+    let gx = innerWidth/2, gy = innerHeight/2, cx = gx, cy = gy;
+    window.addEventListener('pointermove', (e) => {
+      gx = e.clientX; gy = e.clientY; glow.style.opacity = '1';
+      // subtle hero parallax
+      const dx = (e.clientX/innerWidth - .5), dy = (e.clientY/innerHeight - .5);
+      if (heroInner) heroInner.style.transform = `translate(${dx*-14}px, ${dy*-10}px)`;
+    });
+    (function follow(){
+      cx += (gx-cx)*0.12; cy += (gy-cy)*0.12;
+      glow.style.transform = `translate(${cx}px, ${cy}px)`;
+      requestAnimationFrame(follow);
+    })();
+  }
+
+  /* ---------- ember particle field (hero + offer), cursor-reactive ---------- */
+  function emberField(canvas){
+    if (!canvas || reduce) return;
+    const ctx = canvas.getContext('2d');
+    let w, h, dpr, parts = [];
+    const COL = ['#E8772E','#B08D57','#5E1414','#F0A35A'];
+    const mouse = {x:-9999, y:-9999, active:false};
+
+    function resize(){
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = canvas.clientWidth; h = canvas.clientHeight;
+      canvas.width = w*dpr; canvas.height = h*dpr;
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+      const target = Math.round(Math.min(90, (w*h)/12000));
+      parts = Array.from({length:target}, spawn);
+    }
+    function spawn(){
+      return {
+        x: Math.random()*w,
+        y: h + Math.random()*h*0.4,
+        r: Math.random()*2.2 + 0.6,
+        vy: -(Math.random()*0.6 + 0.25),
+        vx: (Math.random()-0.5)*0.3,
+        life: Math.random(),
+        flick: Math.random()*0.04 + 0.01,
+        c: COL[(Math.random()*COL.length)|0]
+      };
+    }
+    function step(){
+      ctx.clearRect(0,0,w,h);
+      for (const p of parts){
+        // rise + drift
+        p.x += p.vx; p.y += p.vy; p.life += p.flick;
+        // cursor draft: embers swirl toward the pointer
+        if (mouse.active){
+          const dx = mouse.x - p.x, dy = mouse.y - p.y;
+          const d2 = dx*dx + dy*dy;
+          if (d2 < 26000){
+            const f = (1 - d2/26000) * 0.08;
+            p.vx += dx*0.00004 + (-dy)*0.00003*f*20;
+            p.x += dx*0.012*f*8; p.y += dy*0.004*f*8;
+          }
+        }
+        if (p.y < -10 || p.x < -20 || p.x > w+20){ Object.assign(p, spawn()); p.y = h+10; }
+        const a = 0.35 + Math.sin(p.life*6)*0.25;
+        ctx.globalAlpha = Math.max(0, Math.min(0.8, a));
+        ctx.fillStyle = p.c;
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2); ctx.fill();
+        // glow
+        ctx.globalAlpha *= 0.25;
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r*3, 0, Math.PI*2); ctx.fill();
+      }
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(step);
+    }
+
+    const rectMouse = (e) => {
+      const r = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top;
+      mouse.active = mouse.y > -50 && mouse.y < r.height + 50;
+    };
+    window.addEventListener('pointermove', rectMouse, {passive:true});
+    window.addEventListener('pointerleave', () => mouse.active = false);
+
+    let ro;
+    if ('ResizeObserver' in window){ ro = new ResizeObserver(resize); ro.observe(canvas); }
+    else window.addEventListener('resize', resize);
+    resize(); step();
+  }
+  emberField(document.getElementById('ember-hero'));
+  emberField(document.getElementById('ember-offer'));
+  emberField(document.getElementById('ember-craft'));
+
+  /* ---------- hero fire video (above the fold): play eagerly, honour reduced motion ---------- */
+  (() => {
+    const fire = document.getElementById('hero-fire'); if (!fire) return;
+    if (reduce) { fire.removeAttribute('autoplay'); fire.pause(); fire.remove(); return; }
+    const playFire = () => { const p = fire.play(); if (p && p.catch) p.catch(() => {}); };
+    playFire();
+    document.addEventListener('visibilitychange', () => { document.hidden ? fire.pause() : playFire(); });
+  })();
+
+  /* ---------- lazy-load below-the-fold media (keeps the first paint fast) ----------
+     bg images apply on approach; videos download + play only when near the viewport. */
+  (() => {
+    const targets = Array.prototype.slice.call(document.querySelectorAll('[data-bg], video[data-lazy]'));
+    if (!targets.length) return;
+    const load = (el) => {
+      if (el.dataset && el.dataset.bg) { el.style.backgroundImage = "url('" + el.dataset.bg + "')"; el.removeAttribute('data-bg'); }
+      if (el.matches && el.matches('video[data-lazy]')) {
+        el.removeAttribute('data-lazy');
+        if (reduce) return; // reduced motion: keep the poster, skip the video download
+        el.querySelectorAll('source[data-src]').forEach(s => { s.src = s.dataset.src; s.removeAttribute('data-src'); });
+        el.load();
+        const p = el.play(); if (p && p.catch) p.catch(() => {});
+        document.addEventListener('visibilitychange', () => { if (!document.hidden){ const q = el.play(); if (q && q.catch) q.catch(()=>{}); } else el.pause(); });
+      }
+    };
+    if (!('IntersectionObserver' in window)) { targets.forEach(load); return; }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { load(e.target); io.unobserve(e.target); } });
+    }, { rootMargin: '300px 0px' });
+    targets.forEach(t => io.observe(t));
+  })();
+
+  /* ---------- custom calendar date picker (block past + 7-day lead) ---------- */
+  (() => {
+    const trigger = document.getElementById('dateTrigger');
+    if (!trigger) return;
+    const cal = document.getElementById('calendar');
+    const grid = document.getElementById('calGrid');
+    const titleEl = document.getElementById('calTitle');
+    const labelEl = document.getElementById('dateLabel');
+    const input = document.getElementById('f-date');
+    const prevBtn = document.getElementById('calPrev');
+    const nextBtn = document.getElementById('calNext');
+    const today = new Date(); today.setHours(0,0,0,0);
+    const minDate = new Date(today); minDate.setDate(minDate.getDate() + 7); // 7-day lead time
+    const minMonth = new Date(minDate.getFullYear(), minDate.getMonth(), 1);
+    let view = new Date(minMonth);
+    let selected = null;
+
+    const fmtSel = (date) => date.toLocaleDateString(GF.lang === 'sv' ? 'sv-SE' : 'en-GB', {weekday:'short',day:'numeric',month:'long',year:'numeric'});
+    const sameDay = (a,b) => a && b && a.getTime() === b.getTime();
+    const render = () => {
+      titleEl.textContent = MONTHS[GF.lang][view.getMonth()] + ' ' + view.getFullYear();
+      prevBtn.disabled = (view.getFullYear() === minMonth.getFullYear() && view.getMonth() === minMonth.getMonth());
+      grid.innerHTML = '';
+      const startDow = (new Date(view.getFullYear(), view.getMonth(), 1).getDay() + 6) % 7; // Mon=0
+      const days = new Date(view.getFullYear(), view.getMonth() + 1, 0).getDate();
+      for (let i=0;i<startDow;i++){ const e=document.createElement('span'); e.className='cal-empty'; grid.appendChild(e); }
+      for (let d=1; d<=days; d++){
+        const date = new Date(view.getFullYear(), view.getMonth(), d);
+        const cell = document.createElement('button');
+        cell.type='button'; cell.className='cal-day'; cell.textContent = d;
+        if (date < minDate){ cell.disabled = true; cell.classList.add('is-disabled'); }
+        if (sameDay(date, selected)) cell.classList.add('is-selected');
+        cell.addEventListener('click', () => {
+          selected = date;
+          labelEl.removeAttribute('data-i18n');   // keep the chosen date from being overwritten on language switch
+          labelEl.textContent = fmtSel(date);
+          labelEl.classList.add('has-value');
+          input.value = date.getFullYear()+'-'+String(date.getMonth()+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+          close();
+        });
+        grid.appendChild(cell);
+      }
+    };
+    const open = () => { cal.hidden = false; trigger.setAttribute('aria-expanded','true'); render(); };
+    const close = () => { cal.hidden = true; trigger.setAttribute('aria-expanded','false'); };
+    trigger.addEventListener('click', () => cal.hidden ? open() : close());
+    prevBtn.addEventListener('click', () => { view.setMonth(view.getMonth()-1); render(); });
+    nextBtn.addEventListener('click', () => { view.setMonth(view.getMonth()+1); render(); });
+    document.addEventListener('click', (e) => { if (!cal.hidden && !cal.contains(e.target) && !trigger.contains(e.target)) close(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+    langCallbacks.push(() => { if (selected) labelEl.textContent = fmtSel(selected); if (!cal.hidden) render(); });
+  })();
+
+  /* ---------- bold guests stepper (10–300, step 5, Intimate→Festival) ---------- */
+  (() => {
+    const numEl = document.getElementById('gNum'); if (!numEl) return;
+    const tierEl = document.getElementById('gTier');
+    const input = document.getElementById('f-guests');
+    const MIN=10, MAX=300, STEP=5; let val=50;
+    const upd = () => {
+      const cap = val >= MAX;
+      numEl.textContent = cap ? MAX+'+' : val;
+      tierEl.textContent = tierFor(val);
+      input.value = cap ? MAX+'+' : String(val);
+    };
+    document.getElementById('gMinus').addEventListener('click', () => { val = Math.max(MIN, val-STEP); upd(); });
+    document.getElementById('gPlus').addEventListener('click', () => { val = Math.min(MAX, val+STEP); upd(); });
+    document.querySelectorAll('.g-chips button').forEach(b =>
+      b.addEventListener('click', () => { val = Math.min(MAX, Math.max(MIN, parseInt(b.dataset.g,10))); upd(); }));
+    upd();
+    langCallbacks.push(upd);
+  })();
+
+  /* ---------- cinematic intro: skip for returning visitors / reduced motion ---------- */
+  (() => {
+    const intro = document.getElementById('intro'); if (!intro) return;
+    let seen = false; try { seen = !!sessionStorage.getItem('tgf_intro'); } catch(_){}
+    if (reduce || seen) { intro.classList.add('skip'); return; }
+    try { sessionStorage.setItem('tgf_intro','1'); } catch(_){}
+    intro.addEventListener('click', () => intro.classList.add('skip'));
+    setTimeout(() => intro.classList.add('skip'), 3000); // hard-remove after the CSS fade
+  })();
+
+  /* ---------- count-up stats (run each time The Craft enters view) ---------- */
+  (() => {
+    const nums = Array.prototype.slice.call(document.querySelectorAll('.craft .n[data-count]'));
+    if (!nums.length || reduce) return;
+    const animate = (el) => {
+      const target = parseInt(el.dataset.count, 10);
+      const suffix = el.dataset.suffix || '';
+      const dur = 2100; let start = null;
+      const tick = (t) => {
+        if (start === null) start = t;
+        const p = Math.min(1, (t - start) / dur);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(eased * target) + (p === 1 ? suffix : '');
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting && !e.target._counting) { e.target._counting = true; animate(e.target); }
+          else if (!e.isIntersecting) { e.target._counting = false; } // re-arm when it leaves
+        });
+      }, { threshold: 0.6 });
+      nums.forEach(n => io.observe(n));
+    }
+  })();
+
+  /* ---------- sticky Book CTA: show past the hero, hide while booking is on screen ---------- */
+  (() => {
+    const fab = document.getElementById('bookFab'); if (!fab) return;
+    const offer = document.getElementById('offer');
+    let ticking = false;
+    const upd = () => {
+      ticking = false;
+      const vh = window.innerHeight;
+      const past = window.scrollY > vh * 0.85;
+      let offerOn = false;
+      if (offer) { const r = offer.getBoundingClientRect(); offerOn = r.top < vh * 0.85 && r.bottom > 0; }
+      fab.classList.toggle('show', past && !offerOn);
+    };
+    window.addEventListener('scroll', () => { if (!ticking){ ticking = true; requestAnimationFrame(upd); } }, {passive:true});
+    upd();
+  })();
+
+  /* ---------- ambient fire-crackle sound toggle (off by default) ---------- */
+  (() => {
+    const btn = document.getElementById('soundToggle');
+    const audio = document.getElementById('fireAudio');
+    if (!btn || !audio) return;
+    audio.volume = 0;
+    let on = false, raf = null;
+    const fadeTo = (target) => {
+      if (raf) cancelAnimationFrame(raf);
+      const step = () => {
+        const d = target - audio.volume;
+        if (Math.abs(d) < 0.03) { audio.volume = target; if (target === 0) audio.pause(); return; }
+        audio.volume = Math.max(0, Math.min(1, audio.volume + Math.sign(d) * 0.035));
+        raf = requestAnimationFrame(step);
+      };
+      step();
+    };
+    btn.addEventListener('click', () => {
+      on = !on;
+      btn.classList.toggle('on', on);
+      btn.setAttribute('aria-pressed', String(on));
+      if (on) { const p = audio.play(); if (p && p.catch) p.catch(() => {}); fadeTo(0.5); }
+      else { fadeTo(0); }
+    });
+    document.addEventListener('visibilitychange', () => {
+      if (!on) return;
+      if (document.hidden) audio.pause();
+      else { const p = audio.play(); if (p && p.catch) p.catch(() => {}); }
+    });
+  })();
+
+  /* ---------- language switch (EN / SV) ---------- */
+  document.querySelectorAll('#lang button').forEach(b => b.addEventListener('click', () => applyLang(b.dataset.lang)));
+  (() => {
+    let saved = null; try { saved = localStorage.getItem('gf_lang'); } catch(_) {}
+    const initial = saved || ((navigator.language || '').toLowerCase().startsWith('sv') ? 'sv' : 'en');
+    applyLang(initial);
+  })();
+
+  /* ---------- booking form → mailto (no backend, per brief) ---------- */
+  const form = document.getElementById('bookForm');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const f = new FormData(form);
+    const name = (f.get('name')||'').toString().trim();
+    if (!name){ document.getElementById('f-name').focus(); return; }
+    const date = (f.get('date')||'').toString().trim() || 'To be decided';
+    const guests = (f.get('guests')||'').toString().trim();
+    const subject = encodeURIComponent(`Booking — ${name}`);
+    const body = encodeURIComponent(
+      `Name: ${name}\nDate: ${date}\nGuests: ${guests}`
+    );
+    window.location.href = `mailto:hello@thegrillfader.se?subject=${subject}&body=${body}`;
+  });
+})();
+</script>
+</body>
+</html>

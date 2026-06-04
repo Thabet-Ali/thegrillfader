@@ -1,0 +1,21 @@
+.DS_Store
+# regenerable trace intermediates
+logo-bw.pbm
+wordmark-bw.pbm
+logo-traced.svg
+wordmark-traced.svg
+
+# heavy source PNGs for dish tiles (web uses the optimized .jpg)
+images/dishes/*.png
+
+# heavy source PNGs for catering tiles (web uses optimized .jpg)
+images/tiles/*.png
+
+# unused source assets (the live site uses the optimized jpg/mp4 only)
+images/*.png
+images/*.mp4
+images/hustler-band.jpg
+images/dishes_backup/
+_preview*.html
+_lineview.html
+_herodiag.html
