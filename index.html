@@ -375,16 +375,16 @@ header.nav.scrolled{
 /* dynamic dish photo behind each row (slow Ken Burns drift, zooms on hover) */
 .dish-bg{
   position:absolute; inset:0; z-index:-2; background-size:cover; background-position:center;
-  transform:scale(1.07); opacity:.82; animation:kb1 11s ease-in-out infinite alternate;
+  transform:scale(1.07); opacity:.82; animation:kb1 12s ease-in-out infinite alternate;
   transition:scale .6s var(--ease), opacity .5s var(--ease); will-change:transform, translate;
 }
-/* each row: own direction + own speed -> they never move in sync (feels random/alive) */
-.dish:nth-child(1) .dish-bg{ animation:kb1 11s ease-in-out infinite alternate }
-.dish:nth-child(2) .dish-bg{ animation:kb2 13s ease-in-out infinite alternate }
-.dish:nth-child(3) .dish-bg{ animation:kb3 9.5s ease-in-out infinite alternate }
-.dish:nth-child(4) .dish-bg{ animation:kb4 14s ease-in-out infinite alternate }
-.dish:nth-child(5) .dish-bg{ animation:kb5 10.5s ease-in-out infinite alternate }
-.dish:nth-child(6) .dish-bg{ animation:kb6 12.5s ease-in-out infinite alternate }
+/* same speed (12s) on every row, only the diagonal direction differs */
+.dish:nth-child(1) .dish-bg{ animation:kb1 12s ease-in-out infinite alternate }
+.dish:nth-child(2) .dish-bg{ animation:kb2 12s ease-in-out infinite alternate }
+.dish:nth-child(3) .dish-bg{ animation:kb3 12s ease-in-out infinite alternate }
+.dish:nth-child(4) .dish-bg{ animation:kb4 12s ease-in-out infinite alternate }
+.dish:nth-child(5) .dish-bg{ animation:kb5 12s ease-in-out infinite alternate }
+.dish:nth-child(6) .dish-bg{ animation:kb6 12s ease-in-out infinite alternate }
 .dish::after{ /* dark grade keeps the big text readable; light on the right so the photo shows */
   content:''; position:absolute; inset:0; z-index:-1; pointer-events:none;
   background:linear-gradient(90deg, rgba(12,10,8,.9) 0%, rgba(12,10,8,.55) 45%, rgba(12,10,8,.2) 100%);
