@@ -324,9 +324,14 @@ header.nav.scrolled{
 }
 .card .card-bg{
   position:absolute; inset:0; background-size:cover; background-position:center; z-index:-2;
-  transition:transform 1s var(--ease), filter .5s var(--ease);
-  transform:scale(1.04); filter:saturate(.9);
+  transition:scale .6s var(--ease), filter .5s var(--ease); will-change:transform, translate;
+  transform:scale(1.07); filter:saturate(.9); animation:kb1 12s ease-in-out infinite alternate;
 }
+/* living Ken Burns like the menu — one diagonal direction per tile, uniform 12s */
+.card:nth-child(1) .card-bg{ animation:kb1 12s ease-in-out infinite alternate }
+.card:nth-child(2) .card-bg{ animation:kb2 12s ease-in-out infinite alternate }
+.card:nth-child(3) .card-bg{ animation:kb3 12s ease-in-out infinite alternate }
+.card:nth-child(4) .card-bg{ animation:kb4 12s ease-in-out infinite alternate }
 .card::before{ /* legibility + moody grade gradient */
   content:''; position:absolute; inset:0; z-index:-1; transition:opacity .5s var(--ease);
   background:
@@ -361,7 +366,7 @@ header.nav.scrolled{
 /* accordion mechanics: any hover shrinks all, the hovered one expands + reveals */
 .cards:hover .card{ flex-grow:.88 }
 .cards .card:hover{ flex-grow:1.55 }
-.card:hover .card-bg{ transform:scale(1); filter:saturate(1) }
+.card:hover .card-bg{ scale:1.06; filter:saturate(1) }
 .card:hover .desc, .card:hover .explore{ opacity:1; transform:none }
 
 /* ============================================================
@@ -677,10 +682,7 @@ html:not(.hero-anim) .scroll-cue{ animation:none!important; opacity:1!important;
   .card .desc, .card .explore{ opacity:1; transform:none }
   .card .no{ top:1rem; right:1.1rem }
   /* give the stacked tiles life: a slow Ken Burns drift, staggered per tile */
-  .card .card-bg{ animation:kenburns 18s ease-in-out infinite alternate; transform:scale(1.06) }
-  .card:nth-child(2) .card-bg{ animation-delay:-4.5s }
-  .card:nth-child(3) .card-bg{ animation-delay:-9s }
-  .card:nth-child(4) .card-bg{ animation-delay:-13.5s }
+  /* Ken Burns now unified for all breakpoints via .card:nth-child(n) .card-bg above */
 
   /* menu rows: tighter ghost number + name/note stack on phone */
   .dish{ gap:1.1rem }
@@ -1653,9 +1655,9 @@ l19 -21 480 5 c311 3 483 9 490 16 17 17 -26 62 -92 95 -44 21 -66 39 -77 62
           el.classList.toggle('in', state === 'in');
           el.classList.toggle('above', state === 'above');
         }
-        // subtle scroll-parallax on menu photos (drifts as the row passes — feels alive)
-        if (dish) {
-          const bg = el._bg || (el._bg = el.querySelector('.dish-bg'));
+        // subtle scroll-parallax on menu photos AND catering tiles (drifts as they pass — feels alive)
+        if (dish || el.classList.contains('card')) {
+          const bg = el._bg || (el._bg = el.querySelector('.dish-bg, .card-bg'));
           if (bg) {
             let p = (vh - r.top) / (vh + r.height);   // 0 entering bottom .. 1 leaving top
             p = p < 0 ? 0 : p > 1 ? 1 : p;
