@@ -262,12 +262,12 @@ header.nav.scrolled{
    ============================================================ */
 .origin .wrap{ display:block }
 .origin-text{ max-width:62ch }
-/* full-bleed image band (replaces the cinemagraph) — spans the whole screen width.
-   Centered studio portrait on black: 'contain' shows the whole person, the black
-   background blends seamlessly into the page so there are no visible edges. */
+/* full-bleed image band (replaces the cinemagraph) — fills the WHOLE screen width,
+   edge to edge, no letterbox bars. 'cover' fills the band; the portrait's own dark
+   background runs to the screen edges so it blends into the page. */
 .origin-band{ margin:clamp(2.5rem,5vw,4.5rem) 0 0; width:100vw; margin-left:calc(50% - 50vw); background:var(--black) }
 .origin-band img{
-  width:100%; height:clamp(420px,44vw,640px); object-fit:contain; object-position:center; display:block;
+  width:100%; height:clamp(420px,50vw,720px); object-fit:cover; object-position:center 38%; display:block;
   filter:contrast(1.03) saturate(.97);
 }
 .origin .lede{ margin-top:1.5rem }
