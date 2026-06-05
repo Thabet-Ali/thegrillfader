@@ -284,7 +284,6 @@ header.nav.scrolled{
 .gfx-bg{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 0%; transform-origin:50% 0%; animation:kbhero 18s ease-in-out infinite alternate; will-change:transform }
 @keyframes kbhero{ 0%{ transform:scale(1) } 100%{ transform:scale(1.07) } }   /* top-anchored pure zoom: only the BOTTOM can crop, head always stays */
 .gfx-photo::before{ content:''; position:absolute; inset:0; z-index:2; pointer-events:none; background:linear-gradient(90deg, var(--black) 0%, rgba(12,10,8,.5) 12%, transparent 30%) }
-.gfx-photo::after{ content:''; position:absolute; inset:0; z-index:3; pointer-events:none; opacity:.9; mix-blend-mode:overlay; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); animation:grain 7s steps(6) infinite }
 .gfx-eyebrow{ position:relative; display:inline-block; padding-bottom:.55rem }
 .gfx-eyebrow::after{ content:''; position:absolute; left:0; bottom:0; height:2px; width:100%; transform-origin:left; background:linear-gradient(90deg, var(--ember), var(--brass) 55%, transparent) }
 .reveal-anim .gfx-eyebrow::after{ transform:scaleX(0); transition:transform 1s var(--ease) .3s }
