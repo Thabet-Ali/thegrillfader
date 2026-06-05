@@ -267,7 +267,7 @@ header.nav.scrolled{
    background runs to the screen edges so it blends into the page. */
 .origin-band{ margin:clamp(2.5rem,5vw,4.5rem) 0 0; width:100vw; margin-left:calc(50% - 50vw); background:var(--black) }
 .origin-band img{
-  width:100%; height:clamp(420px,50vw,720px); object-fit:cover; object-position:center 38%; display:block;
+  width:100%; height:auto; display:block;        /* full width, whole image, correct aspect — no crop */
   filter:contrast(1.03) saturate(.97);
 }
 .origin .lede{ margin-top:1.5rem }
