@@ -409,7 +409,20 @@ header.nav.scrolled{
 .spread{ position:relative }
 .spread::before{ content:''; position:absolute; top:0; left:50%; transform:translateX(-50%); width:min(var(--maxw), 100% - 2*var(--gut)); height:1px; background:linear-gradient(90deg, transparent 5%, rgba(176,141,87,.28) 50%, transparent 95%); pointer-events:none }
 .menu{ margin-top:1.5rem }
-.dish:not(:last-child){ border-bottom:1px solid transparent; border-image:linear-gradient(90deg, transparent 5%, rgba(176,141,87,.28) 50%, transparent 95%) 1 }
+/* photorealistic gold, shimmering divider between dishes */
+.gold-rule{
+  position:absolute; left:0; right:0; bottom:0; height:4px; z-index:3; pointer-events:none; overflow:hidden;
+  background:linear-gradient(180deg,#fff3c4 0%,#ecca5e 36%,#b8902f 70%,#6f5018 100%);
+  box-shadow:0 0 10px rgba(224,180,70,.5), 0 1px 2px rgba(0,0,0,.5);
+  -webkit-mask-image:linear-gradient(90deg, transparent 3%, #000 20%, #000 80%, transparent 97%);
+          mask-image:linear-gradient(90deg, transparent 3%, #000 20%, #000 80%, transparent 97%);
+}
+.gold-rule::after{
+  content:''; position:absolute; inset:0; background-repeat:no-repeat; background-size:220% 100%;
+  background:linear-gradient(100deg, transparent 38%, rgba(255,255,255,.95) 50%, transparent 62%);
+  animation:goldshine 4.2s ease-in-out infinite; animation-delay:var(--gd,0s);
+}
+@keyframes goldshine{ 0%{background-position:185% 0} 50%{background-position:-45% 0} 100%{background-position:-45% 0} }
 .dish{
   display:grid; grid-template-columns:auto 1fr; align-items:center; gap:clamp(1.3rem,3vw,3.5rem);
   padding:clamp(2rem,3vw,3.4rem) clamp(1.2rem,2.5vw,2.4rem);
@@ -1790,6 +1803,17 @@ l19 -21 480 5 c311 3 483 9 490 16 17 17 -26 62 -92 95 -44 21 -66 39 -77 62
     window.addEventListener('scroll', upd, {passive:true});
     window.addEventListener('resize', upd, {passive:true});
     upd();
+  })();
+  /* gold shimmering dividers between menu rows */
+  (function(){
+    const dishes = Array.prototype.slice.call(document.querySelectorAll('.menu .dish'));
+    dishes.forEach(function(d, i){
+      if (i === dishes.length - 1) return;
+      const r = document.createElement('span');
+      r.className = 'gold-rule'; r.setAttribute('aria-hidden','true');
+      r.style.setProperty('--gd', (i * 0.5) + 's');
+      d.appendChild(r);
+    });
   })();
   emberField(document.getElementById('ember-craft'));
 
