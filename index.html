@@ -142,13 +142,17 @@ header.nav.scrolled{
   position:relative; padding:.25rem 0; transition:color .25s var(--ease); cursor:pointer;
 }
 .nav-links a::after{
-  content:''; position:absolute; left:0; bottom:-2px; height:1px; width:0; background:var(--brass);
+  content:''; position:absolute; left:0; bottom:-2px; height:1.5px; width:0; background:linear-gradient(90deg,var(--ember),var(--brass));
   transition:width .3s var(--ease);
 }
 .nav-links a:hover{ color:var(--cream) } .nav-links a:hover::after{ width:100% }
+/* drawn ember underline on content links too */
+.contact-line > a, .meta a{ position:relative }
+.contact-line > a::after, .meta a::after{ content:''; position:absolute; left:0; bottom:-2px; height:1.5px; width:0; background:linear-gradient(90deg,var(--ember),var(--brass)); transition:width .35s var(--ease) }
+.contact-line > a:hover::after, .meta a:hover::after{ width:100% }
 .nav-cta{
   border:1px solid var(--brass); color:var(--brass)!important; padding:.55rem 1.15rem!important;
-  border-radius:2px; transition:background .3s var(--ease), color .3s var(--ease)!important;
+  border-radius:2px; transition:background .3s var(--ease), color .3s var(--ease), translate .25s cubic-bezier(.2,.7,.3,1)!important;
 }
 .nav-cta:hover{ background:var(--brass); color:var(--black)!important } .nav-cta::after{display:none}
 
@@ -516,7 +520,7 @@ header.nav.scrolled{
   background:var(--oxblood); color:var(--cream); border:0;
   font-family:var(--font-display); font-weight:700; font-size:clamp(1.2rem,1rem + .7vw,1.55rem); letter-spacing:.12em; text-transform:uppercase;
   padding:1.4rem 2rem; border-radius:4px; margin-top:2.4rem;
-  transition:transform .25s var(--ease), box-shadow .3s var(--ease), background .3s var(--ease);
+  transition:transform .25s var(--ease), box-shadow .3s var(--ease), background .3s var(--ease), translate .25s cubic-bezier(.2,.7,.3,1);
 }
 .submit:hover{ background:#7a1c1c; transform:translateY(-2px); box-shadow:0 18px 55px -14px rgba(232,119,46,.6) }
 .submit svg{ width:18px; height:18px; stroke:currentColor; fill:none }
@@ -610,6 +614,7 @@ footer .meta a{ color:var(--brass) }
 /* ============================================================
    FILM GRAIN + CURSOR GLOW (felt quality)
    ============================================================ */
+.scroll-progress{ position:fixed; top:0; left:0; height:2px; width:0; z-index:120; background:linear-gradient(90deg,var(--brass),var(--ember)); box-shadow:0 0 10px rgba(232,119,46,.7); pointer-events:none }
 .grain{
   position:fixed; inset:-50%; z-index:60; pointer-events:none; opacity:.045; mix-blend-mode:overlay;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -755,7 +760,7 @@ html:not(.hero-anim) .scroll-cue{ animation:none!important; opacity:1!important;
   font-family:var(--font-display); font-weight:600; font-size:.95rem; letter-spacing:.1em; text-transform:uppercase;
   padding:.85rem 1.4rem; border-radius:100px; box-shadow:0 16px 44px -14px rgba(0,0,0,.75);
   opacity:0; transform:translateY(22px); pointer-events:none;
-  transition:opacity .4s var(--ease), transform .4s var(--ease), background .3s var(--ease);
+  transition:opacity .4s var(--ease), transform .4s var(--ease), background .3s var(--ease), translate .25s cubic-bezier(.2,.7,.3,1);
 }
 .book-fab.show{ opacity:1; transform:none; pointer-events:auto }
 .book-fab:hover{ background:#7a1c1c }
@@ -805,6 +810,7 @@ html:not(.hero-anim) .scroll-cue{ animation:none!important; opacity:1!important;
 
 <!-- film grain -->
 <div class="grain" aria-hidden="true"></div>
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
 <!-- ============ NAV ============ -->
 <header class="nav" id="nav">
@@ -1780,6 +1786,28 @@ l19 -21 480 5 c311 3 483 9 490 16 17 17 -26 62 -92 95 -44 21 -66 39 -77 62
   }
   emberField(document.getElementById('ember-hero'));
   emberField(document.getElementById('ember-offer'));
+  /* scroll progress bar */
+  (function(){
+    const bar = document.getElementById('scrollProgress');
+    if (!bar) return;
+    const upd = () => { const max = document.documentElement.scrollHeight - innerHeight; bar.style.width = (max > 0 ? (scrollY / max) * 100 : 0) + '%'; };
+    window.addEventListener('scroll', upd, {passive:true});
+    window.addEventListener('resize', upd, {passive:true});
+    upd();
+  })();
+  /* magnetic buttons (translate composes with existing transforms) */
+  (function(){
+    if (!finePointer || reduce) return;
+    document.querySelectorAll('.nav-cta, .book-fab, .submit').forEach((btn) => {
+      btn.addEventListener('pointermove', (e) => {
+        const r = btn.getBoundingClientRect();
+        const mx = e.clientX - (r.left + r.width / 2);
+        const my = e.clientY - (r.top + r.height / 2);
+        btn.style.translate = (mx * 0.25).toFixed(1) + 'px ' + (my * 0.4).toFixed(1) + 'px';
+      });
+      btn.addEventListener('pointerleave', () => { btn.style.translate = ''; });
+    });
+  })();
   emberField(document.getElementById('ember-craft'));
 
   /* ---------- hero fire video (above the fold): play eagerly, honour reduced motion ---------- */
