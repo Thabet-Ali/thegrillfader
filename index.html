@@ -415,7 +415,7 @@ header.nav.scrolled{
 /* dynamic dish photo behind each row (slow Ken Burns drift, zooms on hover) */
 .dish-bg{
   position:absolute; inset:0; z-index:-2; background-size:cover; background-position:center;
-  transform:scale(1.07); opacity:.82; animation:kb1 12s ease-in-out infinite alternate;
+  transform:scale(1.07); opacity:1; animation:kb1 12s ease-in-out infinite alternate;
   transition:scale .6s var(--ease), opacity .5s var(--ease); will-change:transform, translate;
 }
 /* same speed (12s) on every row, only the diagonal direction differs */
