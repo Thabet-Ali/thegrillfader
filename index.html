@@ -340,7 +340,8 @@ header.nav.scrolled{
    FAMILY BUSINESS (catering / events)
    ============================================================ */
 .family{ background:linear-gradient(180deg,var(--black),var(--black-2),var(--black)) }
-.family .head{ max-width:60ch; margin-bottom:1.8rem }
+.family .head{ max-width:none; margin-bottom:1.8rem }
+.family .section-title{ font-size:clamp(2.1rem,1.4rem + 3.4vw,4.2rem); line-height:1.06 }
 /* ---- expanding-panel accordion: hover widens a tile and pushes the others aside ---- */
 .cards{ display:flex; gap:14px; height:clamp(400px,44vw,560px) }
 .card{
@@ -1180,8 +1181,8 @@ l19 -21 480 5 c311 3 483 9 490 16 17 17 -26 62 -92 95 -44 21 -66 39 -77 62
   <section class="family" id="family" aria-labelledby="family-t">
     <div class="wrap">
       <div class="head">
-        <span class="kicker reveal" data-i18n="service_kicker">The Service</span>
-        <h2 class="section-title reveal d1" id="family-t" data-i18n="service_h2">I don&rsquo;t cater parties.<br>I run them.</h2>
+        <span class="kicker reveal early-rev" data-i18n="service_kicker">The Service</span>
+        <h2 class="section-title reveal early-rev d1" id="family-t" data-i18n="service_h2">I don&rsquo;t cater parties.<br>I run them.</h2>
       </div>
       <div class="cards">
         <article class="card reveal">
@@ -1666,8 +1667,9 @@ l19 -21 480 5 c311 3 483 9 490 16 17 17 -26 62 -92 95 -44 21 -66 39 -77 62
         const center = r.top + r.height / 2;
         // menu rows reveal as soon as they peek in from the bottom (no false "end of page")
         const dish = el.classList.contains('dish');
-        const hiB = dish ? 1.40 : 0.95, loB = dish ? 0.01 : 0.05;
-        const inLo = dish ? 0.02 : 0.15, inHi = dish ? 1.30 : 0.85;
+        const early = dish || el.classList.contains('card') || el.classList.contains('early-rev');
+        const hiB = early ? 1.40 : 0.95, loB = early ? 0.01 : 0.05;
+        const inLo = early ? 0.02 : 0.15, inHi = early ? 1.30 : 0.85;
         let state = el._rev;
         if (center > vh * hiB) state = 'below';
         else if (center < vh * loB) state = 'above';
