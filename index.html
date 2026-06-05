@@ -228,17 +228,6 @@ header.nav.scrolled{
   animation:fadeUp 1.2s var(--ease) .5s both;
 }
 
-/* spatula — EST. 2015 — fork flourish (echoes the logo) */
-.flourish{
-  display:flex; align-items:center; justify-content:center; gap:1rem; width:min(420px,80vw);
-  margin:.4rem auto 2rem; color:var(--brass);
-  animation:fadeUp 1s var(--ease) .75s both;
-}
-.flourish .line{ flex:1; height:1px; background:linear-gradient(90deg,transparent,var(--brass)) }
-.flourish .line.r{ background:linear-gradient(90deg,var(--brass),transparent) }
-.flourish .est{ font-family:var(--font-display); font-size:.85rem; letter-spacing:.34em; white-space:nowrap }
-.flourish svg{ width:34px; height:18px; stroke:var(--brass); fill:none; flex:none }
-
 .hero-tag{
   font-family:var(--font-display); font-weight:400; font-style:italic;
   font-size:clamp(1.05rem,.9rem + 1vw,1.7rem); color:#d8d0c2; margin-bottom:.6rem;
@@ -255,23 +244,6 @@ header.nav.scrolled{
   animation:fadeIn 1s var(--ease) 1.4s both;
 }
 .scroll-cue .dot{ width:1px; height:46px; background:linear-gradient(var(--brass),transparent); animation:cue 2.2s var(--ease) infinite }
-
-/* ============================================================
-   ORIGIN
-   ============================================================ */
-.origin .wrap{ display:block }
-.origin .lede{ max-width:58ch }   /* keep the paragraph readable; heading stays full width (2 lines) */
-/* full-bleed image band (replaces the cinemagraph) — fills the WHOLE screen width,
-   edge to edge, no letterbox bars. 'cover' fills the band; the portrait's own dark
-   background runs to the screen edges so it blends into the page. */
-.origin-band{ margin:clamp(1.8rem,3.5vw,3rem) 0; width:100vw; margin-left:calc(50% - 50vw); background:var(--black) }
-.origin-band img{
-  width:100%; height:auto; display:block;        /* full width, whole image, correct aspect — no crop */
-  filter:contrast(1.03) saturate(.97);
-  /* fade top & bottom edges into the page so no hard edge is visible */
-  -webkit-mask-image:linear-gradient(to bottom, transparent 0%, #000 8%, #000 92%, transparent 100%);
-          mask-image:linear-gradient(to bottom, transparent 0%, #000 8%, #000 92%, transparent 100%);
-}
 
 /* ===== founder hero — split: text left, person right (grid -> never overlaps) ===== */
 .gfx{ position:relative; width:100vw; margin-left:calc(50% - 50vw); overflow:hidden; isolation:isolate; background:var(--black) }
@@ -306,8 +278,6 @@ header.nav.scrolled{
   .gfx .stats{ flex-wrap:wrap }
 }
 /* ===== /founder hero CSS ===== */
-.origin .lede{ margin-top:1.5rem }
-.origin .statement{ margin-top:2.5rem }
 .stats{ display:flex; flex-wrap:wrap; gap:clamp(2rem,5vw,5rem); margin-top:3.5rem }
 .stat .n{ font-family:var(--font-display); font-size:clamp(2.2rem,1.4rem + 3vw,3.4rem); color:var(--cream); line-height:1 }
 .stat .l{ color:var(--smoke); letter-spacing:.18em; text-transform:uppercase; font-size:.86rem; font-weight:500; margin-top:.5rem }
@@ -317,27 +287,6 @@ header.nav.scrolled{
   color:var(--brass); font-size:.84rem; font-weight:500; letter-spacing:.16em; text-transform:uppercase;
 }
 .tv-badge svg{ width:14px; height:14px; stroke:var(--brass); fill:none }
-
-/* ============================================================
-   THE CRAFT — track-record band (own section, photo + embers)
-   ============================================================ */
-.craft{ position:relative; isolation:isolate; overflow:hidden; text-align:center; padding-block:clamp(5.5rem,9vw,10rem) }
-.craft .craft-bg{
-  position:absolute; inset:0; z-index:-3; background-size:cover; background-position:center 35%;
-  transform:scale(1.08); animation:kenburns 26s ease-in-out infinite alternate;
-}
-#ember-craft{ position:absolute; inset:0; z-index:-2; width:100%; height:100% }
-.craft::before{ content:''; position:absolute; inset:0; z-index:-1;
-  background:
-    linear-gradient(180deg, var(--black) 0%, rgba(18,13,12,.5) 28%, rgba(18,13,12,.5) 72%, var(--black) 100%),
-    radial-gradient(78% 78% at 50% 50%, transparent 38%, rgba(18,13,12,.6) 100%);
-}
-.craft .kicker{ display:block; margin-bottom:1.2rem }
-.craft .statement{ margin-bottom:clamp(2.5rem,5vw,4.5rem) }
-.craft .stats{ display:flex; justify-content:center; gap:clamp(2.5rem,7vw,8rem); flex-wrap:wrap }
-.craft .stat{ text-align:center }
-.craft .stat .n{ font-family:var(--font-display); font-weight:700; font-size:clamp(3.4rem,2.2rem + 6vw,7rem); line-height:.9; color:var(--cream); text-shadow:0 2px 30px rgba(0,0,0,.6) }
-.craft .stat .l{ color:#d2c9b8; letter-spacing:.16em; text-transform:uppercase; font-size:clamp(.85rem,.75rem + .4vw,1.02rem); font-weight:500; margin-top:.85rem }
 
 /* ============================================================
    FAMILY BUSINESS (catering / events)
@@ -506,7 +455,6 @@ header.nav.scrolled{
 .contact-line .socials a{ width:46px; height:46px; display:grid; place-items:center; border:1px solid rgba(176,141,87,.35); border-radius:50%; transition:background .3s var(--ease), border-color .3s var(--ease) }
 .contact-line .socials a:hover{ background:rgba(176,141,87,.14); border-color:var(--brass) }
 .contact-line .socials svg{ width:20px; height:20px; stroke:var(--brass); fill:none }
-.contact-grid{ display:grid; grid-template-columns:1fr .82fr; gap:clamp(2.5rem,6vw,6rem); text-align:left; align-items:start }
 /* clean editorial underline fields */
 .field{ margin-bottom:1.9rem }
 .field label{ display:block; font-size:.8rem; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--brass); margin-bottom:.65rem }
@@ -532,14 +480,6 @@ header.nav.scrolled{
 .submit:hover{ background:#7a1c1c; transform:translateY(-2px); box-shadow:0 18px 55px -14px rgba(232,119,46,.6) }
 .submit svg{ width:18px; height:18px; stroke:currentColor; fill:none }
 
-.contact-info{ border-left:1px solid rgba(176,141,87,.22); padding-left:clamp(1.8rem,3.5vw,3.5rem) }
-.contact-info .row{ margin-bottom:2.3rem }
-.contact-info .row .l{ font-size:.78rem; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--smoke); margin-bottom:.55rem }
-.contact-info .row a,.contact-info .row span{
-  font-family:var(--font-display); font-weight:500; font-size:clamp(1.3rem,1.05rem + .9vw,1.75rem);
-  line-height:1.1; color:var(--cream); transition:color .25s var(--ease); display:inline-block; overflow-wrap:anywhere;
-}
-.contact-info .row a:hover{ color:var(--ember) }
 .socials{ display:flex; gap:1rem; margin-top:.8rem }
 .socials a{ width:54px; height:54px; display:grid; place-items:center; border:1px solid rgba(176,141,87,.35); border-radius:3px; transition:background .3s var(--ease), border-color .3s var(--ease) }
 .socials a:hover{ background:rgba(176,141,87,.14); border-color:var(--brass) }
@@ -613,7 +553,6 @@ footer::after{ /* dark scrim so footer text stays readable over the flames */
   background:radial-gradient(70% 70% at 50% 35%, rgba(18,13,12,.7), rgba(18,13,12,.25) 60%, transparent 85%);
 }
 @media (prefers-reduced-motion:reduce){ .footer-fire{ display:none } }
-footer .fmark{ font-family:var(--font-wordmark); font-size:clamp(2rem,1rem + 5vw,3.5rem); color:var(--cream); line-height:1 }
 footer .ft{ font-family:var(--font-display); font-style:italic; color:var(--smoke); margin:.6rem 0 1.6rem }
 footer .meta{ color:var(--smoke); font-size:.85rem; letter-spacing:.16em; text-transform:uppercase }
 footer .meta a{ color:var(--brass) }
@@ -664,7 +603,6 @@ html:not(.hero-anim) .scroll-cue{ animation:none!important; opacity:1!important;
 @keyframes fadeUp{ from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:none} }
 @keyframes fadeIn{ from{opacity:0} to{opacity:1} }
 @keyframes cue{ 0%,100%{transform:scaleY(.4);transform-origin:top;opacity:.4} 50%{transform:scaleY(1);opacity:1} }
-@keyframes kenburns{ 0%{transform:scale(1.06) translate(0,0)} 100%{transform:scale(1.22) translate(-2%,-3%)} }
 @keyframes grain{
   0%,100%{transform:translate(0,0)} 10%{transform:translate(-5%,-5%)} 30%{transform:translate(3%,-8%)}
   50%{transform:translate(-4%,6%)} 70%{transform:translate(6%,3%)} 90%{transform:translate(-3%,-2%)}
@@ -676,12 +614,8 @@ html:not(.hero-anim) .scroll-cue{ animation:none!important; opacity:1!important;
 @media (max-width:860px){
   .nav-links{ display:none }
   .nav-toggle{ display:flex }
-  .contact-grid{ grid-template-columns:1fr; gap:2.5rem }
-  .contact-info{ border-left:0; border-top:1px solid rgba(176,141,87,.2); padding:2rem 0 0 }
   .spread .head{ flex-direction:column; align-items:flex-start; gap:.7rem }
   h2.section-title{ font-size:clamp(2.1rem,1.2rem + 5vw,3.4rem) }
-  .origin .wrap{ grid-template-columns:1fr; gap:2.5rem }
-  .origin-photo{ max-width:420px; margin-inline:auto }
 }
 
 /* ---- dedicated phone pass (≤600px) ---- */
@@ -712,7 +646,6 @@ html:not(.hero-anim) .scroll-cue{ animation:none!important; opacity:1!important;
   .stats{ gap:1.6rem; flex-direction:column }
   .stat{ flex:0 0 auto }
   .stat .n{ font-size:2rem }
-  .craft .stats{ flex-direction:column; gap:2.4rem }
 
   /* MOBILE catering tiles -- minimal: clean photo, tag + title at the bottom, whole card taps to booking */
   .cards{ flex-direction:column; height:auto; gap:14px }
@@ -1182,20 +1115,6 @@ l19 -21 480 5 c311 3 483 9 490 16 17 17 -26 62 -92 95 -44 21 -66 39 -77 62
   </section>
 
   <!-- ============ THE CRAFT (track record) ============ -->
-  <section class="craft" id="craft" aria-label="The craft and track record" style="display:none"><!-- TEMP: hidden during experiment -->
-    <span class="craft-bg" data-bg="images/craft-bg.jpg" aria-hidden="true"></span>
-    <canvas id="ember-craft" aria-hidden="true"></canvas>
-    <div class="wrap">
-      <span class="kicker reveal" data-i18n="craft_kicker">The Craft</span>
-      <h2 class="statement reveal d1" data-i18n="craft_statement">Low. Slow. <em>Smoke.</em></h2>
-      <div class="stats">
-        <div class="stat reveal"><div class="n" data-count="2015">2015</div><div class="l" data-i18n="stat_since">Firing since</div></div>
-        <div class="stat reveal"><div class="n" data-count="500" data-suffix="+">500&#43;</div><div class="l" data-i18n="stat_events">Events catered</div></div>
-        <div class="stat reveal"><div class="n" data-count="1">1</div><div class="l" data-i18n="stat_pitmaster">Pitmaster at the fire</div></div>
-      </div>
-    </div>
-  </section>
-
   <!-- ============ FAMILY BUSINESS ============ -->
   <section class="family" id="family" aria-labelledby="family-t">
     <div class="wrap">
@@ -1570,11 +1489,9 @@ l19 -21 480 5 c311 3 483 9 490 16 17 17 -26 62 -92 95 -44 21 -66 39 -77 62
     hero_tag:{en:`An offer you can&rsquo;t refuse.`,sv:`Ett bud du inte tackar nej till.`},
     hero_sub:{en:`One man. One fire. No compromise.`,sv:`En man. En eld. Hela ditt kalas.`},
     enter:{en:`Enter`,sv:`Stig in`},
-    origin_kicker:{en:`The Origin`,sv:`Historien`},
     origin_h2:{en:`Born on television.<br>Raised on fire.`,sv:`Född i tv-rutan.<br>Uppvuxen vid elden.`},
     origin_lede:{en:`In 2015, one appearance on TV4&rsquo;s <em style="color:var(--brass);font-style:italic">Grillmästarna</em> lit the spark. The Grillfader was born. One man, built on smoke, patience, and respect for the flame.`,sv:`2015 ställde sig en man framför hela grill-Sverige i TV4:s <em style="color:var(--brass);font-style:italic">Grillmästarna</em>. Sedan dess har The Grillfader gjort en enda sak. Och gjort den bättre än de flesta: kött, rök och eld, utan genvägar.`},
     tv_badge:{en:`As seen on TV4 · Grillmästarna`,sv:`Känd från TV4 · Grillmästarna`},
-    craft_kicker:{en:`The Craft`,sv:`Hantverket`},
     craft_statement:{en:`Low. Slow. <em>Smoke.</em>`,sv:`Lågt. Långsamt. <em>Rök.</em>`},
     stat_since:{en:`Firing since`,sv:`Vid elden sedan`},
     stat_events:{en:`Events catered`,sv:`Genomförda event`},
@@ -1611,7 +1528,6 @@ l19 -21 480 5 c311 3 483 9 490 16 17 17 -26 62 -92 95 -44 21 -66 39 -77 62
     dish_sides:{en:`The Sides`,sv:`Tillbehören`},
     note_sides:{en:`Hummus, mezze, warm bread. Respect.`,sv:`Hummus, mezze, varmt bröd. Respekt.`},
     offer_kicker:{en:`Bookings`,sv:`Boka`},
-    offer_h2:{en:`Book the <em>Grillfader.</em>`,sv:`Boka <em>Grillfadern.</em>`},
     offer_lede:{en:`Name the date. I bring the fire.`,sv:`Säg när. Jag tar med elden.`},
     name_ph:{en:`Your name`,sv:`Ditt namn`},
     label_date:{en:`Date`,sv:`Datum`},
@@ -1828,8 +1744,6 @@ l19 -21 480 5 c311 3 483 9 490 16 17 17 -26 62 -92 95 -44 21 -66 39 -77 62
       mq.appendChild(mr);
     }
   })();
-  emberField(document.getElementById('ember-craft'));
-
   /* ---------- hero fire video (above the fold): play eagerly, honour reduced motion ---------- */
   (() => {
     const fire = document.getElementById('hero-fire'); if (!fire) return;
