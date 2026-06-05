@@ -405,9 +405,8 @@ header.nav.scrolled{
    THE SPREAD (menu)
    ============================================================ */
 .spread .head{ margin-bottom:1.5rem }
-/* shimmering bronze divider between the event section and the menu */
-.spread{ position:relative }
-.gold-rule.gold-rule--section{ top:0; bottom:auto; left:50%; right:auto; transform:translateX(-50%); width:min(var(--maxw), 100% - 2*var(--gut)) }
+/* shimmering bronze divider under the marquee banner */
+.gold-rule.gold-rule--marquee{ left:50%; right:auto; transform:translateX(-50%); width:min(var(--maxw), 100% - 2*var(--gut)) }
 .menu{ margin-top:1.5rem }
 /* photorealistic gold, shimmering divider between dishes */
 .gold-rule{
@@ -747,7 +746,7 @@ html:not(.hero-anim) .scroll-cue{ animation:none!important; opacity:1!important;
 /* ============================================================
    FLASH LAYER — marquee, hustler band, intro, sticky CTA
    ============================================================ */
-.marquee{ overflow:hidden; background:var(--black); padding:1.15rem 0 }
+.marquee{ position:relative; overflow:hidden; background:var(--black); padding:1.15rem 0 }
 .marquee-track{ display:flex; width:max-content; animation:marquee 30s linear infinite }
 .marquee-track span{ font-family:var(--font-display); font-weight:700; font-size:clamp(1.4rem,1rem + 2vw,2.4rem); letter-spacing:.03em; color:var(--cream); white-space:nowrap; padding-right:.4rem }
 .marquee-track em{ color:var(--ember); font-style:normal }
@@ -1815,11 +1814,11 @@ l19 -21 480 5 c311 3 483 9 490 16 17 17 -26 62 -92 95 -44 21 -66 39 -77 62
       r.style.setProperty('--gd', (i * 0.5) + 's');
       d.appendChild(r);
     });
-    const spread = document.querySelector('.spread');
-    if (spread) {
-      const sr = document.createElement('span');
-      sr.className = 'gold-rule gold-rule--section'; sr.setAttribute('aria-hidden','true');
-      spread.appendChild(sr);
+    const mq = document.querySelector('.marquee');
+    if (mq) {
+      const mr = document.createElement('span');
+      mr.className = 'gold-rule gold-rule--marquee'; mr.setAttribute('aria-hidden','true');
+      mq.appendChild(mr);
     }
   })();
   emberField(document.getElementById('ember-craft'));
