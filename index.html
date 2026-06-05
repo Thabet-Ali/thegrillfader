@@ -615,12 +615,6 @@ footer .meta a{ color:var(--brass) }
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   animation:grain 7s steps(6) infinite;
 }
-.cursor-glow{
-  position:fixed; top:0; left:0; z-index:40; width:520px; height:520px; margin:-260px 0 0 -260px;
-  border-radius:50%; pointer-events:none; mix-blend-mode:screen; opacity:0;
-  background:radial-gradient(circle, rgba(232,119,46,.13), rgba(232,119,46,.05) 35%, transparent 70%);
-  transition:opacity .5s var(--ease);
-}
 
 
 /* ---- vector logo (traced from brand original) ---- */
@@ -726,7 +720,6 @@ html:not(.hero-anim) .scroll-cue{ animation:none!important; opacity:1!important;
   .book-row{ flex-direction:column; gap:2.2rem }
 
   /* kill pointer-only flourishes on touch */
-  .cursor-glow{ display:none }
   .scroll-cue{ display:none }
 }
 
@@ -810,9 +803,8 @@ html:not(.hero-anim) .scroll-cue{ animation:none!important; opacity:1!important;
 </button>
 <audio id="fireAudio" src="audio/fire-crackle.mp3" loop preload="none"></audio>
 
-<!-- film grain + cursor ambient glow -->
+<!-- film grain -->
 <div class="grain" aria-hidden="true"></div>
-<div class="cursor-glow" id="glow" aria-hidden="true"></div>
 
 <!-- ============ NAV ============ -->
 <header class="nav" id="nav">
@@ -1708,22 +1700,13 @@ l19 -21 480 5 c311 3 483 9 490 16 17 17 -26 62 -92 95 -44 21 -66 39 -77 62
     setTimeout(update, 350);  // re-check after fonts/layout settle
   }
 
-  /* ---------- cursor ambient glow + hero parallax ---------- */
-  const glow = document.getElementById('glow');
+  /* ---------- hero parallax (pointer-reactive) ---------- */
   const heroInner = document.getElementById('heroInner');
-  if (finePointer && !reduce) {
-    let gx = innerWidth/2, gy = innerHeight/2, cx = gx, cy = gy;
+  if (heroInner && finePointer && !reduce) {
     window.addEventListener('pointermove', (e) => {
-      gx = e.clientX; gy = e.clientY; glow.style.opacity = '1';
-      // subtle hero parallax
       const dx = (e.clientX/innerWidth - .5), dy = (e.clientY/innerHeight - .5);
-      if (heroInner) heroInner.style.transform = `translate(${dx*-14}px, ${dy*-10}px)`;
+      heroInner.style.transform = `translate(${dx*-14}px, ${dy*-10}px)`;
     });
-    (function follow(){
-      cx += (gx-cx)*0.12; cy += (gy-cy)*0.12;
-      glow.style.transform = `translate(${cx}px, ${cy}px)`;
-      requestAnimationFrame(follow);
-    })();
   }
 
   /* ---------- ember particle field (hero + offer), cursor-reactive ---------- */
