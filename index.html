@@ -1695,13 +1695,12 @@ l19 -21 480 5 c311 3 483 9 490 16 17 17 -26 62 -92 95 -44 21 -66 39 -77 62
         }
         // subtle scroll-parallax on menu photos AND catering tiles (drifts as they pass — feels alive)
         const PARALLAX = true;
-        if (PARALLAX && (dish || el.classList.contains('card'))) {
-          const bg = el._bg || (el._bg = el.querySelector('.dish-bg, .card-bg'));
+        if (PARALLAX && dish) {   // menu only — tiles had jitter from parallax fighting Ken Burns
+          const bg = el._bg || (el._bg = el.querySelector('.dish-bg'));
           if (bg) {
             let p = (vh - r.top) / (vh + r.height);   // 0 entering bottom .. 1 leaving top
             p = p < 0 ? 0 : p > 1 ? 1 : p;
-            const amp = el.classList.contains('card') ? 22 : 8;
-            bg.style.translate = '0 ' + ((0.5 - p) * amp).toFixed(1) + 'px';
+            bg.style.translate = '0 ' + ((0.5 - p) * 8).toFixed(1) + 'px';
           }
         }
       }
