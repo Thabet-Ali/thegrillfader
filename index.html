@@ -1645,6 +1645,8 @@ l19 -21 480 5 c311 3 483 9 490 16 17 17 -26 62 -92 95 -44 21 -66 39 -77 62
 
   /* ---------- scroll reveal (progressive enhancement) ---------- */
   const reveals = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+  // booking section: reveal early so the whole form (date/guests/send) shows together
+  Array.prototype.forEach.call(document.querySelectorAll('.offer .reveal'), function(el){ el.classList.add('early-rev'); });
   if (!reduce) {
     // opt in to entrance + reveal animations only now that JS is confirmed alive
     document.documentElement.classList.add('reveal-anim');
