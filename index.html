@@ -269,6 +269,9 @@ header.nav.scrolled{
 .origin-band img{
   width:100%; height:auto; display:block;        /* full width, whole image, correct aspect — no crop */
   filter:contrast(1.03) saturate(.97);
+  /* fade top & bottom edges into the page so no hard edge is visible */
+  -webkit-mask-image:linear-gradient(to bottom, transparent 0%, #000 8%, #000 92%, transparent 100%);
+          mask-image:linear-gradient(to bottom, transparent 0%, #000 8%, #000 92%, transparent 100%);
 }
 .origin .lede{ margin-top:1.5rem }
 .origin .statement{ margin-top:2.5rem }
