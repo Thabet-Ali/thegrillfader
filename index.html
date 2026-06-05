@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="theme-color" content="#0C0A08" />
+<meta name="theme-color" content="#070604" />
 <title>The Grillfader — Grill & BBQ Catering · Est. 2015</title>
 
 <!-- favicon: crossed spatula + fork emblem -->
@@ -37,8 +37,8 @@
    Palette (5): near-black, warm cream, oxblood, brass, smoke
    ============================================================ */
 :root{
-  --black:#0C0A08;
-  --black-2:#15110D;
+  --black:#070604;
+  --black-2:#0E0A07;
   --cream:#EDE6D8;
   --oxblood:#5E1414;
   --brass:#B08D57;
@@ -127,7 +127,7 @@ header.nav{
   transition:background .4s var(--ease), backdrop-filter .4s var(--ease), padding .4s var(--ease);
 }
 header.nav.scrolled{
-  background:rgba(12,10,8,.72);
+  background:rgba(7,6,4,.72);
   backdrop-filter:blur(14px) saturate(120%);
   -webkit-backdrop-filter:blur(14px) saturate(120%);
   border-bottom:1px solid rgba(176,141,87,.18);
@@ -205,12 +205,12 @@ header.nav.scrolled{
   background:
     radial-gradient(120% 80% at 50% 118%, rgba(232,119,46,.20), transparent 55%),
     radial-gradient(90% 70% at 50% 130%, rgba(94,20,20,.35), transparent 60%),
-    linear-gradient(180deg, rgba(12,10,8,.4) 0%, rgba(12,10,8,.1) 40%, var(--black) 100%);
+    linear-gradient(180deg, rgba(7,6,4,.4) 0%, rgba(7,6,4,.1) 40%, var(--black) 100%);
 }
 /* dark scrim centered on the logo so the cream wordmark stays legible over the flames */
 .hero::after{
   content:''; position:absolute; inset:0; z-index:-1; pointer-events:none;
-  background:radial-gradient(58% 40% at 50% 44%, rgba(12,10,8,.78), rgba(12,10,8,.4) 55%, transparent 76%);
+  background:radial-gradient(58% 40% at 50% 44%, rgba(7,6,4,.78), rgba(7,6,4,.4) 55%, transparent 76%);
 }
 .hero-inner{ position:relative; padding-inline:var(--gut); will-change:transform }
 .hero .kicker{ display:block; margin-bottom:1.6rem; animation:fadeUp 1s var(--ease) .2s both }
@@ -330,8 +330,8 @@ header.nav.scrolled{
 #ember-craft{ position:absolute; inset:0; z-index:-2; width:100%; height:100% }
 .craft::before{ content:''; position:absolute; inset:0; z-index:-1;
   background:
-    linear-gradient(180deg, var(--black) 0%, rgba(12,10,8,.5) 28%, rgba(12,10,8,.5) 72%, var(--black) 100%),
-    radial-gradient(78% 78% at 50% 50%, transparent 38%, rgba(12,10,8,.6) 100%);
+    linear-gradient(180deg, var(--black) 0%, rgba(7,6,4,.5) 28%, rgba(7,6,4,.5) 72%, var(--black) 100%),
+    radial-gradient(78% 78% at 50% 50%, transparent 38%, rgba(7,6,4,.6) 100%);
 }
 .craft .kicker{ display:block; margin-bottom:1.2rem }
 .craft .statement{ margin-bottom:clamp(2.5rem,5vw,4.5rem) }
@@ -367,7 +367,7 @@ header.nav.scrolled{
 .card::before{ /* legibility + moody grade gradient */
   content:''; position:absolute; inset:0; z-index:-1; transition:opacity .5s var(--ease);
   background:
-    linear-gradient(180deg, rgba(12,10,8,.45) 0%, rgba(12,10,8,.05) 32%, rgba(12,10,8,.78) 100%);
+    linear-gradient(180deg, rgba(7,6,4,.45) 0%, rgba(7,6,4,.05) 32%, rgba(7,6,4,.78) 100%);
 }
 .card .no{ position:absolute; top:1.1rem; right:1.3rem; font-family:var(--font-display); color:rgba(237,230,216,.65); font-size:.85rem; letter-spacing:.05em }
 .card .label{
@@ -379,7 +379,7 @@ header.nav.scrolled{
 .card .body{ position:absolute; left:0; right:0; bottom:0; padding:clamp(1.1rem,1vw,1.7rem) }
 .card .tag{
   display:inline-block; font-size:.76rem; font-weight:500; letter-spacing:.14em; text-transform:uppercase;
-  color:var(--cream); background:rgba(12,10,8,.55); border:1px solid rgba(176,141,87,.4);
+  color:var(--cream); background:rgba(7,6,4,.55); border:1px solid rgba(176,141,87,.4);
   padding:.36rem .8rem; border-radius:100px; backdrop-filter:blur(4px); margin-bottom:.9rem;
 }
 .card .desc{
@@ -389,7 +389,7 @@ header.nav.scrolled{
 .card .explore{
   display:inline-flex; align-items:center; gap:.6rem; color:var(--cream);
   font-family:var(--font-display); font-size:.82rem; letter-spacing:.12em; text-transform:uppercase;
-  background:rgba(12,10,8,.5); border:1px solid rgba(176,141,87,.45); border-radius:100px;
+  background:rgba(7,6,4,.5); border:1px solid rgba(176,141,87,.45); border-radius:100px;
   padding:.6rem 1.1rem; backdrop-filter:blur(4px);
   opacity:0; transform:translateY(10px); transition:opacity .45s var(--ease) .1s, transform .45s var(--ease) .1s, background .3s var(--ease);
 }
@@ -428,7 +428,7 @@ header.nav.scrolled{
 .dish:nth-child(7) .dish-bg{ animation:kb2 12s ease-in-out infinite alternate }
 .dish::after{ /* dark grade keeps the big text readable; light on the right so the photo shows */
   content:''; position:absolute; inset:0; z-index:-1; pointer-events:none;
-  background:linear-gradient(90deg, rgba(12,10,8,.9) 0%, rgba(12,10,8,.55) 45%, rgba(12,10,8,.2) 100%);
+  background:linear-gradient(90deg, rgba(7,6,4,.9) 0%, rgba(7,6,4,.55) 45%, rgba(7,6,4,.2) 100%);
 }
 .dish:hover .dish-bg{ scale:1.06; opacity:1 }
 /* 6 Ken Burns variants — different zoom + diagonal directions for a lively, random feel */
@@ -599,7 +599,7 @@ footer{ position:relative; isolation:isolate; overflow:hidden; text-align:center
 }
 footer::after{ /* dark scrim so footer text stays readable over the flames */
   content:''; position:absolute; inset:0; z-index:-1; pointer-events:none;
-  background:radial-gradient(70% 70% at 50% 35%, rgba(12,10,8,.7), rgba(12,10,8,.25) 60%, transparent 85%);
+  background:radial-gradient(70% 70% at 50% 35%, rgba(7,6,4,.7), rgba(7,6,4,.25) 60%, transparent 85%);
 }
 @media (prefers-reduced-motion:reduce){ .footer-fire{ display:none } }
 footer .fmark{ font-family:var(--font-wordmark); font-size:clamp(2rem,1rem + 5vw,3.5rem); color:var(--cream); line-height:1 }
@@ -696,7 +696,7 @@ html:not(.hero-anim) .scroll-cue{ animation:none!important; opacity:1!important;
 
   /* fire is zoomed by object-fit on portrait — ease it back so the logo wins */
   .hero-fire{ opacity:.62 }
-  .hero::after{ background:radial-gradient(70% 34% at 50% 42%, rgba(12,10,8,.82), rgba(12,10,8,.45) 58%, transparent 80%) }
+  .hero::after{ background:radial-gradient(70% 34% at 50% 42%, rgba(7,6,4,.82), rgba(7,6,4,.45) 58%, transparent 80%) }
 
   /* logos sized for phone */
   .hero-logo{ width:90vw; margin-bottom:1rem }
@@ -771,7 +771,7 @@ html:not(.hero-anim) .scroll-cue{ animation:none!important; opacity:1!important;
 .sound-toggle{
   position:fixed; left:clamp(1rem,3vw,2rem); bottom:clamp(1rem,3vw,2rem); z-index:55;
   width:52px; height:52px; display:grid; place-items:center; border-radius:50%;
-  background:rgba(12,10,8,.7); border:1px solid rgba(176,141,87,.4); color:var(--brass);
+  background:rgba(7,6,4,.7); border:1px solid rgba(176,141,87,.4); color:var(--brass);
   cursor:pointer; backdrop-filter:blur(6px); transition:background .3s var(--ease), border-color .3s var(--ease), color .3s var(--ease);
 }
 .sound-toggle:hover{ background:rgba(176,141,87,.16); border-color:var(--brass) }
