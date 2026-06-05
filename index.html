@@ -405,6 +405,9 @@ header.nav.scrolled{
    THE SPREAD (menu)
    ============================================================ */
 .spread .head{ margin-bottom:1.5rem }
+/* faded divider between the event section and the menu (same style as the row dividers) */
+.spread{ position:relative }
+.spread::before{ content:''; position:absolute; top:0; left:50%; transform:translateX(-50%); width:min(var(--maxw), 100% - 2*var(--gut)); height:1px; background:linear-gradient(90deg, transparent 5%, rgba(176,141,87,.28) 50%, transparent 95%); pointer-events:none }
 .menu{ margin-top:1.5rem }
 .dish:not(:last-child){ border-bottom:1px solid transparent; border-image:linear-gradient(90deg, transparent 5%, rgba(176,141,87,.28) 50%, transparent 95%) 1 }
 .dish{
