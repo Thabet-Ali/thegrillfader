@@ -718,7 +718,7 @@ html:not(.hero-anim) .scroll-cue{ animation:none!important; opacity:1!important;
   .cards{ flex-direction:column; height:auto; gap:14px }
   .card{ flex:none; aspect-ratio:.74; border-radius:16px }
   .dish-bg, .card-bg{ animation:none!important; transform:none!important; translate:none!important; will-change:auto!important }  /* mobile: no GPU transform layer -> sharp, not blurry */
-  .card-bg{ filter:brightness(1.14) saturate(1.05)!important }   /* tiles: brighter so the food reads on a phone */
+  .card-bg{ filter:none!important }   /* mobile: no filter -> no low-res GPU raster -> SHARP on iOS */
   .cards:hover .card, .cards .card:hover{ flex-grow:0 }
   .card .no{ display:none }
   .card .body{ display:contents }
