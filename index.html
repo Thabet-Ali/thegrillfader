@@ -650,8 +650,12 @@ html:not(.hero-anim) .scroll-cue{ animation:none!important; opacity:1!important;
   /* MOBILE catering tiles -- minimal: clean photo, tag + title at the bottom, whole card taps to booking */
   .cards{ flex-direction:column; height:auto; gap:14px }
   .card{ flex:none; aspect-ratio:.74; border-radius:16px }
-  .dish-bg, .card-bg{ animation:none!important; transform:none!important; translate:none!important; will-change:auto!important }  /* mobile: no GPU transform layer -> sharp, not blurry */
-  .card-bg{ filter:none!important }   /* mobile: no filter -> no low-res GPU raster -> SHARP on iOS */
+  /* mobile Ken Burns: STATIC scale (browser rasterises it sharp) + animate ONLY translate -> a drift
+     with no scale-change, so none of the GPU bitmap-upscaling that softened iOS. Static scale verified
+     sharp up to 1.14 in WebKit/iPhone (tools/zoomtest.mjs); we use a gentle 1.07. */
+  @keyframes kbpan{ 0%{ translate:-1.8% -1.3% } 100%{ translate:1.8% 1.3% } }
+  .dish-bg, .card-bg{ transform:none!important; scale:1.07; animation:kbpan 26s ease-in-out infinite alternate !important; will-change:translate }
+  .card-bg{ filter:none!important }   /* keep: no saturate filter -> no low-res GPU raster -> SHARP on iOS */
   .cards:hover .card, .cards .card:hover{ flex-grow:0 }
   .card .no{ display:none }
   .card .body{ display:contents }
@@ -663,8 +667,7 @@ html:not(.hero-anim) .scroll-cue{ animation:none!important; opacity:1!important;
   .card .explore:hover, .card .explore:active{ background:transparent!important; border-color:transparent!important }
   .card .explore span, .card .explore svg{ display:none }
   .card::after{ content:'\2192'; position:absolute; right:1.2rem; bottom:1.2rem; z-index:4; color:var(--brass); font-family:var(--font-display); font-size:1.4rem; pointer-events:none }
-  /* give the stacked tiles life: a slow Ken Burns drift, staggered per tile */
-  /* Ken Burns now unified for all breakpoints via .card:nth-child(n) .card-bg above */
+  /* tiles drift via the mild kbpan above (mobile-tuned for sharpness); desktop uses kb1-6 */
 
   /* menu rows: tighter ghost number + name/note stack on phone */
   .dish{ gap:1.1rem }
