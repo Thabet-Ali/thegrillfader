@@ -1324,6 +1324,22 @@ m334 -367 c25 -26 26 -31 26 -135 l0 -108 -49 -58 c-57 -68 -101 -110 -101
         <form id="bookForm" class="book-simple" novalidate>
         <input id="f-name" name="name" type="text" autocomplete="name" placeholder="Your name" data-i18n-ph="name_ph" required class="book-name reveal" />
         <div class="book-row reveal">
+          <div class="field">
+            <label for="f-phone" data-i18n="label_phone">Phone</label>
+            <input id="f-phone" name="phone" type="tel" autocomplete="tel" placeholder="Your number" data-i18n-ph="phone_ph" />
+          </div>
+          <div class="field">
+            <label for="f-event" data-i18n="label_event">Event type</label>
+            <select id="f-event" name="eventType">
+              <option value="" data-i18n="ev_choose">Select&hellip;</option>
+              <option value="Wedding" data-i18n="ev_wedding">Wedding</option>
+              <option value="Corporate" data-i18n="ev_corporate">Corporate</option>
+              <option value="Private feast" data-i18n="ev_private">Private feast</option>
+              <option value="Festival / pop-up" data-i18n="ev_festival">Festival / pop-up</option>
+            </select>
+          </div>
+        </div>
+        <div class="book-row reveal">
           <div class="field field-date">
             <label for="dateTrigger" data-i18n="label_date">Date</label>
             <button type="button" class="date-trigger" id="dateTrigger" aria-haspopup="dialog" aria-expanded="false">
@@ -1569,6 +1585,14 @@ l19 -21 480 5 c311 3 483 9 490 16 17 17 -26 62 -92 95 -44 21 -66 39 -77 62
     label_date:{en:`Date`,sv:`Datum`},
     date_pick:{en:`Pick a date`,sv:`Välj datum`},
     label_guests:{en:`Guests`,sv:`Gäster`},
+    label_phone:{en:`Phone`,sv:`Telefon`},
+    phone_ph:{en:`Your number`,sv:`Ditt nummer`},
+    label_event:{en:`Event type`,sv:`Typ av event`},
+    ev_choose:{en:`Select…`,sv:`Välj…`},
+    ev_wedding:{en:`Wedding`,sv:`Bröllop`},
+    ev_corporate:{en:`Corporate`,sv:`Företag`},
+    ev_private:{en:`Private feast`,sv:`Privat kalas`},
+    ev_festival:{en:`Festival / pop-up`,sv:`Festival / pop-up`},
     submit:{en:`Send the Offer`,sv:`Skicka förfrågan`},
     footer_ft:{en:`An offer you can&rsquo;t refuse.`,sv:`Ett bud du inte tackar nej till.`},
     footer_meta:{en:`&copy; 2015&ndash;2026 The Grillfader · Grill &amp; BBQ Catering · Sweden &middot; <a href="#top">Back to top</a>`,sv:`&copy; 2015&ndash;2026 The Grillfader · Grill &amp; BBQ-catering · Sverige &middot; <a href="#top">Till toppen</a>`},
@@ -1986,12 +2010,17 @@ l19 -21 480 5 c311 3 483 9 490 16 17 17 -26 62 -92 95 -44 21 -66 39 -77 62
     const f = new FormData(form);
     const name = (f.get('name')||'').toString().trim();
     if (!name){ document.getElementById('f-name').focus(); return; }
+    const phone = (f.get('phone')||'').toString().trim();
+    const evSel = document.getElementById('f-event');
+    const eventType = (evSel && evSel.value) ? evSel.options[evSel.selectedIndex].text : '';
     const date = (f.get('date')||'').toString().trim() || 'To be decided';
     const guests = (f.get('guests')||'').toString().trim();
     const subject = encodeURIComponent(`Booking — ${name}`);
-    const body = encodeURIComponent(
-      `Name: ${name}\nDate: ${date}\nGuests: ${guests}`
-    );
+    const lines = [`Name: ${name}`];
+    if (phone) lines.push(`Phone: ${phone}`);
+    if (eventType) lines.push(`Event: ${eventType}`);
+    lines.push(`Date: ${date}`, `Guests: ${guests}`);
+    const body = encodeURIComponent(lines.join('\n'));
     window.location.href = `mailto:hello@thegrillfader.se?subject=${subject}&body=${body}`;
   });
 })();
