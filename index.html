@@ -716,7 +716,9 @@ html:not(.hero-anim) .scroll-cue{ animation:none!important; opacity:1!important;
 
   /* catering accordion -> stacked cards (no hover on touch): show everything */
   .cards{ flex-direction:column; height:auto; gap:12px }
-  .card{ flex:none; height:240px; border-radius:14px }
+  .card{ flex:none; aspect-ratio:.72; border-radius:14px }
+  /* mobile: kill the Ken Burns extra-zoom so images are not enormous (calm backdrop) */
+  .dish-bg, .card-bg{ animation:none!important; transform:scale(1)!important; translate:none!important }
   .cards:hover .card, .cards .card:hover{ flex-grow:0 }
   .card .desc, .card .explore{ opacity:1; transform:none }
   .card .no{ top:1rem; right:1.1rem }
