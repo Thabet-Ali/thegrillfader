@@ -405,9 +405,9 @@ header.nav.scrolled{
    THE SPREAD (menu)
    ============================================================ */
 .spread .head{ margin-bottom:1.5rem }
-/* faded divider between the event section and the menu (same style as the row dividers) */
+/* shimmering bronze divider between the event section and the menu */
 .spread{ position:relative }
-.spread::before{ content:''; position:absolute; top:0; left:50%; transform:translateX(-50%); width:min(var(--maxw), 100% - 2*var(--gut)); height:1px; background:linear-gradient(90deg, transparent 5%, rgba(176,141,87,.28) 50%, transparent 95%); pointer-events:none }
+.gold-rule--section{ top:0; bottom:auto; left:50%; right:auto; transform:translateX(-50%); width:min(var(--maxw), 100% - 2*var(--gut)) }
 .menu{ margin-top:1.5rem }
 /* photorealistic gold, shimmering divider between dishes */
 .gold-rule{
@@ -1814,6 +1814,12 @@ l19 -21 480 5 c311 3 483 9 490 16 17 17 -26 62 -92 95 -44 21 -66 39 -77 62
       r.style.setProperty('--gd', (i * 0.5) + 's');
       d.appendChild(r);
     });
+    const spread = document.querySelector('.spread');
+    if (spread) {
+      const sr = document.createElement('span');
+      sr.className = 'gold-rule gold-rule--section'; sr.setAttribute('aria-hidden','true');
+      spread.appendChild(sr);
+    }
   })();
   emberField(document.getElementById('ember-craft'));
 
