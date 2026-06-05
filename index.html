@@ -714,14 +714,20 @@ html:not(.hero-anim) .scroll-cue{ animation:none!important; opacity:1!important;
   .stat .n{ font-size:2rem }
   .craft .stats{ flex-direction:column; gap:2.4rem }
 
-  /* catering accordion -> stacked cards (no hover on touch): show everything */
-  .cards{ flex-direction:column; height:auto; gap:12px }
-  .card{ flex:none; aspect-ratio:.72; border-radius:14px }
-  /* mobile: kill the Ken Burns extra-zoom so images are not enormous (calm backdrop) */
-  .dish-bg, .card-bg{ animation:none!important; transform:scale(1)!important; translate:none!important }
+  /* MOBILE catering tiles -- minimal: clean photo, tag + title at the bottom, whole card taps to booking */
+  .cards{ flex-direction:column; height:auto; gap:14px }
+  .card{ flex:none; aspect-ratio:.74; border-radius:16px }
+  .dish-bg, .card-bg{ animation:none!important; transform:scale(1)!important; translate:none!important }  /* kill Ken Burns extra-zoom on mobile */
   .cards:hover .card, .cards .card:hover{ flex-grow:0 }
-  .card .desc, .card .explore{ opacity:1; transform:none }
-  .card .no{ top:1rem; right:1.1rem }
+  .card .no{ display:none }
+  .card .body{ display:contents }
+  .card .desc{ display:none }
+  .card::before{ background:linear-gradient(180deg, transparent 30%, rgba(12,10,8,.5) 58%, rgba(12,10,8,.93) 100%) }
+  .card .tag{ position:absolute; left:1.3rem; right:3rem; bottom:3.4rem; margin:0; padding:0; background:none; border:0; -webkit-backdrop-filter:none; backdrop-filter:none; opacity:1; transform:none; color:var(--brass); font-size:.74rem; letter-spacing:.16em }
+  .card .label{ position:absolute; top:auto; left:1.3rem; right:2.8rem; bottom:1.15rem; text-align:left; padding:0; font-size:clamp(1.6rem,1.1rem + 3.6vw,2.1rem); text-shadow:0 2px 16px rgba(0,0,0,.85) }
+  .card .explore{ position:absolute; inset:0; z-index:5; margin:0; padding:0; border:0; background:transparent; opacity:1; transform:none }
+  .card .explore span, .card .explore svg{ display:none }
+  .card::after{ content:'\2192'; position:absolute; right:1.2rem; bottom:1.2rem; z-index:4; color:var(--brass); font-family:var(--font-display); font-size:1.4rem; pointer-events:none }
   /* give the stacked tiles life: a slow Ken Burns drift, staggered per tile */
   /* Ken Burns now unified for all breakpoints via .card:nth-child(n) .card-bg above */
 
