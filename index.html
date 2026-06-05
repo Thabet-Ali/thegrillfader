@@ -280,11 +280,13 @@ header.nav.scrolled{
 .gfx-text{ padding:clamp(2.5rem,5vw,5rem) clamp(1.5rem,3vw,3rem) clamp(2.5rem,5vw,5rem) max(var(--gut), calc((100vw - var(--maxw)) / 2)) }
 .gfx-text > *{ max-width:36rem }
 .gfx-text > .stats{ max-width:none }
-.gfx-photo{ position:relative; align-self:stretch; overflow:hidden }
+.gfx-photo{ position:relative; align-self:stretch; overflow:hidden; transition:transform .18s var(--ease) }
 .gfx-bg{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 0%; transform-origin:50% 0%; animation:kbhero 18s ease-in-out infinite alternate; will-change:transform }
 @keyframes kbhero{ 0%{ transform:scale(1) } 100%{ transform:scale(1.07) } }   /* top-anchored pure zoom: only the BOTTOM can crop, head always stays */
 .gfx-photo::before{ content:''; position:absolute; inset:0; z-index:2; pointer-events:none; background:linear-gradient(90deg, var(--black) 0%, rgba(12,10,8,.5) 12%, transparent 30%) }
-.gfx-photo::after{ content:''; position:absolute; inset:0; z-index:3; pointer-events:none; opacity:.7; mix-blend-mode:overlay; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); animation:grain 7s steps(6) infinite }
+.gfx-photo .gfx-bg{ transition:scale .55s var(--ease) }
+.gfx-photo:hover .gfx-bg{ scale:1.04 }
+.gfx-photo::after{ content:''; position:absolute; inset:0; z-index:3; pointer-events:none; opacity:.1; mix-blend-mode:overlay; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); animation:grain 7s steps(6) infinite }
 .gfx-eyebrow{ position:relative; display:inline-block; padding-bottom:.55rem }
 .gfx-eyebrow::after{ content:''; position:absolute; left:0; bottom:0; height:2px; width:100%; transform-origin:left; background:linear-gradient(90deg, var(--ember), var(--brass) 55%, transparent) }
 .reveal-anim .gfx-eyebrow::after{ transform:scaleX(0); transition:transform 1s var(--ease) .3s }
@@ -1561,7 +1563,7 @@ l19 -21 480 5 c311 3 483 9 490 16 17 17 -26 62 -92 95 -44 21 -66 39 -77 62
     origin_lede:{en:`In 2015, one appearance on TV4&rsquo;s <em style="color:var(--brass);font-style:italic">Grillmästarna</em> lit the spark. The Grillfader was born &mdash; one man, built on smoke, patience, and respect for the flame.`,sv:`2015 ställde sig en man framför hela grill-Sverige i TV4:s <em style="color:var(--brass);font-style:italic">Grillmästarna</em>. Sedan dess har The Grillfader gjort en enda sak &mdash; och gjort den bättre än de flesta: kött, rök och eld, utan genvägar.`},
     tv_badge:{en:`As seen on TV4 · Grillmästarna`,sv:`Känd från TV4 · Grillmästarna`},
     craft_kicker:{en:`The Craft`,sv:`Hantverket`},
-    craft_statement:{en:`Low. Slow. <em>Fire &amp; Smoke.</em>`,sv:`Lågt. Långsamt. <em>Eld &amp; Rök.</em>`},
+    craft_statement:{en:`Low. Slow. <em>Smoke.</em>`,sv:`Lågt. Långsamt. <em>Rök.</em>`},
     stat_since:{en:`Firing since`,sv:`Vid elden sedan`},
     stat_events:{en:`Events catered`,sv:`Genomförda event`},
     stat_pitmaster:{en:`Pitmaster at the fire`,sv:`Grillmästare vid elden`},
@@ -1796,28 +1798,18 @@ l19 -21 480 5 c311 3 483 9 490 16 17 17 -26 62 -92 95 -44 21 -66 39 -77 62
   }
   emberField(document.getElementById('ember-hero'));
   emberField(document.getElementById('ember-offer'));
-  /* founder portrait — strong, oil-smooth 3D tilt (rAF lerp: eases in AND slowly drifts back) */
+  /* founder portrait — subtle 3D tilt on pointer move (parallax depth) */
   (function(){
     const hero = document.querySelector('.gfx2');
     const photo = hero && hero.querySelector('.gfx-photo');
     if (!hero || !photo || !finePointer || reduce) return;
-    let trx = 0, tryy = 0, crx = 0, cry = 0, active = false, raf = null;
-    const frame = () => {
-      crx += (trx - crx) * 0.06;          // viscous easing (low = slow / oily)
-      cry += (tryy - cry) * 0.06;
-      const s = 1 + (Math.abs(crx) + Math.abs(cry)) / 240;   // scale grows with tilt to hide edges
-      photo.style.transform = 'perspective(1000px) rotateX(' + crx.toFixed(2) + 'deg) rotateY(' + cry.toFixed(2) + 'deg) scale(' + s.toFixed(3) + ')';
-      if (active || Math.abs(trx - crx) > 0.02 || Math.abs(tryy - cry) > 0.02) { raf = requestAnimationFrame(frame); }
-      else { photo.style.transform = ''; raf = null; }
-    };
-    const kick = () => { if (!raf) raf = requestAnimationFrame(frame); };
     hero.addEventListener('pointermove', (e) => {
       const r = hero.getBoundingClientRect();
-      trx = (0.5 - (e.clientY - r.top) / r.height) * 30;     // rotateX  (±30°)
-      tryy = ((e.clientX - r.left) / r.width - 0.5) * 30;    // rotateY  (±30°)
-      active = true; kick();
+      const dx = (e.clientX - r.left) / r.width - 0.5;
+      const dy = (e.clientY - r.top) / r.height - 0.5;
+      photo.style.transform = `perspective(1100px) rotateY(${dx * -5}deg) rotateX(${dy * 4}deg) scale(1.05)`;
     });
-    hero.addEventListener('pointerleave', () => { trx = 0; tryy = 0; active = false; kick(); });
+    hero.addEventListener('pointerleave', () => { photo.style.transform = ''; });
   })();
   emberField(document.getElementById('ember-craft'));
 
