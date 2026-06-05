@@ -717,6 +717,8 @@ html:not(.hero-anim) .scroll-cue{ animation:none!important; opacity:1!important;
   /* MOBILE catering tiles -- minimal: clean photo, tag + title at the bottom, whole card taps to booking */
   .cards{ flex-direction:column; height:auto; gap:14px }
   .card{ flex:none; aspect-ratio:.74; border-radius:16px }
+  .card{ overflow:visible }
+  .card-bg, .card::before, .card .explore{ border-radius:16px }
   .dish-bg, .card-bg{ animation:none!important; transform:none!important; translate:none!important; will-change:auto!important }  /* mobile: no GPU transform layer -> sharp, not blurry */
   .card-bg{ filter:none!important }   /* mobile: no filter -> no low-res GPU raster -> SHARP on iOS */
   .cards:hover .card, .cards .card:hover{ flex-grow:0 }
