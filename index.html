@@ -653,8 +653,9 @@ html:not(.hero-anim) .scroll-cue{ animation:none!important; opacity:1!important;
   /* mobile Ken Burns: STATIC scale (browser rasterises it sharp) + animate ONLY translate -> a drift
      with no scale-change, so none of the GPU bitmap-upscaling that softened iOS. Static scale verified
      sharp up to 1.14 in WebKit/iPhone (tools/zoomtest.mjs); we use a gentle 1.07. */
-  @keyframes kbpan{ 0%{ translate:-1.8% -1.3% } 100%{ translate:1.8% 1.3% } }
-  .dish-bg, .card-bg{ transform:none!important; scale:1.07; animation:kbpan 26s ease-in-out infinite alternate !important; will-change:translate }
+  @keyframes kbpan{ 0%{ translate:-4% -2.6% } 100%{ translate:4% 2.6% } }
+  .dish-bg, .card-bg{ transform:none!important; scale:1.12; animation:kbpan 20s ease-in-out infinite alternate !important; will-change:translate }
+  .card:nth-child(even) .card-bg, .dish:nth-child(even) .dish-bg{ animation-delay:-10s !important }  /* stagger so tiles don't drift in lockstep */
   .card-bg{ filter:none!important }   /* keep: no saturate filter -> no low-res GPU raster -> SHARP on iOS */
   .cards:hover .card, .cards .card:hover{ flex-grow:0 }
   .card .no{ display:none }
