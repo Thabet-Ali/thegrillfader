@@ -553,7 +553,8 @@ header.nav.scrolled{
 }
 .g-btn:hover{ background:rgba(176,141,87,.14); border-color:var(--brass) }
 .g-display{ flex:1; text-align:center }
-.g-num{ display:block; font-family:var(--font-display); font-weight:700; font-size:clamp(2.8rem,2rem + 2.6vw,3.8rem); line-height:1; color:var(--ember); text-shadow:0 0 30px rgba(232,119,46,.3) }
+.g-num{ display:block; font-family:var(--font-display); font-weight:700; font-size:clamp(2.8rem,2rem + 2.6vw,3.8rem); line-height:1; color:var(--ember); text-shadow:0 0 30px rgba(232,119,46,.3); caret-color:var(--ember); outline:none; border-radius:8px; cursor:text }
+.g-num:focus{ background:rgba(232,119,46,.14) }
 .g-tier{ display:block; margin-top:.35rem; font-size:.78rem; letter-spacing:.22em; text-transform:uppercase; color:var(--smoke) }
 .g-chips{ display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1.1rem }
 .g-chips button{
@@ -579,11 +580,14 @@ footer{ position:relative; isolation:isolate; overflow:hidden; text-align:center
 /* fire fades in slowly once the booking has fully left the viewport, but snaps off
    the instant the booking returns (.15s base) — so the two are never seen together */
 body.fire-on .footer-fire{ opacity:.82; transition:opacity 1.1s var(--ease) }
+/* footer content reveals as ONE group together with the fire (same trigger), not per-element */
+footer .flogo, footer .ft, footer .meta{ opacity:0; transform:translateY(24px); transition:opacity 1s var(--ease), transform 1s var(--ease) }
+body.fire-on footer .flogo, body.fire-on footer .ft, body.fire-on footer .meta{ opacity:1; transform:none }
 footer::after{ /* dark scrim so footer text stays readable over the flames */
   content:''; position:absolute; inset:0; z-index:-1; pointer-events:none;
   background:radial-gradient(70% 70% at 50% 35%, rgba(18,13,12,.7), rgba(18,13,12,.25) 60%, transparent 85%);
 }
-@media (prefers-reduced-motion:reduce){ .footer-fire{ display:none } }
+@media (prefers-reduced-motion:reduce){ .footer-fire{ display:none } footer .flogo, footer .ft, footer .meta{ opacity:1!important; transform:none!important } }
 footer .ft{ font-family:var(--font-display); font-style:italic; color:var(--smoke); margin:.6rem 0 1.6rem }
 footer .meta{ color:var(--smoke); font-size:.85rem; letter-spacing:.16em; text-transform:uppercase }
 footer .meta a{ color:var(--brass) }
@@ -1377,10 +1381,10 @@ m334 -367 c25 -26 26 -31 26 -135 l0 -108 -49 -58 c-57 -68 -101 -110 -101
             <label data-i18n="label_guests">Guests</label>
             <div class="guests">
               <button type="button" class="g-btn" id="gMinus" aria-label="Fewer guests">&minus;</button>
-              <div class="g-display"><span class="g-num" id="gNum">50</span><span class="g-tier" id="gTier">Party</span></div>
+              <div class="g-display"><span class="g-num" id="gNum" contenteditable="true" inputmode="numeric" role="spinbutton" aria-label="Number of guests">10</span><span class="g-tier" id="gTier">Intimate</span></div>
               <button type="button" class="g-btn" id="gPlus" aria-label="More guests">&plus;</button>
             </div>
-            <input type="hidden" id="f-guests" name="guests" value="50" />
+            <input type="hidden" id="f-guests" name="guests" value="10" />
           </div>
         </div>
         <button type="submit" class="submit reveal">
@@ -1410,7 +1414,7 @@ m334 -367 c25 -26 26 -31 26 -135 l0 -108 -49 -58 c-57 -68 -101 -110 -101
          poster="video/footer-fire-poster.jpg" aria-hidden="true">
     <source data-src="video/footer-fire.mp4" type="video/mp4" />
   </video>
-  <div class="flogo reveal"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1902.000000 1153.000000" aria-hidden="true" focusable="false" fill="currentColor"><title>The Grillfader</title>
+  <div class="flogo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1902.000000 1153.000000" aria-hidden="true" focusable="false" fill="currentColor"><title>The Grillfader</title>
 <g transform="translate(0.000000,1153.000000) scale(0.100000,-0.100000)"
 fill="currentColor" stroke="none">
 <path d="M2330 11318 c-2115 -7 -2107 -7 -2119 -26 -4 -7 -6 -284 -3 -615 3
@@ -1535,8 +1539,8 @@ l19 -21 480 5 c311 3 483 9 490 16 17 17 -26 62 -92 95 -44 21 -66 39 -77 62
 93 138 93 34 0 47 -6 77 -37z"/>
 </g>
 </svg></div>
-  <p class="ft reveal" data-i18n="footer_ft">An offer you can&rsquo;t refuse.</p>
-  <p class="meta reveal" data-i18n="footer_meta">&copy; 2015&ndash;2026 The Grillfader · Grill &amp; BBQ Catering · Sweden &middot; <a href="#top">Back to top</a></p>
+  <p class="ft" data-i18n="footer_ft">An offer you can&rsquo;t refuse.</p>
+  <p class="meta" data-i18n="footer_meta">&copy; 2015&ndash;2026 The Grillfader · Grill &amp; BBQ Catering · Sweden &middot; <a href="#top">Back to top</a></p>
 </footer>
 
 <script>
@@ -1905,22 +1909,38 @@ l19 -21 480 5 c311 3 483 9 490 16 17 17 -26 62 -92 95 -44 21 -66 39 -77 62
     langCallbacks.push(() => { if (selected) labelEl.textContent = fmtSel(selected); if (!cal.hidden) render(); });
   })();
 
-  /* ---------- bold guests stepper (10–300, step 5, Intimate→Festival) ---------- */
+  /* ---------- bold guests stepper: ±1 (tap or press-and-hold), or type a custom amount ---------- */
   (() => {
     const numEl = document.getElementById('gNum'); if (!numEl) return;
     const tierEl = document.getElementById('gTier');
     const input = document.getElementById('f-guests');
-    const MIN=10, MAX=300, STEP=5; let val=50;
+    const MIN=10, MAX=300, STEP=1; let val=10;
+    const clamp = v => Math.min(MAX, Math.max(MIN, v));
     const upd = () => {
       const cap = val >= MAX;
-      numEl.textContent = cap ? MAX+'+' : val;
+      if (document.activeElement !== numEl) numEl.textContent = cap ? MAX+'+' : val;
       tierEl.textContent = tierFor(val);
       input.value = cap ? MAX+'+' : String(val);
     };
-    document.getElementById('gMinus').addEventListener('click', () => { val = Math.max(MIN, val-STEP); upd(); });
-    document.getElementById('gPlus').addEventListener('click', () => { val = Math.min(MAX, val+STEP); upd(); });
-    document.querySelectorAll('.g-chips button').forEach(b =>
-      b.addEventListener('click', () => { val = Math.min(MAX, Math.max(MIN, parseInt(b.dataset.g,10))); upd(); }));
+    const bump = (d) => { val = clamp(val + d); upd(); };
+    /* tap = ±1, press-and-hold = keep stepping */
+    const hold = (btn, d) => {
+      let to, iv; const stop = () => { clearTimeout(to); clearInterval(iv); };
+      btn.addEventListener('pointerdown', (e) => { e.preventDefault(); bump(d); stop(); to = setTimeout(() => { iv = setInterval(() => bump(d), 70); }, 380); });
+      btn.addEventListener('pointerleave', stop); btn.addEventListener('pointercancel', stop);
+      window.addEventListener('pointerup', stop);
+    };
+    hold(document.getElementById('gMinus'), -STEP);
+    hold(document.getElementById('gPlus'),  +STEP);
+    /* type a custom amount (optional) */
+    numEl.addEventListener('focus', () => {
+      if (val >= MAX) numEl.textContent = MAX;
+      const r = document.createRange(); r.selectNodeContents(numEl);
+      const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+    });
+    const commit = () => { const n = parseInt(numEl.textContent.replace(/[^\d]/g,''), 10); val = isNaN(n) ? MIN : clamp(n); upd(); };
+    numEl.addEventListener('blur', commit);
+    numEl.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); numEl.blur(); } });
     upd();
     langCallbacks.push(upd);
   })();
