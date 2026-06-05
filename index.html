@@ -410,7 +410,7 @@ header.nav.scrolled{
   display:grid; grid-template-columns:auto 1fr; align-items:center; gap:clamp(1.3rem,3vw,3.5rem);
   padding:clamp(2rem,3vw,3.4rem) clamp(1.2rem,2.5vw,2.4rem); border-bottom:1px solid rgba(176,141,87,.25);
   min-height:clamp(150px,17vw,220px);
-  position:relative; transition:padding-left .45s var(--ease); overflow:hidden; isolation:isolate;
+  position:relative; transition:padding-left .45s var(--ease), opacity .4s var(--ease), filter .4s var(--ease); overflow:hidden; isolation:isolate;
 }
 /* dynamic dish photo behind each row (slow Ken Burns drift, zooms on hover) */
 .dish-bg{
@@ -457,6 +457,15 @@ header.nav.scrolled{
   font-size:clamp(2.1rem,1.4rem + 3.6vw,4rem); color:var(--cream); transition:color .3s var(--ease);
 }
 .dish:hover .name{ color:var(--ember) }
+/* spotlight: hovering one row dims the others */
+.menu:hover .dish:not(:hover){ opacity:.42; filter:brightness(.6) saturate(.7) }
+.dish .num, .dish-main{ position:relative; z-index:1 }
+/* warm glow that follows the cursor over the dish */
+.dish-glow{ position:absolute; inset:0; z-index:0; pointer-events:none; opacity:0; mix-blend-mode:screen; transition:opacity .35s var(--ease); background:radial-gradient(200px circle at var(--mx,50%) var(--my,50%), rgba(255,150,60,.40), rgba(255,105,40,.14) 42%, transparent 66%) }
+.dish:hover .dish-glow{ opacity:1 }
+/* ember sparks rising on hover (spawned in JS) */
+.spark{ position:absolute; bottom:6%; width:var(--sz,3px); height:var(--sz,3px); border-radius:50%; pointer-events:none; z-index:2; opacity:0; background:radial-gradient(circle, #ffe6bf, var(--ember) 55%, transparent 72%); box-shadow:0 0 7px 1px rgba(255,140,50,.85); animation:sparkrise var(--dur,1.4s) ease-out forwards }
+@keyframes sparkrise{ 0%{ transform:translate(0,0) scale(1); opacity:0 } 12%{ opacity:1 } 100%{ transform:translate(var(--dx,0), var(--rise,-110px)) scale(.3); opacity:0 } }
 .dish .note{
   font-family:var(--font-display); font-style:italic; font-weight:400;
   font-size:clamp(1.15rem,.95rem + .8vw,1.7rem); color:#d6cdbc; line-height:1.15;
@@ -1797,6 +1806,37 @@ l19 -21 480 5 c311 3 483 9 490 16 17 17 -26 62 -92 95 -44 21 -66 39 -77 62
   }
   emberField(document.getElementById('ember-hero'));
   emberField(document.getElementById('ember-offer'));
+  /* menu — warm cursor glow + ember sparks on hover */
+  (function(){
+    const dishes = Array.prototype.slice.call(document.querySelectorAll('.menu .dish'));
+    if (!dishes.length) return;
+    dishes.forEach((d) => { const g = document.createElement('span'); g.className = 'dish-glow'; d.appendChild(g); });
+    if (!finePointer) return;
+    dishes.forEach((d) => {
+      d.addEventListener('pointermove', (e) => {
+        const r = d.getBoundingClientRect();
+        d.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        d.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      });
+      if (reduce) return;
+      let timer = null;
+      const spawn = () => {
+        const n = 1 + Math.floor(Math.random() * 2);
+        for (let i = 0; i < n; i++) {
+          const s = document.createElement('span'); s.className = 'spark';
+          s.style.left = (8 + Math.random() * 84) + '%';
+          s.style.setProperty('--sz', (2 + Math.random() * 3).toFixed(1) + 'px');
+          s.style.setProperty('--dx', (Math.random() * 60 - 30).toFixed(0) + 'px');
+          s.style.setProperty('--rise', (-(70 + Math.random() * 80)).toFixed(0) + 'px');
+          s.style.setProperty('--dur', (1.1 + Math.random() * 0.9).toFixed(2) + 's');
+          s.addEventListener('animationend', () => s.remove());
+          d.appendChild(s);
+        }
+      };
+      d.addEventListener('pointerenter', () => { if (timer) return; spawn(); timer = setInterval(spawn, 130); });
+      d.addEventListener('pointerleave', () => { clearInterval(timer); timer = null; });
+    });
+  })();
   emberField(document.getElementById('ember-craft'));
 
   /* ---------- hero fire video (above the fold): play eagerly, honour reduced motion ---------- */
