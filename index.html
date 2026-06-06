@@ -375,7 +375,7 @@ header.nav.scrolled{
   display:grid; grid-template-columns:auto 1fr; align-items:center; gap:clamp(1.3rem,3vw,3.5rem);
   padding:clamp(2rem,3vw,3.4rem) clamp(1.2rem,2.5vw,2.4rem);
   min-height:clamp(150px,17vw,220px);
-  position:relative; transition:padding-left .45s var(--ease); overflow:hidden; isolation:isolate;
+  position:relative; overflow:hidden; isolation:isolate;
 }
 /* dynamic dish photo behind each row (slow Ken Burns drift, zooms on hover) */
 .dish-bg{
@@ -407,16 +407,16 @@ header.nav.scrolled{
   content:''; position:absolute; left:0; bottom:-1px; height:2px; width:0; background:var(--ember); z-index:1;
   transition:width .55s var(--ease);
 }
-.dish:hover{ padding-left:clamp(2rem,3.5vw,3.4rem) } .dish:hover::before{ width:100% }
+.dish:hover .num, .dish:hover .dish-main{ transform:translateX(clamp(.8rem,2vw,1.4rem)) } .dish:hover::before{ width:100% }
 /* huge outlined ghost number — the WOW anchor */
 .dish .num{
   font-family:var(--font-display); font-weight:700; line-height:.8;
   font-size:clamp(2.6rem,1.6rem + 4.5vw,5.5rem);
   color:transparent; -webkit-text-stroke:1.6px rgba(176,141,87,.55); min-width:1.6ch;
-  transition:color .4s var(--ease), -webkit-text-stroke-color .4s var(--ease);
+  transition:color .4s var(--ease), -webkit-text-stroke-color .4s var(--ease), transform .45s var(--ease);
 }
 .dish:hover .num{ color:var(--ember); -webkit-text-stroke-color:var(--ember) }
-.dish-main{ display:flex; flex-direction:column; gap:.45rem; min-width:0 }
+.dish-main{ display:flex; flex-direction:column; gap:.45rem; min-width:0; transition:transform .45s var(--ease) }
 .dish .name{
   font-family:var(--font-display); font-weight:700; line-height:.95; letter-spacing:.01em;
   font-size:clamp(2.1rem,1.4rem + 3.6vw,4rem); color:var(--cream); transition:color .3s var(--ease);
@@ -1233,7 +1233,7 @@ l19 -21 480 5 c311 3 483 9 490 16 17 17 -26 62 -92 95 -44 21 -66 39 -77 62
         <div class="dish reveal"><span class="dish-bg" data-bg="images/dishes/short-ribs.jpg"></span><span class="num">03</span><div class="dish-main"><span class="name" data-i18n="dish_ribs">Short Ribs</span><span class="note" data-i18n="note_ribs">Off the bone. Onto the table.</span></div></div>
         <div class="dish reveal"><span class="dish-bg" data-bg="images/dishes/chicken.jpg"></span><span class="num">04</span><div class="dish-main"><span class="name" data-i18n="dish_chicken">Grilled Chicken</span><span class="note" data-i18n="note_chicken">Charred skin. Honest heat.</span></div></div>
         <div class="dish reveal"><span class="dish-bg" data-bg="images/dishes/tomahawk.jpg"></span><span class="num">05</span><div class="dish-main"><span class="name" data-i18n="dish_tomahawk">Tomahawk</span><span class="note" data-i18n="note_tomahawk">One bone. All drama.</span></div></div>
-        <div class="dish reveal"><span class="dish-bg" data-bg="images/dishes/seafood-mix.jpg"></span><span class="num">06</span><div class="dish-main"><span class="name" data-i18n="dish_seafood">Seafood Grill</span><span class="note" data-i18n="note_seafood">From the sea. Onto the fire.</span></div></div>
+        <div class="dish reveal"><span class="dish-bg" data-bg="images/dishes/seafood-mix.jpg"></span><span class="num">06</span><div class="dish-main"><span class="name" data-i18n="dish_seafood">Seafood</span><span class="note" data-i18n="note_seafood">From the sea. Onto the fire.</span></div></div>
         <div class="dish reveal"><span class="dish-bg" data-bg="images/dishes/sides.jpg"></span><span class="num">07</span><div class="dish-main"><span class="name" data-i18n="dish_sides">The Sides</span><span class="note" data-i18n="note_sides">Hummus, mezze, warm bread. Respect.</span></div></div>
       </div>
     </div>
@@ -1595,7 +1595,7 @@ l19 -21 480 5 c311 3 483 9 490 16 17 17 -26 62 -92 95 -44 21 -66 39 -77 62
     note_chicken:{en:`Charred skin. Honest heat.`,sv:`Bränt, krispigt skinn. Ärlig hetta.`},
     dish_tomahawk:{en:`Tomahawk`,sv:`Tomahawk`},
     note_tomahawk:{en:`One bone. All drama.`,sv:`Ett ben. Ren dramatik.`},
-    dish_seafood:{en:`Seafood Grill`,sv:`Havets grill`},
+    dish_seafood:{en:`Seafood`,sv:`Skaldjur`},
     note_seafood:{en:`From the sea. Onto the fire.`,sv:`Ur havet. Rakt på elden.`},
     dish_sides:{en:`The Sides`,sv:`Tillbehören`},
     note_sides:{en:`Hummus, mezze, warm bread. Respect.`,sv:`Hummus, mezze, varmt bröd. Respekt.`},
