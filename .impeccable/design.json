@@ -1,0 +1,154 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-06-08T20:21:08Z",
+  "title": "Design System: The Grillfader",
+  "extensions": {
+    "colorMeta": {
+      "oxblood": {
+        "role": "primary",
+        "displayName": "Oxblood",
+        "canonical": "#5E1414",
+        "tonalRamp": ["#1C0606", "#2E0A0A", "#430F0F", "#5E1414", "#7A1C1C", "#9C3030", "#C26A6A", "#E6B8B8"]
+      },
+      "ember": {
+        "role": "secondary",
+        "displayName": "Ember",
+        "canonical": "#E8772E",
+        "tonalRamp": ["#3A1C0A", "#5A2C0F", "#824018", "#B25A22", "#E8772E", "#EF9456", "#F5B98C", "#FADCC6"]
+      },
+      "aged-brass": {
+        "role": "tertiary",
+        "displayName": "Aged Brass",
+        "canonical": "#B08D57",
+        "tonalRamp": ["#241B0F", "#3A2C18", "#564222", "#7C612F", "#B08D57", "#C6A878", "#DBC5A1", "#EFE3CC"]
+      },
+      "char-black": {
+        "role": "neutral",
+        "displayName": "Char Black",
+        "canonical": "#120D0C",
+        "tonalRamp": ["#0B0807", "#120D0C", "#1B1411", "#2A211C", "#3D3029", "#5C4B41", "#8A7568", "#C2B3A6"]
+      },
+      "candlelight-cream": {
+        "role": "neutral",
+        "displayName": "Candlelight Cream",
+        "canonical": "#EDE6D8",
+        "tonalRamp": ["#34302A", "#4D473E", "#6B6357", "#8A8175", "#ABA294", "#C9C2B4", "#EDE6D8", "#F7F3EC"]
+      },
+      "smoke": {
+        "role": "neutral",
+        "displayName": "Smoke",
+        "canonical": "#8A8780",
+        "tonalRamp": ["#1C1B19", "#2E2D2A", "#454340", "#5F5D58", "#8A8780", "#A8A59E", "#C7C5BF", "#E6E4E0"]
+      }
+    },
+    "typographyMeta": {
+      "wordmark": { "displayName": "Wordmark", "purpose": "UnifrakturCook blackletter, logotype only. Forbidden in running text." },
+      "display": { "displayName": "Display", "purpose": "Cinzel section titles; cut-stone headlines that open each fold." },
+      "statement": { "displayName": "Statement", "purpose": "Cinzel first-person declarations in the pitmaster's voice." },
+      "lede": { "displayName": "Lede", "purpose": "Jost 400 intro paragraph under a heading, capped ~54ch." },
+      "body": { "displayName": "Body", "purpose": "Jost 300 running copy; line-height >= 1.6 on the dark ground." },
+      "label": { "displayName": "Label", "purpose": "Jost 600 uppercase brass kicker/eyebrow and field labels." }
+    },
+    "shadows": [
+      { "name": "panel-sink", "value": "0 44px 120px -44px rgba(0,0,0,0.92)", "purpose": "The offer/booking panel settling into the dark room; sits in, not above." },
+      { "name": "popover-lift", "value": "0 28px 70px -22px rgba(0,0,0,0.85)", "purpose": "Calendar popover; deep near-black, never gray." },
+      { "name": "ember-commit-glow", "value": "0 18px 55px -14px rgba(232,119,46,0.6)", "purpose": "Booking submit on hover; the only colored shadow, reads as heat thrown forward." },
+      { "name": "brass-hairline-glow", "value": "0 0 10px rgba(176,141,87,0.55)", "purpose": "Under the gold dividers; faint gilt shimmer, not elevation." }
+    ],
+    "motion": [
+      { "name": "ease-signature", "value": "cubic-bezier(0.2, 0.7, 0.2, 1)", "purpose": "The single shared easing curve (--ease) for all state transitions and reveals." },
+      { "name": "entrance-fadeup", "value": "fadeUp 1s cubic-bezier(0.2,0.7,0.2,1) both", "purpose": "Staggered hero entrance (kicker .2s, heading .35s, lede .5s, etc.)." },
+      { "name": "ken-burns", "value": "kb1..kb6 12s ease-in-out infinite alternate", "purpose": "Perpetual slow drift on every full-bleed image; one diagonal per tile." },
+      { "name": "gold-shine", "value": "goldshine 3.4s ease-in-out infinite", "purpose": "Moving highlight sweeping the metallic dish dividers." },
+      { "name": "accordion-expand", "value": "flex-grow 0.6s cubic-bezier(0.2,0.7,0.2,1)", "purpose": "Catering tile expand/contract on hover." }
+    ],
+    "breakpoints": [
+      { "name": "mobile", "value": "640px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button (Booking Submit)",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one heavy, committed action; oxblood block that flares with ember glow on commit.",
+      "html": "<button class=\"ds-submit\">Send the request<svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg></button>",
+      "css": ".ds-submit{display:inline-flex;align-items:center;justify-content:center;gap:.9rem;width:100%;background:#5E1414;color:#EDE6D8;border:0;font-family:'Cinzel',Georgia,serif;font-weight:700;font-size:clamp(1.2rem,1rem + .7vw,1.55rem);letter-spacing:.12em;text-transform:uppercase;padding:1.1rem 2rem;border-radius:4px;cursor:pointer;transition:transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .3s cubic-bezier(.2,.7,.2,1),background .3s cubic-bezier(.2,.7,.2,1)}.ds-submit:hover{background:#7A1C1C;transform:translateY(-2px);box-shadow:0 18px 55px -14px rgba(232,119,46,.6)}.ds-submit:focus-visible{outline:2px solid #E8772E;outline-offset:3px}.ds-submit svg{width:18px;height:18px}"
+    },
+    {
+      "name": "Nav CTA",
+      "kind": "button",
+      "refersTo": "button-nav-cta",
+      "description": "Quiet brass-outlined call to action in the nav; inverts to solid brass on hover.",
+      "html": "<a class=\"ds-nav-cta\" href=\"#book\">Book the pit</a>",
+      "css": ".ds-nav-cta{display:inline-block;border:1px solid #B08D57;color:#B08D57;padding:.55rem 1.15rem;border-radius:2px;font-family:'Jost',system-ui,sans-serif;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:background .3s cubic-bezier(.2,.7,.2,1),color .3s cubic-bezier(.2,.7,.2,1)}.ds-nav-cta:hover{background:#B08D57;color:#120D0C}.ds-nav-cta:focus-visible{outline:2px solid #E8772E;outline-offset:3px}"
+    },
+    {
+      "name": "Editorial Underline Field",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "Boxless underline input; the brass line catches fire (ember) on focus.",
+      "html": "<div class=\"ds-field\"><label for=\"ds-name\">Your name</label><input id=\"ds-name\" type=\"text\" placeholder=\"Who's hosting?\"></div>",
+      "css": ".ds-field label{display:block;font-family:'Jost',system-ui,sans-serif;font-size:.8rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#B08D57;margin-bottom:.65rem}.ds-field input{width:100%;background:transparent;border:0;border-bottom:1.5px solid rgba(176,141,87,.3);color:#EDE6D8;font-family:'Jost',system-ui,sans-serif;font-size:1.18rem;padding:.7rem 0;border-radius:0;transition:border-color .3s cubic-bezier(.2,.7,.2,1)}.ds-field input::placeholder{color:rgba(214,205,188,.38)}.ds-field input:focus{outline:none;border-bottom-color:#E8772E}"
+    },
+    {
+      "name": "Guest Preset Chip",
+      "kind": "chip",
+      "refersTo": "chip-stepper",
+      "description": "Pill preset for the guest-count stepper; brass hairline that warms on hover.",
+      "html": "<button class=\"ds-chip\">50 guests</button>",
+      "css": ".ds-chip{background:transparent;border:1px solid rgba(176,141,87,.3);color:#D6CDBC;font-family:'Jost',system-ui,sans-serif;font-size:.76rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:.5rem .9rem;border-radius:100px;cursor:pointer;transition:background .2s cubic-bezier(.2,.7,.2,1),border-color .2s cubic-bezier(.2,.7,.2,1),color .2s cubic-bezier(.2,.7,.2,1)}.ds-chip:hover{background:rgba(176,141,87,.14);border-color:#B08D57;color:#EDE6D8}.ds-chip:focus-visible{outline:2px solid #E8772E;outline-offset:2px}"
+    },
+    {
+      "name": "Nav Link (underline grow)",
+      "kind": "nav",
+      "refersTo": "button-nav-cta",
+      "description": "Uppercase tracked nav link with a brass underline that grows from 0 to full width on hover.",
+      "html": "<a class=\"ds-nav-link\" href=\"#menu\">The menu</a>",
+      "css": ".ds-nav-link{position:relative;font-family:'Jost',system-ui,sans-serif;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:#D8D0C2;text-decoration:none;padding:.25rem 0;cursor:pointer;transition:color .25s cubic-bezier(.2,.7,.2,1)}.ds-nav-link::after{content:'';position:absolute;left:0;bottom:-2px;height:1px;width:0;background:#B08D57;transition:width .3s cubic-bezier(.2,.7,.2,1)}.ds-nav-link:hover{color:#EDE6D8}.ds-nav-link:hover::after{width:100%}.ds-nav-link:focus-visible{outline:2px solid #E8772E;outline-offset:3px}"
+    },
+    {
+      "name": "Catering Accordion Tile",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Signature component: full-height image tile that expands on hover and reveals copy. Not a static card grid.",
+      "html": "<div class=\"ds-tile\"><div class=\"ds-tile-bg\"></div><span class=\"ds-tile-tag\">Weddings</span><span class=\"ds-tile-label\">The long table</span></div>",
+      "css": ".ds-tile{position:relative;width:240px;height:340px;border-radius:18px;overflow:hidden;isolation:isolate;cursor:pointer;flex:1 1 0;transition:flex-grow .6s cubic-bezier(.2,.7,.2,1)}.ds-tile:hover{flex-grow:1.55}.ds-tile-bg{position:absolute;inset:0;z-index:-2;background:radial-gradient(120% 90% at 50% 0%,#3a2114,#120D0C);transform:scale(1.07);transition:transform .6s cubic-bezier(.2,.7,.2,1)}.ds-tile:hover .ds-tile-bg{transform:scale(1.12)}.ds-tile::before{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(18,13,12,.45) 0%,rgba(18,13,12,.05) 32%,rgba(18,13,12,.78) 100%)}.ds-tile-tag{position:absolute;left:1.3rem;bottom:3.2rem;font-family:'Jost',system-ui,sans-serif;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:#B08D57}.ds-tile-label{position:absolute;left:1.3rem;bottom:1.2rem;font-family:'Cinzel',Georgia,serif;font-weight:600;font-size:1.5rem;color:#EDE6D8;text-shadow:0 2px 16px rgba(0,0,0,.85)}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Opening Scene",
+    "overview": "This is the hush before a film begins. The room is dark, a single flame is the only light, and one figure stands in it who clearly knows exactly what he is doing. Every screen of The Grillfader holds that frame: near-black ground, fire as the source of warmth and motion, type cut from stone, and copy spoken in the first person by a man who answers to no one. The site is a single-page invitation, not a brochure. Restraint is the luxury signal, never ornament. Warmth is carried by ember glow, aged brass, and the human voice, never by softness, friendliness, or a warm-tinted body background. Imagery does the heavy lifting and the chrome recedes so the photograph and the headline can carry the fold.",
+    "keyCharacteristics": [
+      "Near-black, fire-lit ground; ember and brass are the only warmth.",
+      "Cinzel cut-stone display against Jost light body; UnifrakturCook reserved for the logo.",
+      "Full-bleed imagery with perpetual Ken Burns drift; chrome recedes to let it lead.",
+      "Forged, deliberate controls: oxblood blocks, ember-glow on commit, hairline brass borders.",
+      "One idea per fold; long, paced scroll that ends at the booking."
+    ],
+    "rules": [
+      { "name": "The Fire-Lit Rule", "body": "The ground is always dark and warm-leaning; never a tinted near-white 'cream' background. 'Cream' is a text color thrown by candlelight, not a surface.", "section": "colors" },
+      { "name": "The Ember-Is-Alive Rule", "body": "Ember (#E8772E) marks only live or active state: focus, selection, the current count, a hover glow. It is never a decorative or resting fill.", "section": "colors" },
+      { "name": "The Stone-and-Smoke Rule", "body": "Cinzel is for things carved to last (names, headings, declarations, numbers). Jost is for things spoken aloud (running copy, lede, labels).", "section": "typography" },
+      { "name": "The Light-Body Rule", "body": "Body is Jost 300 on a dark ground, so line-height never drops below 1.6. Thin light type on black needs the air.", "section": "typography" },
+      { "name": "The No-Gray-Shadow Rule", "body": "Shadows are near-black or fire-colored (ember/brass glow). A neutral gray shadow breaks the darkroom. Depth is the dark swallowing edges, not panels floating on white.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep the ground Char Black (#120D0C) or its tonal siblings. Warmth comes from ember, brass, and fire imagery, never from the background.",
+      "Do reserve Ember (#E8772E) for live/active state only (focus, selection, current count, commit glow).",
+      "Do set every heading and declaration in Cinzel, every line of running copy in Jost 300 with line-height >= 1.6.",
+      "Do lead with full-bleed imagery and let Ken Burns drift carry the motion; let the photograph be the design.",
+      "Do use deep near-black or fire-colored shadows for depth; layer tonally (ground -> panel -> recess).",
+      "Do point every fold at the booking, and when a section feels busy, remove an element and enlarge what remains."
+    ],
+    "donts": [
+      "Don't introduce a cream/sand/beige background. 'Cream' is a text color here; a light body bg breaks the opening-scene frame.",
+      "Don't drift into the generic catering/restaurant template: stock-photo grids, 'welcome to our restaurant', smiling-staff heroes.",
+      "Don't go rustic-farmhouse BBQ: chalkboard fonts, kraft paper, distressed wood, mason jars, smokehouse cliches.",
+      "Don't import the loud SaaS/startup landing: gradient blobs, glassmorphism as decoration, tiny tracked eyebrows over every section, hero-metric templates, identical feature-card grids.",
+      "Don't clutter or over-decorate. Nothing may fight the cinematic restraint; one idea per fold.",
+      "Don't use gray drop shadows, pill-shaped primary buttons, side-stripe accent borders, or gradient text.",
+      "Don't set UnifrakturCook anywhere but the logo, or body copy in Cinzel."
+    ]
+  }
+}
