@@ -211,7 +211,7 @@ header.nav.scrolled{
   content:''; position:absolute; inset:0; z-index:-1; pointer-events:none;
   background:radial-gradient(58% 40% at 50% 44%, rgba(18,13,12,.78), rgba(18,13,12,.4) 55%, transparent 76%);
 }
-.hero-inner{ position:relative; padding-inline:var(--gut); will-change:transform }
+.hero-inner{ position:relative; padding-inline:var(--gut) }
 .hero .kicker{ display:block; margin-bottom:1.6rem; animation:fadeUp 1s var(--ease) .2s both }
 
 .wordmark{ display:flex; flex-direction:column; align-items:center; line-height:.9; margin-bottom:1.4rem }
@@ -1718,15 +1718,6 @@ l19 -21 480 5 c311 3 483 9 490 16 17 17 -26 62 -92 95 -44 21 -66 39 -77 62
     window.addEventListener('load', update);
     update();
     setTimeout(update, 350);  // re-check after fonts/layout settle
-  }
-
-  /* ---------- hero parallax (pointer-reactive) ---------- */
-  const heroInner = document.getElementById('heroInner');
-  if (heroInner && finePointer && !reduce) {
-    window.addEventListener('pointermove', (e) => {
-      const dx = (e.clientX/innerWidth - .5), dy = (e.clientY/innerHeight - .5);
-      heroInner.style.transform = `translate(${dx*-14}px, ${dy*-10}px)`;
-    });
   }
 
   /* ---------- ember particle field (hero + offer), cursor-reactive ---------- */
